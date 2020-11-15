@@ -4,14 +4,20 @@ import styled from 'styled-components';
 interface Props{
     fill?:boolean;
     shadow?:boolean;
+    disabled?:boolean;
     color?:string;
     onClick?: (e: React.MouseEvent) => void;
     title?:string;
 }
 
-const button=({ fill=false, shadow=false, color="#e6b3cc", onClick,title } : Props)=>{
+const button=({ fill=false, shadow=false, disabled=false,color="#e6b3cc", onClick,title } : Props)=>{
     return(
-        <Button fill={fill.toString()} shadow={shadow.toString()} color={color} onClick={onClick}>
+        <Button 
+        fill={fill.toString()} 
+        shadow={shadow.toString()} 
+        color={color} 
+        onClick={onClick}
+        disabled={disabled}>
             {title}
         </Button>
     );
