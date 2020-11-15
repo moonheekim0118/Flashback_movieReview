@@ -16,16 +16,34 @@ export default function Layout({ PageName="" , children} : Props){
     },[]);
 
     return(
-        <>
+        <App>
+        {PageName &&         
         <Header>
             <div><Icons icon={faChevronLeft} className={"fa-chevron-left"} onClick={onPushBack}/></div>
             <div>{PageName}</div>
-        </Header>
+        </Header>}
         {children}
-        </>
+        </App>
     );
 }
 
+const App = styled.div`
+    min-height: 100vh;
+    width:767px;
+    margin:auto;
+    position:relative;
+    
+    background-color:#FFF;
+
+    @media screen and (max-width:414px){
+        width: 100%;
+    };
+
+    @media screen and (max-width:768px){
+        width: 375px;
+    };
+
+`;
 const Header = styled.header`
     display:flex;
     flex-direction:row;
@@ -34,6 +52,9 @@ const Header = styled.header`
 
     width: 100%;
     height: 50px;
+
+    position:sticky;
+    top: 0;  
     
     color:#cc00cc;
     border-bottom:1px solid #e6b3cc;
