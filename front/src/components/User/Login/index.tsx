@@ -6,12 +6,12 @@ import useInput from '../../../hooks/useInput';
 
 const Login=()=>{
 
-    const [email, setEmail]=useInput();
-    const [password, setPassword]=useInput();
+    const [email, setEmail]=useInput('');
+    const [password, setPassword]=useInput('');
     
     const onSubmit = useCallback((e)=>{
         e.preventDefault();
-    },[]);
+    },[email,password]);
 
     return(
        <Container>
@@ -38,6 +38,7 @@ const Login=()=>{
            <Button
             fill={true}
             shadow={true}
+            disabled={email.length===0 || password.lenght===0}
             color={"#cc00cc"} 
             onClick={onSubmit}
             title={"로그인"}

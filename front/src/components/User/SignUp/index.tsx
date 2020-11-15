@@ -22,12 +22,12 @@ const SignUp=()=>{
 
     const onSubmit = useCallback((e)=>{
          e.preventDefault();
-    },[]);
+    },[email,nickname,password,checkpassword]);
 
     const onChangeCheckPassword = useCallback((e)=>{
          setCheckpassword(e.target.value);
          setPasswordError(e.target.value!==password);
-    },[checkpassword]);
+    },[password]);
 
     return(
        <Container>
