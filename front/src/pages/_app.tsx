@@ -6,14 +6,12 @@ interface Props {
     Component?:any;
 }
 
-export default function App({Component} : Props){
+ const App=({Component} : Props)=>{
     return(
         <>
         <GlobalStyle/>
             <Head>
-                <style>
-                @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap');
-                </style>
+                <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap" />
                 <meta charSet="utf-8"/>
                 <title>영리</title>
             </Head>
@@ -21,3 +19,5 @@ export default function App({Component} : Props){
         </>
     );
 }
+
+export default App;

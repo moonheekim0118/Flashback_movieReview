@@ -3,7 +3,7 @@ import Layout from '../components/Layout';
 import Button from '../atoms/Buttons';
 import styled from 'styled-components';
 
-export default function index(){
+const index=()=>{
 
     const onClickReview =useCallback(()=>{
 
@@ -86,3 +86,5 @@ const Circle = styled.div`
         content:"";
     }
 `;
+
+export default index;

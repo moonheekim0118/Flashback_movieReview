@@ -9,7 +9,7 @@ interface Props{
     title?:string;
 }
 
-export default function index({ fill=false, shadow=false, color="#e6b3cc", onClick,title } : Props){
+const button=({ fill=false, shadow=false, color="#e6b3cc", onClick,title } : Props)=>{
     return(
         <Button fill={fill.toString()} shadow={shadow.toString()} color={color} onClick={onClick}>
             {title}
@@ -32,4 +32,9 @@ const Button = styled.button<{ fill:string , color:string}>
     box-shadow:${(props)=>props.shadow==="true"? '0px 0px 11px -1px rgba(0,0,0,0.75)' :''};
     cursor:pointer;
     
+    &:disabled{
+        cursor: not-allowed;
+    }
 `;
+
+export default button;

@@ -9,7 +9,7 @@ interface Props {
     children?:any;
 }
 
-export default function Layout({ PageName="" , children} : Props){
+const Layout=({ PageName="" , children} : Props)=>{
     
     const onPushBack = useCallback(()=>{
         Router.back();
@@ -62,3 +62,4 @@ const Header = styled.header`
     
 `;
 
+export default Layout;

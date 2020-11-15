@@ -12,7 +12,7 @@ interface Props {
     onClick?: (e: React.MouseEvent) => void;
 }
 
-export default function Icon({ size = 24 , icon, className, onClick}: Props){
+const Icon=({ size = 24 , icon, className, onClick}: Props)=>{
     return(
        <StyledIcon
         iconsize={size}
@@ -30,3 +30,5 @@ const StyledIcon = styled<{ iconsize: number}>(FontAwesomeIcon)`
     
     cursor:pointer;
 `;
+
+export default Icon;
