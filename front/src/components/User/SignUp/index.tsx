@@ -13,10 +13,10 @@ ErrorMessage
 
 const SignUp=()=>{
     
-    const [email, setEmail]=useInput();
+    const [email, setEmail]=useInput("");
     const [nickname, setNickname, nicknameLengthError]=useValidation("",2,6);
     const [password, setPassword, passwordLengthError]=useValidation("",6,15);
-    const [checkpassword,setCheckpassword]=useState();
+    const [checkpassword,setCheckpassword]=useState("");
     const [passwordError, setPasswordError]=useState(false);
 
 
@@ -32,7 +32,6 @@ const SignUp=()=>{
     return(
        <Container>
             <InputContainer>
-               {nicknameLengthError && <ErrorMessage>닉네임은 2글자 이상 6글자 이하여야 합니다.</ErrorMessage>}
                 <Label htmlFor="user-nickname">닉네임</Label>
                 <TextInput
                 name="user-nickname"
@@ -40,6 +39,7 @@ const SignUp=()=>{
                 value={nickname}
                 onChange={setNickname}
                 />     
+                {nicknameLengthError && <ErrorMessage>닉네임은 2글자 이상 6글자 이하여야 합니다.</ErrorMessage>}
            </InputContainer>  
            <InputContainer>
                 <Label htmlFor="user-email">이메일</Label>
@@ -51,7 +51,6 @@ const SignUp=()=>{
                 />     
            </InputContainer>  
            <InputContainer>
-               {passwordLengthError && <ErrorMessage>비밀번호는 6글자 이상 15글자 이하여야 합니다.</ErrorMessage>}
                 <Label htmlFor="user-password">비밀번호</Label>
                 <PasswordInput
                 name="user-password"
@@ -59,9 +58,9 @@ const SignUp=()=>{
                 value={password}
                 onChange={setPassword}
                 />    
+               {passwordLengthError && <ErrorMessage>비밀번호는 6글자 이상 15글자 이하여야 합니다.</ErrorMessage>}
            </InputContainer>  
            <InputContainer>
-               {passwordError && <ErrorMessage>비밀번호가 일치하지 않습니다.</ErrorMessage>}
                 <Label htmlFor="user-checkpassword">비밀번호 확인</Label>
                 <PasswordInput
                 name="user-checkpassword"
@@ -69,13 +68,14 @@ const SignUp=()=>{
                 value={checkpassword}
                 onChange={onChangeCheckPassword}
                 />     
+                {passwordError && <ErrorMessage>비밀번호가 일치하지 않습니다.</ErrorMessage>}
            </InputContainer> 
            <br/>
            <Button
             fill={true}
             shadow={true}
             disabled={nicknameLengthError || passwordLengthError || passwordError }
-            color={"#cc00cc"} 
+            color={"purple"} 
             onClick={onSubmit}
             title={"회원가입"}
            />

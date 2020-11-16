@@ -6,8 +6,8 @@ import useInput from '../../../hooks/useInput';
 
 const Login=()=>{
 
-    const [email, setEmail]=useInput('');
-    const [password, setPassword]=useInput('');
+    const [email, setEmail]=useInput("");
+    const [password, setPassword]=useInput("");
     
     const onSubmit = useCallback((e)=>{
         e.preventDefault();
@@ -39,7 +39,7 @@ const Login=()=>{
             fill={true}
             shadow={true}
             disabled={email.length===0 || password.lenght===0}
-            color={"#cc00cc"} 
+            color={"purple"} 
             onClick={onSubmit}
             title={"로그인"}
            />
@@ -51,7 +51,6 @@ const Login=()=>{
 export const Container = styled.form`
     width:75%;
     height:100%;
-    text-align:center;
     margin:40px auto;
     padding-top:70px;
     
@@ -59,14 +58,14 @@ export const Container = styled.form`
 
 export const InputContainer = styled.div`
     position:relative;
+    display:flex;
+    flex-direction:column;
     padding-bottom:50px;
 `;
 
 export const TextInput = styled.input.attrs({type:'text'})`
     width:100%;
     padding: 10px 15px;
-    margin-top: 15px;
-
     font-size:1.2rem;
 `;
 
@@ -79,15 +78,12 @@ export const PasswordInput = styled.input.attrs({type:'password'})`
 `;
 
 export const Label = styled.label`
-    position:absolute;
-    top:-15px;
     font-size:1.2rem;
 `;
 
 export const ErrorMessage = styled.span`
     color:red;
-    position:absolute;
-    bottom:25px;
+    padding-top:10px;
     font-size:1rem;
 `;
 
