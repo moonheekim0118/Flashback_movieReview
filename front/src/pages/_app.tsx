@@ -1,4 +1,5 @@
 import React from 'react';
+import wrapper from '../store/configureStore';
 import Head from 'next/head';
 import GlobalStyle from '../components/GlobalStyle';
 
@@ -20,4 +21,4 @@ interface Props {
     );
 }
 
-export default App;
+export default wrapper.withRedux(App);
