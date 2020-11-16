@@ -1,4 +1,6 @@
 import React , { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+import { LOGIN_REQUEST } from '../../../actions/user';
 import styled from 'styled-components';
 import Button from '../../../atoms/Buttons';
 import useInput from '../../../hooks/useInput';
@@ -9,8 +11,17 @@ const Login=()=>{
     const [email, setEmail]=useInput("");
     const [password, setPassword]=useInput("");
     
+    const dispatch = useDispatch();
+
     const onSubmit = useCallback((e)=>{
         e.preventDefault();
+        dispatch({
+            type:LOGIN_REQUEST,
+            data:{
+                email:email,
+                nickname:'테스트유저',
+            }
+        });
     },[email,password]);
 
     return(

@@ -3,8 +3,10 @@ import Link from 'next/link';
 import Layout from '../components/Layout';
 import Button from '../atoms/Buttons';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 
 const index=()=>{
+    const loginDone = useSelector(state=>state.user.loginDone);
 
     return(
         <Layout>
@@ -21,24 +23,26 @@ const index=()=>{
                 shadow={true}
                 title={"새 리뷰 작성하기"}
                 />
+                {!loginDone&&
                 <SignButtons>
-                    <Link href="/login">
-                        <a>
-                        <Button 
-                        color={"gray"}
-                        title={"로그인"}
-                        />
-                        </a>
-                    </Link>
-                    <Link href="/signUp">
-                        <a>
-                        <Button 
-                        color={"gray"}
-                        title={"회원가입"}
-                        />
-                        </a>
-                    </Link>
-                </SignButtons>
+                <Link href="/login">
+                    <a>
+                    <Button 
+                    color={"gray"}
+                    title={"로그인"}
+                    />
+                    </a>
+                </Link>
+                <Link href="/signUp">
+                    <a>
+                    <Button 
+                    color={"gray"}
+                    title={"회원가입"}
+                    />
+                    </a>
+                </Link>
+               </SignButtons>
+                }
             </ButtonContainer>
         </Layout>
     );
