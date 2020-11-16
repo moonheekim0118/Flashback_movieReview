@@ -1,16 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
+import { colorCode } from '../../util/color';
 
 interface Props{
-    fill?:boolean;
-    shadow?:boolean;
-    disabled?:boolean;
-    color?:string;
+    fill?:boolean; // 버튼 크기 100% or not
+    shadow?:boolean; // 버튼 has shadow or not 
+    disabled?:boolean; // 버튼 is disabled or not
+    color?:string; // 버튼's color
     onClick?: (e: React.MouseEvent) => void;
     title?:string;
 }
 
-const button=({ fill=false, shadow=false, disabled=false,color="#e6b3cc", onClick,title } : Props)=>{
+const button=({ fill=false, shadow=false, disabled=false, color="lightPurple", onClick=null, title } : Props)=>{
     return(
         <Button 
         fill={fill.toString()} 
@@ -32,8 +33,8 @@ const Button = styled.button<{ fill:string , color:string}>
     border-radius:5px;
     
     font-size:1.2rem;
-    color:${(props)=>props.color === "#cc00cc" ? '#fff' : 'black'};
-    background-color:${(props)=>props.color};
+    color:${(props)=>props.color === "purple" ? "#fff" : "black"};
+    background-color:${(props)=>colorCode[`${props.color}`]};
 
     box-shadow:${(props)=>props.shadow==="true"? '0px 0px 11px -1px rgba(0,0,0,0.75)' :''};
     cursor:pointer;

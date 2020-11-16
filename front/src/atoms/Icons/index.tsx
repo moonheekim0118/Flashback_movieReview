@@ -12,7 +12,7 @@ interface Props {
     onClick?: (e: React.MouseEvent) => void;
 }
 
-const Icon=({ size = 24 , icon, className, onClick}: Props)=>{
+const Icon=({ size = 24 , icon, className, onClick=null}: Props)=>{
     return(
        <StyledIcon
         iconsize={size}

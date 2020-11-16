@@ -1,13 +1,11 @@
-import React , { useCallback } from 'react';
+import React from 'react';
+import Link from 'next/link';
 import Layout from '../components/Layout';
 import Button from '../atoms/Buttons';
 import styled from 'styled-components';
 
 const index=()=>{
 
-    const onClickReview =useCallback(()=>{
-
-    },[]);
     return(
         <Layout>
             <TitleContainer>
@@ -19,24 +17,27 @@ const index=()=>{
             <ButtonContainer>
                 <Button 
                 fill={true} 
-                color={"#cc00cc"}
+                color={"purple"}
                 shadow={true}
-                onClick={onClickReview}
                 title={"새 리뷰 작성하기"}
                 />
                 <SignButtons>
-                    <Button 
-                    fill={false} 
-                    color={"#e0e0d1"}
-                    onClick={onClickReview}
-                    title={"로그인"}
-                    />
-                    <Button 
-                    fill={false} 
-                    color={"#e0e0d1"}
-                    onClick={onClickReview}
-                    title={"회원가입"}
-                    />
+                    <Link href="/login">
+                        <a>
+                        <Button 
+                        color={"gray"}
+                        title={"로그인"}
+                        />
+                        </a>
+                    </Link>
+                    <Link href="/signUp">
+                        <a>
+                        <Button 
+                        color={"gray"}
+                        title={"회원가입"}
+                        />
+                        </a>
+                    </Link>
                 </SignButtons>
             </ButtonContainer>
         </Layout>
