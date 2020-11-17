@@ -1,4 +1,5 @@
 import React , { useCallback } from 'react';
+import Router from 'next/router';
 import { useDispatch , useSelector } from 'react-redux';
 import useInput from '../../../hooks/useInput';
 import styled from 'styled-components';
@@ -8,11 +9,6 @@ import { faSearch, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { debounce } from 'lodash';
 import SearchResult from '../SearchResult';
 
-// 검색창
-// 연관검색어 구현하기
-
-// 검색창에서 검색 누르면 --> Movie/[movieTitle] 페이지로 넘어간다
-// Movie/[movieTitle] 페이지에서는 인피니트 스크롤링 구현 
 
 const SearchMovie=()=>{
 
@@ -20,6 +16,10 @@ const SearchMovie=()=>{
     
     const [SearchInput, setSearchInput]=useInput('');
     const { loadRelatedSearchLoading , loadRelatedSearchDone, searchLists } = useSelector(state=>state.movie);
+
+    const onClickSearch=useCallback(()=>{
+        Router.push(`/searchResult/${SearchInput}`);
+    },[SearchInput]);
 
     const onChnageInput=useCallback((e)=>{
         setSearchInput(e);
@@ -35,10 +35,6 @@ const SearchMovie=()=>{
         })
     },900);
 
-    const onSearch = useCallback(()=>{
-        
-    },[]);
-
     return(
         <Container>
             <SearchContainer>
@@ -48,11 +44,12 @@ const SearchMovie=()=>{
                 onChange={onChnageInput}
                 />
                 <SearchIcon>
-                    <Icon
-                    size={30}
-                    icon={faSearch}
-                    className={"faSearch"}
-                    />
+                <Icon
+                size={30}
+                icon={faSearch}
+                className={"faSearch"}
+                onClick={onClickSearch}
+                />
                 </SearchIcon>
             </SearchContainer>
             {loadRelatedSearchLoading  && <Icon icon={faSpinner} className={"faSpinner"}/>}
@@ -60,8 +57,8 @@ const SearchMovie=()=>{
                 {loadRelatedSearchDone && SearchInput.length>0 &&
                 searchLists.map((val)=>
                 <SearchResult
-                key={val.movieCd} 
-                movieName={val.movieNm}/>)}
+                key={val.id} 
+                movieName={val.title}/>)}
             </SearchResultContainer>
         </Container>
     );

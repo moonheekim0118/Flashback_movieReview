@@ -1,4 +1,5 @@
-import React from 'react';
+import React , { useCallback } from 'react';
+import Router from 'next/router';
 import styled from 'styled-components';
 
 interface Props {
@@ -9,9 +10,13 @@ interface Props {
 
 const SearchResult=({movieName}:Props)=>{
 
+    const onClick=useCallback(()=>{
+        Router.push(`/searchResult/${movieName}`);
+    },[]);
+    
     return(
-        <Container>
-            {movieName}
+        <Container onClick={onClick}>
+        {movieName}
         </Container>
     );
 }

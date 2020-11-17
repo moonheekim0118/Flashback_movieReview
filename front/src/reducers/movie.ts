@@ -1,5 +1,7 @@
 import * as type from '../actions/movie';
 import { produce } from 'immer';
+import faker from 'faker';
+import shortid from 'shortid';
 
 export const initialState={
     // 영화리스트 가져오기 
@@ -34,7 +36,14 @@ const reducer =  (state=initialState, action)=>{
                 break;
             
             case type.LOAD_MOVIES_SUCCESS:
-                draft.movieLists=action.data; 
+                draft.movieLists= Array(10).fill(0).map((v,i)=>({
+                    id:shortid.generate(),
+                    title:faker.name.findName(),
+                    director:faker.name.findName(),
+                    image:faker.image.image(),
+                    pubDate:faker.date.past(),
+                    
+                }));
                 draft.loadMoviesDone=true;
                 draft.loadMoviesLoading=false;
                 break;
@@ -73,7 +82,10 @@ const reducer =  (state=initialState, action)=>{
             case type.LOAD_RELATED_SEARCH_SUCCESS:
                 draft.loadRelatedSearchDone=true;
                 draft.loadRelatedSearchLoading=false;
-                draft.searchLists=action.data;
+                draft.searchLists= Array(10).fill(0).map((v,i)=>({
+                    id:shortid.generate(),
+                    title:faker.name.findName(),
+                })) ;
                 break;
 
             case type.LOAD_RELATED_SEARCH_FAIL:
