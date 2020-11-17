@@ -27,7 +27,7 @@ const StyledIcon = styled<{ iconsize: number}>(FontAwesomeIcon)`
     width:${(props)=>props.iconsize}px;
     height:${(props)=>props.iconsize}px;
     font-size: ${(props)=>props.iconsize}px;
-    
+    color:#cc00cc;
     cursor:pointer;
 `;
 
