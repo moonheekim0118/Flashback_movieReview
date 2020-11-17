@@ -12,8 +12,14 @@ export const initialState={
     loadSingleMovieDone:false,
     loadSingleMovieError:null,
     
+    // 연관검색어 가져오기
+    loadRelatedSearchLoading:false,
+    loadRelatedSearchDone:false,
+    loadRelatedSearchError:null,
+
     movieLists:[], // 영화 리스트 
     singleMovie:null, // 단일영화     
+    searchLists:[], // 연관검색어
 };
 
 
@@ -54,6 +60,26 @@ const reducer =  (state=initialState, action)=>{
             case type.LOAD_SINGLE_MOVIE_FAIL:
                 draft.loadSingleMovieLoading=false;
                 draft.loadMoviesError=action.error;
+                break;
+
+            // 연관검색어 불러오기 
+            case type.LOAD_RELATED_SEARCH_REQUEST:
+                draft.loadRelatedSearchDone=false;
+                draft.loadRelatedSearchLoading=true;
+                draft.loadRelatedSearchError=null;
+                draft.searchLists=[];
+                break;
+            
+            case type.LOAD_RELATED_SEARCH_SUCCESS:
+                draft.loadRelatedSearchDone=true;
+                draft.loadRelatedSearchLoading=false;
+                draft.searchLists=action.data;
+                break;
+
+            case type.LOAD_RELATED_SEARCH_FAIL:
+                draft.loadRelatedSearchLoading=false;
+                draft.loadRelatedSearchError=action.error;
+                break;
             
         }
     });

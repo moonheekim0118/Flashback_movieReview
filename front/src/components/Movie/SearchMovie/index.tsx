@@ -1,8 +1,11 @@
 import React , { useCallback } from 'react';
 import { useDispatch , useSelector } from 'react-redux';
+import useInput from '../../../hooks/useInput';
 import styled from 'styled-components';
 import Icon from '../../../atoms/Icons';
+import { LOAD_RELATED_SEARCH_REQUEST } from '../../../actions/movie';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { debounce } from 'lodash';
 
 // 검색창
 // 연관검색어 구현하기
@@ -12,11 +15,34 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 const SearchMovie=()=>{
 
+    const dispatch = useDispatch();
+    
+    const [SearchInput, setSearchInput]=useInput('');
+    const { loadRelatedSearchLoading } = useSelector(state=>state.movie);
+
+    const onChnageInput=useCallback((e)=>{
+        setSearchInput(e);
+        sendRequest(e.target.value);
+    },[]);
+
+    const sendRequest = debounce((value)=>{
+        dispatch({ 
+            type:LOAD_RELATED_SEARCH_REQUEST,
+            data:value
+        })
+    },900);
+
+    const onSearch = useCallback(()=>{
+        
+    },[]);
+
     return(
         <Container>
             <SearchContainer>
                 <SearchBox
                 placeholder="영화 제목을 입력하세요"
+                value={SearchInput}
+                onChange={onChnageInput}
                 />
                 <SearchIcon>
                     <Icon
@@ -73,7 +99,7 @@ const SearchIcon = styled.div`
 
     transition: 0.2s background-color ease-in-out;
     cursor:pointer;
-    
+
     &:hover{
         background-color:rgba(230, 179, 204,0.4);
     }
