@@ -59,6 +59,8 @@ const Header = styled.header`
     color:#cc00cc;
     border-bottom:1px solid #e6b3cc;
     background-color:inherit;
+
+    z-index:2000;
     
 `;
 
