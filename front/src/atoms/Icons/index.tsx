@@ -35,9 +35,6 @@ const StyledIcon = styled<{ iconsize: number , color:string}>(FontAwesomeIcon)`
 
     transition: 0.2s color ease-in-out;
 
-    &:hover{
-        color:#e6b3cc;
-    }
 `;
 
 export default Icon;

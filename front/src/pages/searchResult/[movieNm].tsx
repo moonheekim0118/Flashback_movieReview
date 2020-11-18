@@ -21,7 +21,7 @@ const searchResult=()=>{
     return(
         <Layout PageName={`${movieNm} 검색결과`}>
             {movieLists && movieLists.map((v,i)=>(
-                <MovieCard key={v.id} Movie={v}/>
+                <MovieCard key={v.id} Movie={v} Search={true}/>
             ))}
         </Layout>
     );
