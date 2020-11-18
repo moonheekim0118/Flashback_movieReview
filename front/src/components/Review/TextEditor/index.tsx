@@ -1,4 +1,5 @@
 import React , { useCallback , useRef,useState , useEffect } from 'react';
+import useToggle from '../../../hooks/useToggle';
 import Router from 'next/router';
 import { useDispatch } from 'react-redux';
 import MovieCard from '../../Movie/MovieCard';
@@ -24,6 +25,9 @@ const TextEditor=({Movie}:Props)=>{
 
     const initialUpdate = useRef(true);
     const [initial, setInitial]=useState(true);
+    
+    const [goodSelect,setGoodSelect,sosoSelect,setSoSoSelect,badSelect,setBadSelect] = useToggle();
+
     const PassedIcon=<Icon icon={faCheck} color={'green'}/>
     const ErrorIcon=<Icon icon={faTimes} color={'red'}/>
 
@@ -36,6 +40,7 @@ const TextEditor=({Movie}:Props)=>{
             setInitial(false);
         }
     },[initialUpdate.current]);
+
     const onSave=useCallback(()=>{ // 저장
 
         // 저장 디스패치 보내주고
@@ -43,15 +48,13 @@ const TextEditor=({Movie}:Props)=>{
 
     },[]);
 
-    // length 가  0 이상이고, Erorr가 없으면 check 마크 달아주기
-    // 아니면 Error마크 달아주기 
     return(
         <Container>
             <MovieCard Movie={Movie}/>
             <BadgeContainer>
-                <Badge badgeName={"GOOD"}/>
-                <Badge badgeName={"SOSO"}/>
-                <Badge badgeName={"BAD"}/>
+                <Badge badgeName={"GOOD"} selected={goodSelect} onClick={setGoodSelect}/>
+                <Badge badgeName={"SOSO"} selected={sosoSelect} onClick={setSoSoSelect}/>
+                <Badge badgeName={"BAD"} selected={badSelect} onClick={setBadSelect} />
             </BadgeContainer>
             <TextContainer>
                 <Question htmlFor="shortComment">
