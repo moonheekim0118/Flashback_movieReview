@@ -5,8 +5,8 @@ import { faThumbsUp, faThumbsDown, faMehRollingEyes } from '@fortawesome/free-so
 
 interface Props {
     badgeName?:string;
-    selected?:boolean;
-    onClick?: (e: React.MouseEvent) => void;
+    selected?:boolean | (() => void);
+    onClick?: boolean | (() => void);
 }
 
 const IconName = {
@@ -52,6 +52,7 @@ const Container = styled.div<{ color:string }>`
 
     &:hover{
         background-color:rgba(224, 224, 209,0.3);
+        color:#cc00cc;
     }
 `;
 

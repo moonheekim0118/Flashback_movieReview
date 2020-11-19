@@ -15,13 +15,13 @@ const useToggle= ()=>{
         FirstSetter(false);
         SecondSetter(!SecondValue);
         ThirdSetter(false);
-    },[FirstValue]);
+    },[SecondValue]);
 
     const ThirdHanlder=useCallback(()=>{
         FirstSetter(false);
         SecondSetter(false);
         ThirdSetter(!ThirdValue);
-    },[FirstValue]);
+    },[ThirdValue]);
 
     return [FirstValue,FirstHandler, SecondValue, SecondHandler, ThirdValue, ThirdHanlder];
 }
