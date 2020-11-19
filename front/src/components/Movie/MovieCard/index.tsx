@@ -44,7 +44,7 @@ const MovieCard=({Movie, Search=false}:Props)=>{
     );
 }
 
-const Container = styled.div`
+export const Container = styled.div`
     display:flex;
     align-items:center;
     width:100%;
@@ -58,14 +58,14 @@ const Container = styled.div`
     cursor:pointer;
 `;
 
-const MoviePoster = styled.img`
+export const MoviePoster = styled.img`
     width: 150px;
     height: 100%;
     object-fit: scale-down;
     margin-right:20px;
 `;
 
-const MovieDescription = styled.div`
+export const MovieDescription = styled.div`
     width:100%;
     height:50%;
     display:flex;

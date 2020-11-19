@@ -4,7 +4,7 @@ import Navigation from '../components/Navigation';
 import Router from 'next/router';
 import { useSelector } from 'react-redux';
 
-const Login=()=>{
+const Menu=()=>{
 
     const loginDone = useSelector(state=>state.user.loginDone);
     
@@ -21,4 +21,4 @@ const Login=()=>{
     );
 }
 
-export default Login;
+export default Menu;
