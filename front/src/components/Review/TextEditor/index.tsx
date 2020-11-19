@@ -1,4 +1,5 @@
 import React , { useCallback , useRef,useState , useEffect } from 'react';
+import shortid from 'shortid';
 import useToggle from '../../../hooks/useToggle';
 import Router from 'next/router';
 import { useDispatch } from 'react-redux';
@@ -10,6 +11,7 @@ import styled from 'styled-components';
 import useValidation from '../../../hooks/useValidation';
 import Badge from '../Badge';
 import { faCheck , faTimes } from '@fortawesome/free-solid-svg-icons';
+import { ADD_MY_REVIEW_REQUEST } from '../../../actions/review';
 
 interface Props {
     Movie?:MovieList;
@@ -43,10 +45,30 @@ const TextEditor=({Movie}:Props)=>{
 
     const onSave=useCallback(()=>{ // 저장
 
+        let rating='BAD';
+        if(goodSelect){
+            rating='GOOD';
+        }
+        else if(sosoSelect){
+            rating='SOSO'
+        }
+        dispatch({
+            type:ADD_MY_REVIEW_REQUEST,
+            data:{
+                id:shortid.generate(),
+                movieInfo:Movie,
+                rating:rating,
+                shortComment:shortComment,
+                character:character,
+                line:line,
+                scene:scene,
+                freeComment:freeComment,
+            }
+        });
         // 저장 디스패치 보내주고
         // 라우터로 푸시해서 preview 페이지로 보내주기 
 
-    },[]);
+    },[goodSelect,sosoSelect,badSelect,shortComment,character,line,scene,freeComment]);
 
     return(
         <Container>
