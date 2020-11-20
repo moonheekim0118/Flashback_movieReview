@@ -9,6 +9,11 @@ export const initialState={
     loadMoviesDone:false,
     loadMoviesError:null,
     
+    // 영화 하나 가져오기
+    loadSingleMovieLoading:false,
+    loadSingleMovieDone:false,
+    loadSingleMovieError:null,
+
     // 연관검색어 가져오기
     loadRelatedSearchLoading:false,
     loadRelatedSearchDone:false,
@@ -48,9 +53,28 @@ const reducer =  (state=initialState, action)=>{
                 draft.loadMoviesError=action.error;
                 break;
             
-            // 단일 영화 저장 
-            case type.SAVE_SINGLE_MOVIE_REQUEST:
-                draft.singleMovie=action.data;
+            // 영화 하나 가져오기 
+            case type.LOAD_SINGLE_MOVIE_REQUEST:
+                draft.loadSingleMovieLoading=true;
+                draft.loadSingleMovieDone=false;
+                draft.loadSingleMovieError=null;
+                break;
+            
+            case type.LOAD_SINGLE_MOVIE_SUCCESS:
+                draft.loadSingleMovieDone=true;
+                draft.loadSingleMovieLoading=false;
+                draft.singleMovie={
+                    id:shortid.generate(),
+                    title:faker.name.findName(),
+                    director:faker.name.findName(),
+                    image:faker.image.image(),
+                    pubDate:faker.date.past(),
+                }
+                break;
+
+            case type.LOAD_SINGLE_MOVIE_FAIL:
+                draft.loadSingleMovieLoading=false;
+                draft.loadSingleMovieError=action.error;
                 break;
 
             // 연관검색어 불러오기 

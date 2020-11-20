@@ -9,6 +9,10 @@ export const initialState={
     loadMyReviewsDone:false,
     loadMyReviewsError:null,
 
+    loadSingleReviewLoading:false, // 리뷰 하나 불러오기
+    loadSingleReviewDone:false,
+    loadSingleReviewError:null, 
+
     addMyReviewLoading:false, // 리뷰 추가하기 
     addMyReviewDone:false,
     addMyReviewError:null,
@@ -22,7 +26,7 @@ export const initialState={
     updateMyReviewError:null,
 
     myReviews:[], // 현재 로그인된 사용자의 리뷰리스트 
-    singleReview:[],
+    singleReview:null,
 };
 
 const reducer =  (state=initialState, action)=>{
@@ -63,6 +67,38 @@ const reducer =  (state=initialState, action)=>{
                 draft.loadMyReviewsError=action.error;
                 break;
             
+            // 단일 리뷰 불러오기
+            case type.LOAD_SINGLE_REVIEW_REQUEST:
+                draft.loadSingleReviewDone=false;
+                draft.loadSingleReviewLoading=true;
+                draft.loadSingleReviewError=null;
+                break;
+
+            case type.LOAD_SINGLE_REVIEW_SUCCESS:
+                draft.loadSingleReviewDone=true;
+                draft.loadSingleReviewLoading=false;
+                draft.singleReview= {
+                    id:shortid.generate(),
+                    movieInfo:{
+                        id:shortid.generate(),
+                        title:faker.name.findName(),
+                        director:faker.name.findName(),
+                        image:faker.image.image(),
+                        pubDate:faker.date.past(), 
+                    },
+                    rating:'GOOD',
+                    shortComment:faker.name.findName(),
+                    chracter:faker.name.findName(),
+                    line:faker.name.findName(),
+                    scene:faker.name.findName(),
+                    freeComment:faker.name.findName(),
+                };
+                break;
+            
+            case type.LOAD_SINGLE_REVIEW_FAIL:
+                draft.loadSingleReviewLoading=false;
+                draft.loadSingleReviewError=action.error;
+                break;
             // 추가 
             case type.ADD_MY_REVIEW_REQUEST:
                 draft.addMyReviewDone=false;
@@ -118,11 +154,6 @@ const reducer =  (state=initialState, action)=>{
                 draft.updateMyReviewError=action.error;
                 break;
 
-            // save Single Reveiw
-            case type.SAVE_SINGLE_REVIEW:
-                draft.singleReview=action.data;
-                break;
-            
         }
     });
 };

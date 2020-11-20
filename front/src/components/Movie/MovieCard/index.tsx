@@ -1,8 +1,6 @@
 import React , { useCallback } from 'react';
 import Router from 'next/router';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
-import { SAVE_SINGLE_MOVIE_REQUEST } from '../../../actions/movie';
 import { MovieList } from '../../../model/MovieList';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import Icon from '../../../atoms/Icons';
@@ -14,14 +12,9 @@ interface Props {
 
 // 검색창 검색시 해당 영화 리스트 가져오기
 const MovieCard=({Movie, Search=false}:Props)=>{
-    const dispatch = useDispatch();
 
-    const onSelectMovie=useCallback(()=>{
-        dispatch({
-            type:SAVE_SINGLE_MOVIE_REQUEST,
-            data: Movie
-        });    
-        Router.push('/writeReview'); // redirect
+    const onSelectMovie=useCallback(()=>{ 
+        Router.push(`/writeReview/${Movie.id}`); // redirect
     },[]);
 
     return(

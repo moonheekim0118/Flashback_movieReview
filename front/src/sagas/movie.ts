@@ -12,6 +12,10 @@ function loadMovieListsAPI(keyword){
     return axios.get('/');
 }
 
+function loadSingleMovieAPI(id){
+    return axios.get('/'); // 나중에 id 추가 
+}
+
 function loadRelatedSearchAPI(keyword){
     return axios.get('/');
 }
@@ -32,6 +36,21 @@ function* loadMovieLists(action){
     }
 }
 
+function* loadSingleMovie(action){
+    try{
+        // const result = yield call(loadMovieListsAPI,action.data);
+        yield put({
+            type:type.LOAD_SINGLE_MOVIE_SUCCESS,
+            data:action.data,
+        })        
+    }catch(err){
+        console.log(err);
+        yield put({
+            type:type.LOAD_SINGLE_MOVIE_FAIL,
+            error:err
+        });
+    }
+}
 
 
 function* loadRelatedSearch(action){
@@ -53,13 +72,19 @@ function* watchLoadMovieList(){
     yield takeLatest(type.LOAD_MOVIES_REQUEST, loadMovieLists);
 }
 
+function* watchLoadSingleMovie(){
+    yield takeLatest(type.LOAD_SINGLE_MOVIE_REQUEST,loadSingleMovie);
+}
+
 function* watchLoadRelatedSearch(){
     yield takeLatest(type.LOAD_RELATED_SEARCH_REQUEST,loadRelatedSearch);
 }
 
+
 export default function* movieSaga(){
     yield all([
         fork(watchLoadMovieList),
+        fork(watchLoadSingleMovie),
         fork(watchLoadRelatedSearch),
     ]);
 }

@@ -12,6 +12,10 @@ function loadMyReivewsAPI(){
     return axios.get('/');
 }
 
+function loadSingleReviewAPI(id){
+    return axios.get('/');
+}
+
 function addMyReivewAPI(data){
     return axios.post('/');
 }
@@ -41,6 +45,21 @@ function* loadMyReivews(action){
 }
 
 
+function* loadSingleReivew(action){
+    try{
+        // const result = yield call(loadMovieListsAPI,action.data);
+        yield put({
+            type:type.LOAD_SINGLE_REVIEW_SUCCESS,
+            data:'',
+        })        
+    }catch(err){
+        console.log(err);
+        yield put({
+            type:type.LOAD_SINGLE_REVIEW_FAIL,
+            error:err
+        });
+    }
+}
 
 function* addMyReivew(action){
     try{
@@ -93,6 +112,10 @@ function* watchLoadMyReview(){
     yield takeLatest(type.LOAD_MY_REVIEWS_REQUEST, loadMyReivews);
 }
 
+function* watchLoadSingleReview(){
+    yield takeLatest(type.LOAD_SINGLE_REVIEW_REQUEST, loadSingleReivew);
+}
+
 function* watchAddMyReview(){
     yield takeLatest(type.ADD_MY_REVIEW_REQUEST,addMyReivew);
 }
@@ -108,6 +131,7 @@ function* watchUpdateMyReview(){
 export default function* movieSaga(){
     yield all([
         fork(watchLoadMyReview),
+        fork(watchLoadSingleReview),
         fork(watchAddMyReview),
         fork(watchRemoveMyReview),
         fork(watchUpdateMyReview),
