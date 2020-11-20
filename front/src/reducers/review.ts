@@ -22,6 +22,7 @@ export const initialState={
     updateMyReviewError:null,
 
     myReviews:[], // 현재 로그인된 사용자의 리뷰리스트 
+    singleReview:[],
 };
 
 const reducer =  (state=initialState, action)=>{
@@ -115,6 +116,11 @@ const reducer =  (state=initialState, action)=>{
             case type.UPDATE_MY_REVIEW_FAIL:
                 draft.updateMyReviewLoading=false;
                 draft.updateMyReviewError=action.error;
+                break;
+
+            // save Single Reveiw
+            case type.SAVE_SINGLE_REVIEW:
+                draft.singleReview=action.data;
                 break;
             
         }

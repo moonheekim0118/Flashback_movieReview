@@ -1,4 +1,7 @@
-import React from 'react';
+import React , { useCallback } from 'react';
+import Router from 'next/router';
+import { useDispatch } from 'react-redux';
+import { SAVE_SINGLE_REVIEW } from '../../../actions/review';
 import styled from 'styled-components';
 import { ReviewList } from '../../../model/ReviewList';
 import Icon from '../../../atoms/Icons';
@@ -23,9 +26,19 @@ const RatingText = {
 
 
 const Preview=({Review}:Props)=>{
+    const dispatch = useDispatch();
     const Rating = RatingText[Review.rating];
+
+    const onClick = useCallback(()=>{
+        dispatch({
+            type:SAVE_SINGLE_REVIEW,
+            data:Review
+        });
+        Router.push('/singleReview');
+    },[]);
+
     return(
-        <Container>
+        <Container onClick={onClick}>
             <MoviePoster src={Review.movieInfo.image}/>
             <MovieDescription>
                 <Comment>{Review.shortComment}</Comment>
