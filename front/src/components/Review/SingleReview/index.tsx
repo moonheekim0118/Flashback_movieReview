@@ -2,6 +2,7 @@ import React , { useCallback }from 'react';
 import Router from 'next/router';
 import styled from 'styled-components';
 import { ReviewList } from '../../../model/ReviewList';
+import Badge from '../Badge';
 import MovieCard from '../../Movie/MovieCard';
 import Button from '../../../atoms/Buttons';
 
@@ -24,6 +25,9 @@ const SingleReview=({Review}:Props)=>{
                 />
             </ButtonContainer>
             <MovieCard Movie={Review.movieInfo}/>
+            <BadgeContainer>
+                <Badge badgeName={Review.rating} selected={true}/>
+            </BadgeContainer>
             <ReviewContainer>
             <Title >{Review.shortComment}</Title>
             <ContentsContainer>
@@ -84,4 +88,9 @@ const ButtonContainer = styled.div`
     right:10px;
 `;
 
+const BadgeContainer = styled.div`
+    position:absolute;
+    top:-10px;
+    left:10px;
+`;
 export default SingleReview;

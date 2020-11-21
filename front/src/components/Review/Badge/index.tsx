@@ -51,7 +51,7 @@ const Container = styled.div<{ color:string }>`
     cursor:pointer;
 
     &:hover{
-        background-color:rgba(224, 224, 209,0.3);
+        background-color:${(props)=>props.color==='selected' ? '' : 'rgba(224, 224, 209,0.3)'};
         color:#cc00cc;
     }
 `;
