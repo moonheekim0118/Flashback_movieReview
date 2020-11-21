@@ -27,7 +27,7 @@ const WriteReview=()=>{
     return(
         <Layout PageName="리뷰작성">
             <TextEditor 
-            Review={{id:null, movieInfo:singleMovie, shortComment:"", line:"", chracter:"", scene:"", freeComment:"", rating:"GOOD"}}
+            Review={{id:null, movieInfo:singleMovie, shortComment:"", line:"", character:"", scene:"", freeComment:"", rating:"GOOD"}}
             ButtonType={"create"}
             />
         </Layout>

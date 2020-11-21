@@ -5,7 +5,7 @@ export interface ReviewList {
     movieInfo:MovieList,
     rating:string;
     shortComment:string;
-    chracter:string;
+    character:string;
     line:string;
     scene:string;
     freeComment:string;

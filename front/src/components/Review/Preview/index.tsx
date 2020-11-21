@@ -30,12 +30,4 @@ const Comment = styled.div`
     font-weight:bold;
 `;
 
-const RatingContainer = styled.div`
-    display:flex;
-    align-items:center;
-    justify-content:space-evenly;
-    width:100px;
-`;
-
-
 export default Preview;

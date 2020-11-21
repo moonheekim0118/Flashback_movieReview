@@ -32,7 +32,7 @@ const SingleReview=({Review}:Props)=>{
             <Title >{Review.shortComment}</Title>
             <ContentsContainer>
                 <SubTitle>기억에 남는 인물</SubTitle>
-                <p>{Review.chracter}</p>
+                <p>{Review.character}</p>
             </ContentsContainer>
             <ContentsContainer>
                 <SubTitle>기억에 남는 대사</SubTitle>

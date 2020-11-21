@@ -21,7 +21,7 @@ interface Props {
 const TextEditor=({Review , ButtonType}:Props)=>{
     const dispatch = useDispatch();
     const [ shortComment, setShortComment, shortCommentError ] = useValidation(Review.shortComment,5,20);
-    const [ character, setCharacter, characterError ] = useValidation(Review.chracter,5,50);
+    const [ character, setCharacter, characterError ] = useValidation(Review.character,5,50);
     const [ line, setLine, lineError ] = useValidation(Review.line,5,50);
     const [ scene, setScene, sceneError ] = useValidation(Review.scene,5,50);
     const [ freeComment, setFreeComment ,freeCommentError ] = useValidation(Review.freeComment,0,50);
