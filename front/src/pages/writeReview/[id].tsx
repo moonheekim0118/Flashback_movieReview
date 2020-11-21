@@ -11,7 +11,7 @@ const WriteReview=()=>{
     const dispatch = useDispatch();
     const { id } = router.query;
     const singleMovie = useSelector((state)=>state.movie.singleMovie);
-    
+
     useEffect(()=>{
         dispatch({
             type:LOAD_SINGLE_MOVIE_REQUEST,
@@ -26,7 +26,10 @@ const WriteReview=()=>{
     )
     return(
         <Layout PageName="리뷰작성">
-            <TextEditor Movie={singleMovie}/>
+            <TextEditor 
+            Review={{id:null, movieInfo:singleMovie, shortComment:"", line:"", chracter:"", scene:"", freeComment:"", rating:""}}
+            ButtonType={"create"}
+            />
         </Layout>
     );
 }

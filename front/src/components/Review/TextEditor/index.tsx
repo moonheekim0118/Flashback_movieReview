@@ -4,26 +4,27 @@ import useToggle from '../../../hooks/useToggle';
 import Router from 'next/router';
 import { useDispatch } from 'react-redux';
 import MovieCard from '../../Movie/MovieCard';
-import { MovieList } from '../../../model/MovieList';
 import Button from '../../../atoms/Buttons';
 import Icon from '../../../atoms/Icons';
 import styled from 'styled-components';
 import useValidation from '../../../hooks/useValidation';
 import Badge from '../Badge';
 import { faCheck , faTimes } from '@fortawesome/free-solid-svg-icons';
-import { ADD_MY_REVIEW_REQUEST } from '../../../actions/review';
+import { ADD_MY_REVIEW_REQUEST,UPDATE_MY_REVIEW_REQUEST } from '../../../actions/review';
+import { ReviewList } from '../../../model/ReviewList';
 
 interface Props {
-    Movie?:MovieList;
+    Review?:ReviewList;
+    ButtonType:string;
 }
 
-const TextEditor=({Movie}:Props)=>{
+const TextEditor=({Review , ButtonType}:Props)=>{
     const dispatch = useDispatch();
-    const [ shortComment, setShortComment, shortCommentError ] = useValidation("",5,20);
-    const [ character, setCharacter, characterError ] = useValidation("",5,50);
-    const [ line, setLine, lineError ] = useValidation("",5,50);
-    const [ scene, setScene, sceneError ] = useValidation("",5,50);
-    const [ freeComment, setFreeComment ,freeCommentError ] = useValidation("",0,50);
+    const [ shortComment, setShortComment, shortCommentError ] = useValidation(Review.shortComment,5,20);
+    const [ character, setCharacter, characterError ] = useValidation(Review.chracter,5,50);
+    const [ line, setLine, lineError ] = useValidation(Review.line,5,50);
+    const [ scene, setScene, sceneError ] = useValidation(Review.scene,5,50);
+    const [ freeComment, setFreeComment ,freeCommentError ] = useValidation(Review.freeComment,0,50);
 
     const initialUpdate = useRef(true);
     const [initial, setInitial]=useState(true);
@@ -32,6 +33,7 @@ const TextEditor=({Movie}:Props)=>{
 
     const PassedIcon=<Icon icon={faCheck} color={'green'}/>
     const ErrorIcon=<Icon icon={faTimes} color={'red'}/>
+
 
     useEffect(()=>{
         if(initialUpdate.current){
@@ -43,7 +45,7 @@ const TextEditor=({Movie}:Props)=>{
         }
     },[initialUpdate.current]);
 
-    const onSave=useCallback(()=>{ // 저장
+    const onCreate=useCallback(()=>{ // 저장
 
         let rating='BAD';
         if(goodSelect){
@@ -56,7 +58,7 @@ const TextEditor=({Movie}:Props)=>{
             type:ADD_MY_REVIEW_REQUEST,
             data:{
                 id:shortid.generate(),
-                movieInfo:Movie,
+                movieInfo:Review.movieInfo,
                 rating:rating,
                 shortComment:shortComment,
                 character:character,
@@ -70,9 +72,46 @@ const TextEditor=({Movie}:Props)=>{
 
     },[goodSelect,sosoSelect,badSelect,shortComment,character,line,scene,freeComment]);
 
+    const onUpdate=useCallback(()=>{
+        let rating='BAD';
+        if(goodSelect){
+            rating='GOOD';
+        }
+        else if(sosoSelect){
+            rating='SOSO'
+        }
+        dispatch({
+            type:UPDATE_MY_REVIEW_REQUEST,
+            data:{
+                id:Review.id,
+                movieInfo:Review.movieInfo,
+                rating:rating,
+                shortComment:shortComment,
+                line:line,
+                character:character,
+                scene:scene,
+                freeComment:freeComment,
+            }
+        })
+    },[]);
+
+    const SubmitButton= ButtonType==='create' ?
+    <Button
+    color={"purple"}
+    onClick={onCreate}
+    title={"저장하기"}
+    disabled={shortCommentError || characterError || lineError || sceneError || freeCommentError }
+    /> : 
+    <Button
+    color={"purple"}
+    onClick={onUpdate}
+    title={"수정하기"}
+    disabled={shortCommentError || characterError || lineError || sceneError || freeCommentError }
+    /> ;
+
     return(
         <Container>
-            <MovieCard Movie={Movie}/>
+            <MovieCard Movie={Review.movieInfo}/>
             <BadgeContainer>
                 <Badge badgeName={"GOOD"} selected={goodSelect} onClick={setGoodSelect}/>
                 <Badge badgeName={"SOSO"} selected={sosoSelect} onClick={setSoSoSelect}/>
@@ -130,14 +169,8 @@ const TextEditor=({Movie}:Props)=>{
                 name="freeComment"
                 />
             </TextContainer>
-
             <ButtonWrapper>
-            <Button
-            color={"purple"}
-            onClick={onSave}
-            title={"저장하기"}
-            disabled={shortCommentError || characterError || lineError || sceneError || freeCommentError }
-            />
+                {SubmitButton}
             </ButtonWrapper>
         </Container>
     );
