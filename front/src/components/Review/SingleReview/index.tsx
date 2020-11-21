@@ -12,7 +12,6 @@ interface Props {
 const SingleReview=({Review}:Props)=>{
 
     const onClickButton = useCallback(()=>{
-        console.log('ㅅ비ㅏㄹ');
         Router.push(`/updateReview/${Review.id}`); // 수정하는 곳 
     },[]);
 

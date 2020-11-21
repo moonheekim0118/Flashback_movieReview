@@ -29,7 +29,14 @@ const TextEditor=({Review , ButtonType}:Props)=>{
     const initialUpdate = useRef(true);
     const [initial, setInitial]=useState(true);
     
-    const [goodSelect,setGoodSelect,sosoSelect,setSoSoSelect,badSelect,setBadSelect] = useToggle();
+    // 수정 상태 시 원래 저장된 레이팅 
+    const good = Review.rating==='GOOD' ? true : false;
+    const soso = Review.rating==='SOSO' ? true : false;
+    const bad = Review.rating==='BAD' ? true : false; 
+    const [goodSelect,setGoodSelect,
+           sosoSelect,setSoSoSelect,
+           badSelect,setBadSelect]
+         = useToggle(good, soso, bad);
 
     const PassedIcon=<Icon icon={faCheck} color={'green'}/>
     const ErrorIcon=<Icon icon={faTimes} color={'red'}/>
@@ -69,7 +76,7 @@ const TextEditor=({Review , ButtonType}:Props)=>{
         });
         // 저장 디스패치 보내주고
         // 라우터로 푸시해서 preview 페이지로 보내주기 
-
+        Router.push(`/singleReview/${shortid.generate()}`);
     },[goodSelect,sosoSelect,badSelect,shortComment,character,line,scene,freeComment]);
 
     const onUpdate=useCallback(()=>{
@@ -93,6 +100,7 @@ const TextEditor=({Review , ButtonType}:Props)=>{
                 freeComment:freeComment,
             }
         })
+        Router.push(`/singleReview/${Review.id}`);
     },[]);
 
     const SubmitButton= ButtonType==='create' ?

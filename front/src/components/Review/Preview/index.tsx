@@ -1,30 +1,15 @@
 import React , { useCallback } from 'react';
 import Router from 'next/router';
 import styled from 'styled-components';
+import Badge from '../Badge';
 import { ReviewList } from '../../../model/ReviewList';
-import Icon from '../../../atoms/Icons';
 import { Container,MoviePoster,MovieDescription } from '../../Movie/MovieCard';
-import { faThumbsUp, faThumbsDown, faMehRollingEyes } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
     Review?:ReviewList
 }
 
-const IconName = {
-    'GOOD':faThumbsUp,
-    'SOSO':faMehRollingEyes,
-    'BAD':faThumbsDown,
-}
-
-const RatingText = {
-    'GOOD':'좋아요',
-    'SOSO':'보통이에요',
-    'BAD':'별로에요'
-}
-
-
 const Preview=({Review}:Props)=>{
-    const Rating = RatingText[Review.rating];
     const onClick = useCallback(()=>{
         Router.push(`/singleReview/${Review.id}`);
     },[]);
@@ -34,13 +19,7 @@ const Preview=({Review}:Props)=>{
             <MoviePoster src={Review.movieInfo.image}/>
             <MovieDescription>
                 <Comment>{Review.shortComment}</Comment>
-                <RatingContainer>
-                    <Icon
-                    icon={IconName[Review.rating]}
-                    color={"lightPurple"}
-                    />
-                    <p>{Rating}</p>
-                </RatingContainer>
+                <Badge badgeName={Review.rating} selected={true}/>
             </MovieDescription>
         </Container>
     );

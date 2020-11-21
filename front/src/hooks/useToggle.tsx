@@ -1,9 +1,9 @@
 import { useState, useCallback} from 'react';
 
-const useToggle= ()=>{
-    const [FirstValue, FirstSetter]=useState(false);
-    const [SecondValue, SecondSetter]=useState(false);
-    const [ThirdValue, ThirdSetter]=useState(false);
+const useToggle=(FirstInitialValue=false, SecondInitialValue=false, ThirdInitialValue=false)=>{
+    const [FirstValue, FirstSetter]=useState(FirstInitialValue);
+    const [SecondValue, SecondSetter]=useState(SecondInitialValue);
+    const [ThirdValue, ThirdSetter]=useState(ThirdInitialValue);
     
     const FirstHandler=useCallback(()=>{
         FirstSetter(!FirstValue);
