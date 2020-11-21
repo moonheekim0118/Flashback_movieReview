@@ -25,7 +25,7 @@ const Layout=({ PageName="" , children} : Props)=>{
         <Header>
             <div><Icons icon={faChevronLeft} className={"fa-chevron-left"} onClick={onPushBack}/></div>
             <PageInfo>
-                <div>{PageName}</div>
+                <PageDescription>{PageName}</PageDescription>
                 {MainButton}
             </PageInfo>
         </Header>}
@@ -53,7 +53,6 @@ const App = styled.div`
 `;
 const Header = styled.header`
     display:flex;
-    flex-direction:row;
     justify-content:space-between;
     align-items:center;
 
@@ -73,10 +72,15 @@ const Header = styled.header`
 `;
 
 const PageInfo = styled.div`
-    flex-basis:20%;
+    width:200px;
+    max-width:80%;
     display:flex;
     justify-content:space-between;
     align-items:center;
+`;
+
+const PageDescription = styled.div`
+    padding-left:20px;
 `;
 
 export default Layout;
