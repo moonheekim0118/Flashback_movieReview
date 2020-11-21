@@ -11,8 +11,9 @@ interface Props {
 
 const SingleReview=({Review}:Props)=>{
 
-    const onClick = useCallback(()=>{
-        Router.push('/'); // 수정하는 곳 
+    const onClickButton = useCallback(()=>{
+        console.log('ㅅ비ㅏㄹ');
+        Router.push(`/updateReview/${Review.id}`); // 수정하는 곳 
     },[]);
 
     return(
@@ -20,12 +21,12 @@ const SingleReview=({Review}:Props)=>{
             <ButtonContainer>
                 <Button 
                 title={"수정하기"}
-                onClick={onClick}
+                onClick={onClickButton}
                 />
             </ButtonContainer>
             <MovieCard Movie={Review.movieInfo}/>
             <ReviewContainer>
-            <Title>{Review.shortComment}</Title>
+            <Title >{Review.shortComment}</Title>
             <ContentsContainer>
                 <SubTitle>기억에 남는 인물</SubTitle>
                 <p>{Review.chracter}</p>
@@ -80,7 +81,7 @@ const ContentsContainer = styled.div`
 
 const ButtonContainer = styled.div`
     position:absolute;
-    top:10px;
+    bottom:0px;
     right:10px;
 `;
 
