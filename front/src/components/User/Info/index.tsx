@@ -102,6 +102,9 @@ const Container = styled.div`
 
     display:flex;
     flex-direction:column;
+
+    background-color:inherit;
+    color:inherit;
 `;
 
 const AvatarContainer = styled.div`
@@ -164,6 +167,9 @@ const Nickname = styled.input.attrs({type:'text'})`
     font-size:1.2rem;
     border:none;
     border-bottom:3px solid #e6b3cc;
+
+    background-color:inherit;
+    color:inherit;
 `;
 
 const ErrorMessage = styled.div`

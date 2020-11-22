@@ -58,6 +58,7 @@ const Container = styled.div`
     width:80%;
     margin:auto;
     position:relative;
+    background-color:inherit;
 `;
 
 const ReviewContainer = styled.div`

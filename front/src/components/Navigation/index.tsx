@@ -17,6 +17,8 @@ const Container = styled.div`
     flex-direction:column;
     text-align:center;
     padding:20px 0px;
+    background-color:inherit;
+
 `;
 
 const Menu = styled.div`
@@ -29,6 +31,7 @@ const Menu = styled.div`
 
     &:hover{
         background-color:#e0e0d1;
+        color:black;
     }
     
 `;

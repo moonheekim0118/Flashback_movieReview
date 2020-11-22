@@ -1,29 +1,13 @@
-import { useState, useCallback} from 'react';
+import { useState, useCallback } from 'react'
 
-const useToggle=(FirstInitialValue=false, SecondInitialValue=false, ThirdInitialValue=false)=>{
-    const [FirstValue, FirstSetter]=useState(FirstInitialValue);
-    const [SecondValue, SecondSetter]=useState(SecondInitialValue);
-    const [ThirdValue, ThirdSetter]=useState(ThirdInitialValue);
-    
-    const FirstHandler=useCallback(()=>{
-        FirstSetter(!FirstValue);
-        SecondSetter(false);
-        ThirdSetter(false);
-    },[FirstValue]);
+const useToggle = (initialValue = false) => {
+  const [value, setter] = useState(initialValue);
 
-    const SecondHandler=useCallback(()=>{
-        FirstSetter(false);
-        SecondSetter(!SecondValue);
-        ThirdSetter(false);
-    },[SecondValue]);
+  const handler = useCallback(()=>{
+      setter(!value);
+  },[value]); 
 
-    const ThirdHanlder=useCallback(()=>{
-        FirstSetter(false);
-        SecondSetter(false);
-        ThirdSetter(!ThirdValue);
-    },[ThirdValue]);
-
-    return [FirstValue,FirstHandler, SecondValue, SecondHandler, ThirdValue, ThirdHanlder] as const;
+  return [value, handler , setter] as const
 }
 
-export default useToggle;
+export default useToggle

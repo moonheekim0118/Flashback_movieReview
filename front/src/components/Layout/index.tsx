@@ -40,7 +40,8 @@ const App = styled.div`
     margin:auto;
     position:relative;
     
-    background-color:#FFF;
+    background-color:${props => props.theme.colors.bgColor};
+    color:${props => props.theme.colors.fontColor};
 
     @media screen and (max-width:414px){
         width: 100%;

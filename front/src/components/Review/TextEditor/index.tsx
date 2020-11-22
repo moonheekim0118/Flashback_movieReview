@@ -1,6 +1,6 @@
 import React , { useCallback , useRef,useState , useEffect } from 'react';
 import shortid from 'shortid';
-import useToggle from '../../../hooks/useToggle';
+import useToggle from '../../../hooks/useSelecting';
 import Router from 'next/router';
 import { useDispatch } from 'react-redux';
 import MovieCard from '../../Movie/MovieCard';
@@ -188,6 +188,7 @@ const TextEditor=({Review , ButtonType}:Props)=>{
 const Container = styled.div`
     width:80%;
     margin:auto;
+    background-color:inherit;
 `;
 const Question = styled.label`
     font-size:1.5rem;
@@ -209,6 +210,8 @@ const TextInput = styled.input.attrs({type:'text'})`
     margin: 15px 0  40px 0; 
     
     transition: 0.2s background-color ease-in-out;
+    background-color:inherit;
+    color:inherit;
 
     &:focus{
         background-color:rgba(230, 179, 204,0.3);

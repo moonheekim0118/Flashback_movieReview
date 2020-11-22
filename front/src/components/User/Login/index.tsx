@@ -64,7 +64,8 @@ export const Container = styled.form`
     height:100%;
     margin:40px auto;
     padding-top:70px;
-    
+    background-color:inherit;
+    color:inherit;
 `;
 
 export const InputContainer = styled.div`
@@ -78,13 +79,19 @@ export const TextInput = styled.input.attrs({type:'text'})`
     width:100%;
     padding: 10px 15px;
     font-size:1.2rem;
+    margin-top: 15px;
+    border: 1px solid ${props => props.theme.colors.fontColor};
+    background-color:inherit;
+    color:inherit;
 `;
 
 export const PasswordInput = styled.input.attrs({type:'password'})`
     width:100%;
     padding: 10px 15px;
     margin-top: 15px;
-
+    border: 1px solid ${props => props.theme.colors.fontColor};
+    background-color:inherit;
+    color:inherit;
     font-size:1.2rem;
 `;
 

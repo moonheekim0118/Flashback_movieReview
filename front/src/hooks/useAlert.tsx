@@ -14,4 +14,4 @@ const useAlert = (initialValue = false) => {
   return [show, open, close,setter] as const
 }
 
-export default useAlert
+export default useAlert;

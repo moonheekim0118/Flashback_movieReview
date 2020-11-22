@@ -46,6 +46,8 @@ const Container = styled.div<{ color:string }>`
     border-radius:5px;
     font-size:0.8rem;
 
+    background-color:transparent;
+    
     color:${(props)=>props.color==='selected' ? '#cc00cc' : '#e0e0d1'};
     transition: 0.2s background-color ease-in-out;
     cursor:pointer;

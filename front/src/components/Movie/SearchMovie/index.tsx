@@ -70,6 +70,9 @@ const Container = styled.div`
     flex-direction:column;
     align-items:center;
     margin:15px auto;
+
+    background-color:inherit;
+    font-color:inherit;
     
 `;
 
@@ -86,6 +89,9 @@ const SearchBox = styled.input.attrs({type:'text'})`
     border:3px solid #e6b3cc;
     border-radius:25px;
     font-size:1.2rem;
+
+    background-color:inherit;
+    color:inherit;
 
     box-shadow:0px 0px 10px -1px rgba(230, 179, 204,0.75);
 `;

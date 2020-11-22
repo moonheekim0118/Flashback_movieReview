@@ -37,6 +37,7 @@ const Container=styled.div`
 
     &:hover{
         background-color:#e0e0d1;
+        color:black;
     }
 
 `;
