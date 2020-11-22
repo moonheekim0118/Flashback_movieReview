@@ -52,7 +52,8 @@ const reducer =  (state=initialState, action)=>{
                     },
                     author:{
                         id:shortid.generate(),
-                        nickname:'아무개'
+                        nickname:'아무개',
+                        profilePic:'',
                     },
                     rating:'GOOD',
                     shortComment:faker.name.findName(),
@@ -92,7 +93,8 @@ const reducer =  (state=initialState, action)=>{
                     },
                     author:{
                         id:shortid.generate(),
-                        nickname:'아무개'
+                        nickname:'아무개',
+                        profilePic:'',
                     },
                     rating:'GOOD',
                     shortComment:faker.name.findName(),

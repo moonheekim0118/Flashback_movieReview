@@ -4,7 +4,8 @@ export const colorCode={
     lightPurple:'#e6b3cc',
     gray:'#e0e0d1',
     red:'#ff3333',
-    green:'#33cc33'
+    green:'#33cc33',
+    white:'#fff',
 
 };
 

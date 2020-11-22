@@ -1,14 +1,17 @@
-import React , { useCallback , useEffect } from 'react';
+import React , { useRef, useCallback , useEffect } from 'react';
 import { useDispatch , useSelector } from 'react-redux';
 import { MyInfo } from '../../../model/MyInfo';
-import { UPDATE_NICKNAME_REQUEST } from '../../../actions/user';
+import { UPDATE_NICKNAME_REQUEST , UPDATE_PROFILE_PIC_REQUEST } from '../../../actions/user';
 import useValidation from '../../../hooks/useValidation';
 import useAlert from '../../../hooks/useAlert';
 import Button from '../../../atoms/Buttons';
+import Icon from '../../../atoms/Icons';
 import Alert from '../../Alert';
 import Logout from '../Logout';
+import Avatar from '../../Avatar';
 import Slot from '../../Slot';
 import styled from 'styled-components';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
     myInfo?:MyInfo
@@ -18,6 +21,7 @@ interface Props {
 const Info=({myInfo} : Props)=>{
     const dispatch = useDispatch();
     const updateNicknameDone= useSelector((state)=>state.user.updateNicknameDone);
+    const imageInput = useRef();
     const [nickname, setNickname, nicknameError] = useValidation(myInfo.nickname,2,6);
     const [showAlert, openAlert, closeAlert ] = useAlert();
 
@@ -31,6 +35,17 @@ const Info=({myInfo} : Props)=>{
         }
     },[updateNicknameDone]);
 
+    const onUploadImage = useCallback(()=>{
+        imageInput.current.click();
+    },[imageInput.current]);
+
+    const onChangeImage = useCallback((e)=>{
+        const imageFormData = new FormData();
+        [].forEach.call(e.target.files, (f)=>{
+            imageFormData.append('image',f);
+        });
+    },[]);
+
     const onChangeNickname = useCallback((e)=>{
         e.preventDefault();
         dispatch({
@@ -42,6 +57,14 @@ const Info=({myInfo} : Props)=>{
 
     return(
         <Container>
+            <AvatarContainer>
+                <input type="file" multiple name="image" hidden ref={imageInput} onChange={onChangeImage}/>
+                <Overlay/>
+                <EditIcon onClick={onUploadImage}>
+                    <Icon icon={faPlus} color={"white"} />
+                 </EditIcon>
+                <Avatar nickname={myInfo.nickname} size={70}/>
+            </AvatarContainer>
             <Form>
                 <InputContainer>
                     <Label>닉네임</Label>
@@ -74,8 +97,47 @@ const Info=({myInfo} : Props)=>{
 const Container = styled.div`
     width:80%;
     margin:auto;
-    padding-top:150px;
+    padding-top:50px;
     position:relative;
+
+    display:flex;
+    flex-direction:column;
+`;
+
+const AvatarContainer = styled.div`
+    margin:20px auto;
+    z-index:500;
+    position:relative;
+`;
+
+const Overlay = styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    background-color: rgba(0,0,0,0.3);
+    z-index: 1000;
+    cursor:pointer;
+`;
+
+const EditIcon = styled.div`
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    padding:10px 15px;font-size:24px;
+
+    border-radius:50%;
+    transition: 0.2s background-color ease-in-out;
+    z-index:1100;
+
+    &:hover{
+        background-color:rgba(255,255,255,0.3);
+    }
 `;
 
 const Form = styled.form`
@@ -112,7 +174,7 @@ const ErrorMessage = styled.div`
 `;
 
 const ButtonContainer = styled.div`
-    flex-basis:30%;
+    flex-basis:40%;
 `;
 
 const Title = styled.div`

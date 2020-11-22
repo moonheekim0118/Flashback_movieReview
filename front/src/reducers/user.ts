@@ -24,6 +24,10 @@ export const initialState={
     updateNicknameLoading:false,
     updateNicknameError:null,
 
+    updateProfilePicDone:false, // 프로필 사진 (아바타) 수정
+    updateProfilePicLoading:false,
+    updateProfilePicError:null,
+
     myInfo:null, // 현재 로그인된 사용자 정보 
     myReviews:[], // 현재 로그인된 사용자의 리뷰리스트 
 };
@@ -99,7 +103,8 @@ const reducer =  (state=initialState, action)=>{
                 draft.myInfo={
                     id:shortid.generate(),
                     nickname:'테스트',
-                    reviewsCount:15
+                    reviewsCount:15,
+                    profilePic:'',
                 };
                 break;
             
@@ -124,6 +129,24 @@ const reducer =  (state=initialState, action)=>{
             case type.UPDATE_NICKNAME_FAIL:
                 draft.updateNicknameLoading=false;
                 draft.updateNicknameError=action.error;
+                break;
+            
+            // 프로필 사진 수정
+            case type.UPDATE_PROFILE_PIC_REQUEST:
+                draft.updateProfilePicDone=false;
+                draft.updateProfilePicLoading=true;
+                draft.updateProfilePicError=null;
+                break;
+            
+            case type.UPDATE_PROFILE_PIC_SUCCESS:
+                draft.updateProfilePicDone=true;
+                draft.updateProfilePicLoading=false;
+                draft.myInfo.profilePic=action.data; // 프로필 사진 변경 
+                break;
+            
+            case type.UPDATE_PROFILE_PIC_FAIL:
+                draft.updateProfilePicLoading=false;
+                draft.updateProfilePicError=action.error;
                 break;
         }
     });

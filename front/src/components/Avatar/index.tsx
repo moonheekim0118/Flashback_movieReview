@@ -12,7 +12,7 @@ const Avatar=({nickname, imgSrc="", size=40}:Props)=>{
 
     return(
         <Container size={size}>
-            {imgSrc? <Image src={imgSrc}/> : <Nickname>{nickname[0]}</Nickname>}
+            {imgSrc? <Image src={imgSrc}/> : <Nickname size={size}>{nickname[0]}</Nickname>}
         </Container>
     );
 }
@@ -30,7 +30,7 @@ const Image = styled.img`
     object-fit:fill;
 `;
 
-const Nickname=styled.div`
+const Nickname=styled.div<{ size:number }>`
     display:flex;
     justify-content:center;
     align-items:center;
@@ -40,7 +40,7 @@ const Nickname=styled.div`
     height:100%;
     border-radius:100%;
     overflow:hidden;
-    font-size:${(props)=>`${props.size-10}px`};
+    font-size:${(props)=>`${props.size-20}px`};
     color:#fff;
     background-color:#e0e0d1;
 `;

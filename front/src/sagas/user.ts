@@ -3,7 +3,7 @@ import {
     fork,
     takeLatest,
     put,
-    call, 
+    call,
 } from 'redux-saga/effects';
 import * as type from '../actions/user';
 import axios from 'axios';
@@ -27,6 +27,10 @@ function signUpAPI(){
 function updateNicknameAPI(){
     return setTimeout(null,1000);
     //return axios.put('/'); // id와 닉네임 가져오기
+}
+
+function updateProfilePicAPI(){
+    
 }
 
 function* loadMyInfo(action){
@@ -105,6 +109,22 @@ function* updateNickname(action){
     }
 }
 
+function* updateProfilePic(action){
+    try{
+        const result = yield call(updateProfilePicAPI);
+        yield put({
+            type:type.UPDATE_PROFILE_PIC_SUCCESS,
+            data:action.data,
+        })   
+
+    }catch(err){
+        yield put({
+            type:type.UPDATE_PROFILE_PIC_FAIL,
+            error:err
+        });
+    }
+}
+
 function* watchLoadMyInfo(){
     yield takeLatest(type.LOAD_MY_INFO_REQUEST, loadMyInfo);
 };
@@ -125,6 +145,10 @@ function* watchUpdateNickname(){
     yield takeLatest(type.UPDATE_NICKNAME_REQUEST, updateNickname);
 };
 
+function* watchUpdateProfilePic(){
+    yield takeLatest(type.UPDATE_PROFILE_PIC_REQUEST,updateProfilePic);
+}
+
 export default function* userSaga(){
     yield all([
         fork(watchLoadMyInfo),
@@ -132,5 +156,6 @@ export default function* userSaga(){
         fork(watchLogout),
         fork(watchSignUp),
         fork(watchUpdateNickname),
+        fork(watchUpdateProfilePic),
     ]);
 }
