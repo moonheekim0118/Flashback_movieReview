@@ -75,7 +75,7 @@ const PageInfo = styled.div`
     width:200px;
     max-width:80%;
     display:flex;
-    justify-content:space-between;
+    justify-content:space-evenly;
     align-items:center;
 `;
 
