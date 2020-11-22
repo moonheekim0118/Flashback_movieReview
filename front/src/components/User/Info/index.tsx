@@ -21,7 +21,7 @@ interface Props {
 const Info=({myInfo} : Props)=>{
     const dispatch = useDispatch();
     const updateNicknameDone= useSelector((state)=>state.user.updateNicknameDone);
-    const imageInput = useRef();
+    const imageInput = useRef(null);
     const [nickname, setNickname, nicknameError] = useValidation(myInfo.nickname,2,6);
     const [showAlert, openAlert, closeAlert ] = useAlert();
 
