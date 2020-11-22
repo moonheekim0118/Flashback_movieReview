@@ -91,6 +91,7 @@ const TextEditor=({Review , ButtonType}:Props)=>{
             type:UPDATE_MY_REVIEW_REQUEST,
             data:{
                 id:Review.id,
+                author:Review.author,
                 movieInfo:Review.movieInfo,
                 rating:rating,
                 shortComment:shortComment,

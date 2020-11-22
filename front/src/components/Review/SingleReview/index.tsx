@@ -29,7 +29,10 @@ const SingleReview=({Review}:Props)=>{
                 <Badge badgeName={Review.rating} selected={true}/>
             </BadgeContainer>
             <ReviewContainer>
-            <Title >{Review.shortComment}</Title>
+            <TitleContainer>
+                <Title>{Review.shortComment}</Title>
+                <p>{Review.author.nickname} 작성</p>
+            </TitleContainer>
             <ContentsContainer>
                 <SubTitle>기억에 남는 인물</SubTitle>
                 <p>{Review.character}</p>
@@ -62,13 +65,20 @@ const ReviewContainer = styled.div`
     margin-top:30px;
 `;
 
-const Title = styled.div`
-    font-size:2rem;
-    font-weight:bold;
+const TitleContainer = styled.div`
     padding-bottom:20px;
     margin-bottom:20px;
 
+    display:flex;
+    flex-direction:column;
+
     border-bottom:1px solid #e6b3cc;
+`;
+
+const Title = styled.div`
+    font-size:2rem;
+    font-weight:bold;
+    margin-bottom:10px;
 `;
 
 const SubTitle = styled.div`

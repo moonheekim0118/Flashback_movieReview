@@ -50,6 +50,10 @@ const reducer =  (state=initialState, action)=>{
                         image:faker.image.image(),
                         pubDate:faker.date.past(), 
                     },
+                    author:{
+                        id:shortid.generate(),
+                        nickname:'아무개'
+                    },
                     rating:'GOOD',
                     shortComment:faker.name.findName(),
                     character:faker.name.findName(),
@@ -85,6 +89,10 @@ const reducer =  (state=initialState, action)=>{
                         director:faker.name.findName(),
                         image:faker.image.image(),
                         pubDate:faker.date.past(), 
+                    },
+                    author:{
+                        id:shortid.generate(),
+                        nickname:'아무개'
                     },
                     rating:'GOOD',
                     shortComment:faker.name.findName(),
