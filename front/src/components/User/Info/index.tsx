@@ -7,6 +7,7 @@ import useAlert from '../../../hooks/useAlert';
 import Button from '../../../atoms/Buttons';
 import Alert from '../../Alert';
 import Logout from '../Logout';
+import Slot from '../../Slot';
 import styled from 'styled-components';
 
 interface Props {
@@ -59,6 +60,13 @@ const Info=({myInfo} : Props)=>{
                 </ButtonContainer>
             </Form>
             {showAlert && <Alert text={"닉네임 변경이 완료되었습니다."}/>}
+            <ReviewCountContainer>
+                <Title>{myInfo.reviewsCount}개의 리뷰를 쓰신 당신은!</Title>
+                 <Slot reviewsCount={myInfo.reviewsCount}/>
+            </ReviewCountContainer>
+            <LogoutContainer>
+                로그아웃 <Logout/>
+            </LogoutContainer>
         </Container>
     );
 }
@@ -67,6 +75,7 @@ const Container = styled.div`
     width:80%;
     margin:auto;
     padding-top:150px;
+    position:relative;
 `;
 
 const Form = styled.form`
@@ -105,4 +114,24 @@ const ErrorMessage = styled.div`
 const ButtonContainer = styled.div`
     flex-basis:30%;
 `;
+
+const Title = styled.div`
+    font-size:1rem;
+    color:#cc00cc;
+    margin-bottom:20px;
+`;
+
+const ReviewCountContainer = styled.div`
+    margin-top:100px;
+`;
+
+const LogoutContainer = styled.div`
+    font-size:1rem;
+    color:#cc00cc;
+    position:absolute;
+    top:15px;
+    right:0;
+`;
+
+
 export default Info;
