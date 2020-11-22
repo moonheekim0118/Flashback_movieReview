@@ -23,7 +23,7 @@ const useToggle=(FirstInitialValue=false, SecondInitialValue=false, ThirdInitial
         ThirdSetter(!ThirdValue);
     },[ThirdValue]);
 
-    return [FirstValue,FirstHandler, SecondValue, SecondHandler, ThirdValue, ThirdHanlder];
+    return [FirstValue,FirstHandler, SecondValue, SecondHandler, ThirdValue, ThirdHanlder] as const;
 }
 
 export default useToggle;

@@ -5,7 +5,7 @@ const useInput= (initialValue = null)=>{
     const handler=useCallback((e) => {
         setter(e.target.value);
     },[])
-    return [value,handler,setter];
+    return [value,handler,setter] as const; 
 }
 
 export default useInput;

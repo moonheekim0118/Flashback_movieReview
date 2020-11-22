@@ -8,7 +8,7 @@ const useValidation =(initialValue = null , minimum, maximum)=>{
         setValue(e.target.value);
         setValidation(e.target.value.length < minimum || e.target.value.length > maximum);
     },[])
-    return [value, handler, validation];
+    return [value, handler, validation] as const;
 };
 
 export default useValidation;
