@@ -17,12 +17,16 @@ const index=()=>{
                 <Circle/>
             </TitleContainer>
             <ButtonContainer>
-                <Button 
-                fill={true} 
-                color={"purple"}
-                shadow={true}
-                title={"새 리뷰 작성하기"}
-                />
+                <Link href="/searchMovie">
+                    <a>
+                    <Button 
+                    fill={true} 
+                    color={"purple"}
+                    shadow={true}
+                    title={"새 리뷰 작성하기"}
+                    />
+                    </a>
+                </Link>
                 {!loginDone&&
                 <SignButtons>
                 <Link href="/login">
