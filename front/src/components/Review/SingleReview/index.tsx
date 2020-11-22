@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { ReviewList } from '../../../model/ReviewList';
 import Badge from '../Badge';
 import MovieCard from '../../Movie/MovieCard';
+import Avatar from '../../Avatar';
 import Button from '../../../atoms/Buttons';
 
 interface Props {
@@ -31,7 +32,7 @@ const SingleReview=({Review}:Props)=>{
             <ReviewContainer>
             <TitleContainer>
                 <Title>{Review.shortComment}</Title>
-                <p>{Review.author.nickname} 작성</p>
+                <Author> <Avatar nickname={Review.author.nickname}/> <Nickname>{Review.author.nickname} 작성</Nickname></Author>
             </TitleContainer>
             <ContentsContainer>
                 <SubTitle>기억에 남는 인물</SubTitle>
@@ -79,6 +80,15 @@ const Title = styled.div`
     font-size:2rem;
     font-weight:bold;
     margin-bottom:10px;
+`;
+
+const Author = styled.div`
+    display:flex;
+    align-items:center;
+`;
+
+const Nickname = styled.p`
+    margin-left:20px;
 `;
 
 const SubTitle = styled.div`
