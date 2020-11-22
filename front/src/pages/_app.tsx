@@ -16,6 +16,7 @@ interface Props {
                 <meta charSet="utf-8"/>
                 <title>영리</title>
             </Head>
+            <div id="alert-root"/>
             <Component/>
         </>
     );

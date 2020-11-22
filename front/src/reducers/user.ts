@@ -1,5 +1,7 @@
 import * as type from '../actions/user';
 import { produce } from 'immer';
+import shortid from 'shortid';
+import { clear } from 'console';
 
 export const initialState={
     loginDone:false, // 로그인 
@@ -13,6 +15,14 @@ export const initialState={
     signUpDone:false, // 회원가입
     signUpLoading:false, 
     signUpError:null,
+
+    loadMyInfoDone:false, // 내 정보 불러오기
+    loadMyInfoLoading:false,
+    loadMyInfoError:null,
+
+    updateNicknameDone:false, // 닉네임 수정
+    updateNicknameLoading:false,
+    updateNicknameError:null,
 
     myInfo:null, // 현재 로그인된 사용자 정보 
     myReviews:[], // 현재 로그인된 사용자의 리뷰리스트 
@@ -76,6 +86,45 @@ const reducer =  (state=initialState, action)=>{
                 draft.signUpError=action.error;
                 break;
             
+            // 내정보 불러오기
+            case type.LOAD_MY_INFO_REQUEST:
+                draft.loadMyInfoDone=false;
+                draft.loadMyInfoLoading=true;
+                draft.loadMyInfoError=null;
+                break;
+
+            case type.LOAD_MY_INFO_SUCCESS:
+                draft.loadMyInfoDone=true;
+                draft.loadMyInfoLoading=false;
+                draft.myInfo={
+                    id:shortid.generate(),
+                    nickname:'테스트',
+                    reviewsCount:15
+                };
+                break;
+            
+            case type.LOAD_MY_INFO_FAIL:
+                draft.loadMyInfoLoading=false;
+                draft.loadMyInfoError=action.error;
+                break;
+            
+            // 닉네임 수정 
+            case type.UPDATE_NICKNAME_REQUEST:
+                draft.updateNicknameDone=false;
+                draft.updateNicknameLoading=true;
+                draft.updateNicknameError=null;
+                break;
+            
+            case type.UPDATE_NICKNAME_SUCCESS:
+                draft.updateNicknameDone=true;
+                draft.updateNicknameLoading=false;
+                draft.myInfo.nickname=action.data.nickname;
+                break;
+
+            case type.UPDATE_NICKNAME_FAIL:
+                draft.updateNicknameLoading=false;
+                draft.updateNicknameError=action.error;
+                break;
         }
     });
 };

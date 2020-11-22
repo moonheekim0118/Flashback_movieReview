@@ -24,11 +24,17 @@ function signUpAPI(){
     //return axios.get('/');
 }
 
-function* loadMyInfo(){
+function updateNicknameAPI(){
+    return setTimeout(null,1000);
+    //return axios.put('/'); // id와 닉네임 가져오기
+}
+
+function* loadMyInfo(action){
     try{
-        const result = yield call(loadMyInfoAPI);
+        //const result = yield call(loadMyInfoAPI);
         yield put({
-            type:type.LOAD_MY_INFO_SUCCESS
+            type:type.LOAD_MY_INFO_SUCCESS,
+            data:action.data
         })        
     }catch(err){
         yield put({
@@ -83,10 +89,25 @@ function* signUp(action){
     }
 }
 
+function* updateNickname(action){
+    try{
+        const result = yield call(updateNicknameAPI);
+        yield put({
+            type:type.UPDATE_NICKNAME_SUCCESS,
+            data:action.data,
+        })   
+
+    }catch(err){
+        yield put({
+            type:type.UPDATE_NICKNAME_FAIL,
+            error:err
+        });
+    }
+}
+
 function* watchLoadMyInfo(){
     yield takeLatest(type.LOAD_MY_INFO_REQUEST, loadMyInfo);
 };
-
 
 function* watchLogin(){
     yield takeLatest(type.LOGIN_REQUEST, login);
@@ -100,6 +121,9 @@ function* watchSignUp(){
     yield takeLatest(type.SIGNUP_REQUEST, signUp);
 };
 
+function* watchUpdateNickname(){
+    yield takeLatest(type.UPDATE_NICKNAME_REQUEST, updateNickname);
+};
 
 export default function* userSaga(){
     yield all([
@@ -107,5 +131,6 @@ export default function* userSaga(){
         fork(watchLogin),
         fork(watchLogout),
         fork(watchSignUp),
+        fork(watchUpdateNickname),
     ]);
 }

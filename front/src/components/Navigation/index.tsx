@@ -5,7 +5,7 @@ import styled from 'styled-components';
 const Navigation=()=>{
     return(
         <Container>
-            <Menu>내 정보</Menu>
+            <Link href="/myInfo"><ATag><Menu>내 정보</Menu></ATag></Link>
             <Link href="/myReviews"><ATag><Menu>내가 쓴 리뷰</Menu></ATag></Link>
             <Link href="/searchMovie"><ATag><Menu>영화 검색</Menu></ATag></Link>
         </Container>
