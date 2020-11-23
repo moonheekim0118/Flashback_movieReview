@@ -8,9 +8,7 @@ const Logout=()=>{
     const dispatch = useDispatch();
 
     const onClick=useCallback(()=>{
-        dispatch({
-            type:LOGOUT_REQUEST
-        })
+        dispatch({ type:LOGOUT_REQUEST })
     },[]);
 
     return(

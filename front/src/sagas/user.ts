@@ -17,7 +17,7 @@ function loginAPI(data){
 }
 
 function logoutAPI(){
-    //return axios.get('/');
+    return axios.post('/user/logout');
 }
 
 function signUpAPI(data){
@@ -64,12 +64,11 @@ function* login(action){
     }
 }
 
-function* logout(action){
+function* logout(){
     try{
-        //const result = yield call(loginAPI);
+        yield call(logoutAPI);
         yield put({
             type:type.LOGOUT_SUCCESS,
-            data:action.data,
         })        
     }catch(err){
         yield put({

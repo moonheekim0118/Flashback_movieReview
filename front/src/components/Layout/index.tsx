@@ -1,4 +1,5 @@
 import React ,{ useCallback } from 'react';
+import { useSelector } from 'react-redux';
 import Link from 'next/link';
 import Router from 'next/router'
 import Icons from '../../atoms/Icons';
@@ -12,12 +13,14 @@ interface Props {
 }
 
 const Layout=({ PageName="" , children} : Props)=>{
-    
+
+    const loginDone = useSelector(state=>state.user.loginDone);
     const onPushBack = useCallback(()=>{
         Router.back();
     },[]);
 
-    const MainButton = PageName ==='메뉴' ? <Logout/> : <Link href="/menu"><a><Icons icon={faBars} color="lightPurple"/></a></Link> ;
+    const MainButton = PageName ==='메뉴' && loginDone ? <Logout/> : 
+    <Link href="/menu"><a><Icons icon={faBars} color="lightPurple"/></a></Link> ;
     
     return(
         <App>
