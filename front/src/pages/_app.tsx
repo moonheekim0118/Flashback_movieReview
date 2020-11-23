@@ -24,7 +24,7 @@ const getTheme =(checked)=>{
             localStorage.setItem("theme", JSON.stringify("darkTheme"));
         }
         else{
-            localStorage.setItem("theme", JSON.stringify("darkTheme"));
+            localStorage.setItem("theme", JSON.stringify("lightTheme"));
         }
         setCheck();
     },[checked]);
