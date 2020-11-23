@@ -1,12 +1,12 @@
 const express = require('express');
-const user = require('../../models/user');
 const router = express.Router();
 const userController= require('../controllers/user');
+const { isLoggedIn, isNotLoggedIn} = require('./middlewares'); // 로그인 검사 미들웨어
 
-router.post('/signUp',userController.signUp);
+router.post('/signUp', isNotLoggedIn, userController.signUp);
 
-router.post('/login',userController.login);
+router.post('/login',isNotLoggedIn,userController.login);
 
-router.post('/logout',userController.logout);
+router.post('/logout',isLoggedIn,userController.logout);
 
 module.exports=router;
