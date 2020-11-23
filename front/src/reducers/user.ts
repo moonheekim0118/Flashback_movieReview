@@ -80,9 +80,6 @@ const reducer =  (state=initialState, action)=>{
             case type.SIGNUP_SUCCESS:
                 draft.signUpDone=true;
                 draft.signUpLoading=false;
-                // 로그인 완료 처리해주기
-                draft.loginDone=true;
-                draft.myInfo=action.data;
                 break;
 
             case type.SIGNUP_FAIL:

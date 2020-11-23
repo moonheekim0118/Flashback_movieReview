@@ -20,8 +20,8 @@ function logoutAPI(){
     //return axios.get('/');
 }
 
-function signUpAPI(){
-    //return axios.get('/');
+function signUpAPI(data){
+    return axios.post('/user/signUp',data);
 }
 
 function updateNicknameAPI(){
@@ -80,15 +80,15 @@ function* logout(action){
 
 function* signUp(action){
     try{
-        //const result = yield call(loginAPI);
+        const result = yield call(signUpAPI,action.data);
         yield put({
             type:type.SIGNUP_SUCCESS,
-            data:action.data,
+            data:result.data,
         })        
     }catch(err){
         yield put({
             type:type.SIGNUP_FAIL,
-            error:err
+            error:err.response.data || '다시 시도해주세요.'
         });
     }
 }

@@ -7,13 +7,13 @@ import { useSelector } from 'react-redux';
 
 const SingUp=()=>{
 
-    const signUpDone = useSelector(state=>state.user.signUpDone);
+    const { signUpDone , loginDone }= useSelector(state=>state.user);
 
     useEffect(()=>{
-        if(signUpDone){
+        if(signUpDone || loginDone){
             Router.push('/');
         }
-    },[signUpDone]);
+    },[signUpDone,loginDone]);
 
     return(
         <Layout PageName="회원가입">

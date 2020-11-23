@@ -1,5 +1,9 @@
-import React , { useCallback , useState } from 'react';
+import React , { useEffect, useCallback , useState } from 'react';
+import { useDispatch , useSelector } from 'react-redux';
+import { SIGNUP_REQUEST } from '../../../actions/user';
 import Button from '../../../atoms/Buttons';
+import Alert from '../../Alert';
+import useAlert from '../../../hooks/useAlert';
 import useInput from '../../../hooks/useInput';
 import useValidation from '../../../hooks/useValidation';
 import {
@@ -12,17 +16,34 @@ ErrorMessage
 } from '../Login';
 
 const SignUp=()=>{
-    
+    const dispatch = useDispatch();
+    const signUpError = useSelector((state)=>state.user.signUpError);
     const [email, setEmail]=useInput("");
     const [nickname, setNickname, nicknameLengthError]=useValidation("",2,6);
     const [password, setPassword, passwordLengthError]=useValidation("",6,15);
     const [checkpassword,setCheckpassword]=useState("");
     const [passwordError, setPasswordError]=useState(false);
+    const [showAlert, openAlert, closeAlert]=useAlert();
 
+    useEffect(()=>{
+         if(signUpError){
+          openAlert();
+          const timer = setTimeout(closeAlert,2000);
+          return ()=>{
+              clearTimeout(timer);
+          }
+         }
+    },[signUpError]);
 
     const onSubmit = useCallback((e)=>{
          e.preventDefault();
+         dispatch({
+              type:SIGNUP_REQUEST,
+              data: {email, nickname, password}
+         });
+         
     },[email,nickname,password,checkpassword]);
+
 
     const onChangeCheckPassword = useCallback((e)=>{
          setCheckpassword(e.target.value);
@@ -31,6 +52,7 @@ const SignUp=()=>{
 
     return(
        <Container>
+            {showAlert && <Alert text={signUpError}/>}
             <InputContainer>
                 <Label htmlFor="user-nickname">닉네임</Label>
                 <TextInput
