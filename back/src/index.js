@@ -23,7 +23,7 @@ app.use(cors({ // cors 설정
     origin:'http://localhost:3000',
     credentials:true,
 }));
-
+app.use(express.json()); // body parser
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(session({
     saveUninitialized:false,

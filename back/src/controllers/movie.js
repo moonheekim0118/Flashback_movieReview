@@ -48,3 +48,29 @@ exports.movieList=async(req,res,next)=>{
         next(err);
     }
 }
+
+exports.relatedSearch=async(req,res,next)=>{
+    try{
+        const keyword=req.params.keyword;
+        await request.get(
+        {
+            uri:process.env.API_URI+`?query=${encodeURIComponent(keyword)}`,
+            headers:headers,
+            method: 'GET'
+        },
+        (error,response,body) => {
+            if(!error){
+                const data = JSON.parse(body); // 오브젝트로 파싱 
+                res.json(data.items);
+            }
+            else{
+                console.log(response);
+                res.status(500).json(error);
+            }
+        }
+        );
+    }catch(err){
+        console.error(err);
+        next(err);
+    }
+}

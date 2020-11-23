@@ -9,6 +9,11 @@ import { faSearch, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { debounce } from 'lodash';
 import SearchResult from '../SearchResult';
 
+const parseTitle = (title)=>{ // 제목 파싱해주는 함수 
+    let newTitle = title.replace('<b>','');
+    newTitle=newTitle.replace('</b>','');
+    return newTitle
+}
 
 const SearchMovie=()=>{
 
@@ -57,8 +62,8 @@ const SearchMovie=()=>{
                 {loadRelatedSearchDone && SearchInput.length>0 &&
                 searchLists.map((val)=>
                 <SearchResult
-                key={val.id} 
-                movieName={val.title}/>)}
+                key={val.link} 
+                movieName={parseTitle(val.title)}/>)}
             </SearchResultContainer>
         </Container>
     );

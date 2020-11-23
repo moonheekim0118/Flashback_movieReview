@@ -86,12 +86,11 @@ const reducer =  (state=initialState, action)=>{
                 break;
             
             case type.LOAD_RELATED_SEARCH_SUCCESS:
+                console.log(action.data);
+
                 draft.loadRelatedSearchDone=true;
                 draft.loadRelatedSearchLoading=false;
-                draft.searchLists= Array(10).fill(0).map((v,i)=>({
-                    id:shortid.generate(),
-                    title:faker.name.findName(),
-                })) ;
+                draft.searchLists= action.data;
                 break;
 
             case type.LOAD_RELATED_SEARCH_FAIL:

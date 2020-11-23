@@ -17,7 +17,7 @@ function loadSingleMovieAPI(id){
 }
 
 function loadRelatedSearchAPI(keyword){
-    return axios.get('/');
+    return axios.get(`/movie/${keyword}/relatedSearch`);
 }
 
 function* loadMovieLists(action){
@@ -55,10 +55,10 @@ function* loadSingleMovie(action){
 
 function* loadRelatedSearch(action){
     try{
-        // const result = yield call(loadRelatedSearchAPI,action.data);
+        const result = yield call(loadRelatedSearchAPI,action.data);
         yield put({
             type:type.LOAD_RELATED_SEARCH_SUCCESS,
-            data:''
+            data:result.data
         })        
     }catch(err){
         yield put({
