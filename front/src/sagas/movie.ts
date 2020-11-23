@@ -9,7 +9,7 @@ import * as type from '../actions/movie';
 import axios from 'axios';
 
 function loadMovieListsAPI(keyword){
-    return axios.get('/');
+    return axios.get(`/movie/${keyword}/movieList`);
 }
 
 function loadSingleMovieAPI(id){
@@ -22,7 +22,7 @@ function loadRelatedSearchAPI(keyword){
 
 function* loadMovieLists(action){
     try{
-        // const result = yield call(loadMovieListsAPI,action.data);
+        const result = yield call(loadMovieListsAPI,action.data);
         yield put({
             type:type.LOAD_MOVIES_SUCCESS,
             data:''

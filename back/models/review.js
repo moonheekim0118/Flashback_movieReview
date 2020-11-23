@@ -1,9 +1,5 @@
 module.exports=(sequelize, DataType)=>{
     const Review = sequelize.define('Review', {
-        movieId:{
-            type: DataType.STRING(100),
-            allowNull :false,
-        },
         shortComment:{
             type: DataType.STRING(50),
             allowNull :false,
@@ -31,6 +27,7 @@ module.exports=(sequelize, DataType)=>{
 
     Review.associate = (db) => {
         db.Review.belongsTo(db.User);
+        db.Review.belongsTo(db.Movie);
     };
     return Review;
 }
