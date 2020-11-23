@@ -11,7 +11,7 @@ const SingUp=()=>{
 
     useEffect(()=>{
         if(signUpDone || loginDone){
-            Router.push('/');
+            Router.replace('/');
         }
     },[signUpDone,loginDone]);
 
