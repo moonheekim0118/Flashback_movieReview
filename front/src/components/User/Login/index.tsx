@@ -1,31 +1,44 @@
-import React , { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import React , { useEffect,useCallback } from 'react';
+import { useDispatch , useSelector } from 'react-redux';
 import { LOGIN_REQUEST } from '../../../actions/user';
 import styled from 'styled-components';
 import Button from '../../../atoms/Buttons';
+import Alert from '../../Alert';
+import useAlert from '../../../hooks/useAlert';
 import useInput from '../../../hooks/useInput';
 
 
 const Login=()=>{
 
+    const dispatch = useDispatch();
+
+    const loginError = useSelector((state)=>state.user.loginError);
     const [email, setEmail]=useInput("");
     const [password, setPassword]=useInput("");
+    const [showAlert, openAlert, closeAlert]=useAlert();
     
-    const dispatch = useDispatch();
+
+    useEffect(()=>{
+        if(loginError){
+            openAlert();
+            const timer = setTimeout(closeAlert,2000);
+            return ()=>{
+                clearTimeout(timer);
+            }
+        }
+    },[loginError]);
 
     const onSubmit = useCallback((e)=>{
         e.preventDefault();
         dispatch({
             type:LOGIN_REQUEST,
-            data:{
-                email:email,
-                nickname:'테스트유저',
-            }
+            data:{ email, password }
         });
     },[email,password]);
 
     return(
        <Container>
+           {showAlert && <Alert text={loginError}/>}
            <InputContainer>
                 <Label htmlFor="user-email">이메일</Label>
                 <TextInput
@@ -49,7 +62,7 @@ const Login=()=>{
            <Button
             fill={true}
             shadow={true}
-            disabled={email.length===0 || password.lenght===0}
+            disabled={email.length===0 || password.length===0}
             color={"purple"} 
             onClick={onSubmit}
             title={"로그인"}

@@ -12,8 +12,8 @@ function loadMyInfoAPI(){
     //return axios.get('/');
 }
 
-function loginAPI(){
-    //return axios.get('/');
+function loginAPI(data){
+    return axios.post('/user/login',data);
 }
 
 function logoutAPI(){
@@ -50,15 +50,16 @@ function* loadMyInfo(action){
 
 function* login(action){
     try{
-        //const result = yield call(loginAPI);
+        const result = yield call(loginAPI,action.data);
         yield put({
             type:type.LOGIN_SUCCESS,
-            data:action.data,
+            data:result.data,
         })        
     }catch(err){
+        console.log(err);
         yield put({
             type:type.LOGIN_FAIL,
-            error:err
+            error:err.response.data || '다시 시도해주세요.'
         });
     }
 }

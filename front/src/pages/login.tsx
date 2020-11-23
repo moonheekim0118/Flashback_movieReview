@@ -10,7 +10,7 @@ const Login=()=>{
     
     useEffect(()=>{
         if(loginDone){
-            Router.push('/');
+            Router.replace('/');
         }
     },[loginDone]);
 
