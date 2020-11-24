@@ -6,6 +6,8 @@ const { isLoggedIn } = require('./middlewares'); // 로그인 검사 미들웨�
 // 리뷰 작성
 router.post('/createReview',isLoggedIn, reviewController.createReview);
 
+router.get('/myReviews',isLoggedIn,reviewController.myReviews);
+
 // 리뷰 1개 가져오기
 router.get('/:reviewId/singleReview',reviewController.sendReview);
 

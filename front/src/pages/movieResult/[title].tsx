@@ -49,7 +49,7 @@ const movieResult=()=>{
     );
 }
 
-const Message = styled.div`
+export const Message = styled.div`
     text-align:center;
     margin-top:50px;
 `;

@@ -8,8 +8,8 @@ import {
 import * as type from '../actions/review';
 import axios from 'axios';
 
-function loadMyReivewsAPI(){
-    return axios.get('/');
+function loadMyReivewsAPI(lastId){
+    return axios.get(`/review/myReviews?lastId=${lastId}`);
 }
 
 function loadSingleReviewAPI(data){
@@ -30,10 +30,10 @@ function updateMyReviewAPI(data){
 
 function* loadMyReivews(action){
     try{
-        // const result = yield call(loadMovieListsAPI,action.data);
+        const result = yield call(loadMyReivewsAPI,action.data);
         yield put({
             type:type.LOAD_MY_REVIEWS_SUCCESS,
-            data:''
+            data:result.data
         })        
     }catch(err){
         console.log(err);

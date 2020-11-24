@@ -16,7 +16,7 @@ const Preview=({Review}:Props)=>{
 
     return(
         <Container onClick={onClick}>
-            <MoviePoster src={Review.movieInfo.image}/>
+            <MoviePoster src={Review.Movie.image}/>
             <MovieDescription>
                 <Comment>{Review.shortComment}</Comment>
                 <Badge badgeName={Review.rating} selected={true}/>

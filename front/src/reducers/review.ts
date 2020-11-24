@@ -1,13 +1,12 @@
 import * as type from '../actions/review';
 import { produce } from 'immer';
-import faker from 'faker';
-import shortid from 'shortid';
 
 export const initialState={
 
     loadMyReviewsLoading:false, // 리뷰 불러오기 
     loadMyReviewsDone:false,
     loadMyReviewsError:null,
+    hasMoreReviews:true, // for pagination
 
     loadSingleReviewLoading:false, // 리뷰 하나 불러오기
     loadSingleReviewDone:false,
@@ -32,6 +31,11 @@ export const initialState={
 const reducer =  (state=initialState, action)=>{
     return produce(state,draft=>{
         switch(action.type){
+            // 초기화
+            case type.INIT_REVIEWS:
+                draft.myReviews=[];
+                draft.hasMoreReviews=true;
+                break;
             // 로딩 
             case type.LOAD_MY_REVIEWS_REQUEST:
                 draft.loadMyReviewsDone=false;
@@ -40,31 +44,10 @@ const reducer =  (state=initialState, action)=>{
                 break;
             
             case type.LOAD_MY_REVIEWS_SUCCESS:
-                draft.myReviews=action.data; 
-                draft.myReviews=Array(5).fill(0).map((v,i)=>({
-                    id:shortid.generate(),
-                    movieInfo:{
-                        id:shortid.generate(),
-                        title:faker.name.findName(),
-                        director:faker.name.findName(),
-                        image:faker.image.image(),
-                        pubDate:faker.date.past(), 
-                    },
-                    author:{
-                        id:shortid.generate(),
-                        nickname:'아무개',
-                        profilePic:'',
-                    },
-                    rating:'GOOD',
-                    shortComment:faker.name.findName(),
-                    character:faker.name.findName(),
-                    line:faker.name.findName(),
-                    scene:faker.name.findName(),
-                    freeComment:faker.name.findName(),
-                }));
-                
+                draft.myReviews=draft.myReviews.concat(action.data); 
                 draft.loadMyReviewsDone=true;
                 draft.loadMyReviewsLoading=false;
+                draft.hasMoreReviews=action.data.length===10;
                 break;
 
             case type.LOAD_MY_REVIEWS_FAIL:
