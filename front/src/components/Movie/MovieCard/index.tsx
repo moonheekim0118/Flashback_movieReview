@@ -3,6 +3,7 @@ import Router from 'next/router';
 import styled from 'styled-components';
 import { MovieList } from '../../../model/MovieList';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { titleParser } from '../../../util/titleParser';
 import Icon from '../../../atoms/Icons';
 
 interface Props {
@@ -14,14 +15,14 @@ interface Props {
 const MovieCard=({Movie, Search=false}:Props)=>{
 
     const onSelectMovie=useCallback(()=>{ 
-        Router.push(`/writeReview/${Movie.id}`); // redirect
+        Router.push(`/writeReview/${Movie.title}`); // redirect
     },[]);
 
     return(
         <Container>
             <MoviePoster src={Movie.image}/>
             <MovieDescription>
-                <MovieTitle>{Movie.title}</MovieTitle>
+                <MovieTitle>{titleParser(Movie.title)}</MovieTitle>
                 <p>{Movie.director} 감독</p>
                 <p> 2019.08 제작</p>
             </MovieDescription>

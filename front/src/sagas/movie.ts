@@ -8,8 +8,8 @@ import {
 import * as type from '../actions/movie';
 import axios from 'axios';
 
-function loadMovieListsAPI(keyword){
-    return axios.get(`/movie/${keyword}/movieList`);
+function loadMovieListsAPI(data){
+    return axios.get(`/movie/${data.title}/movieList?start=${data.start}`);
 }
 
 function loadSingleMovieAPI(id){
@@ -25,7 +25,7 @@ function* loadMovieLists(action){
         const result = yield call(loadMovieListsAPI,action.data);
         yield put({
             type:type.LOAD_MOVIES_SUCCESS,
-            data:''
+            data:result.data
         })        
     }catch(err){
         console.log(err);

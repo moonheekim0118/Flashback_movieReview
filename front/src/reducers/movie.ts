@@ -8,7 +8,8 @@ export const initialState={
     loadMoviesLoading:false,
     loadMoviesDone:false,
     loadMoviesError:null,
-    
+    hasMoreMovies:true, // for pagination
+
     // 영화 하나 가져오기
     loadSingleMovieLoading:false,
     loadSingleMovieDone:false,
@@ -28,6 +29,12 @@ export const initialState={
 const reducer =  (state=initialState, action)=>{
     return produce(state,draft=>{
         switch(action.type){
+            // 영화 리스트 초기화
+            case type.INIT_MOVIES:
+                draft.movieLists=[];
+                draft.hasMoreMovies=true;
+                break;
+                
             // 영화 리스트 불러오기 
             case type.LOAD_MOVIES_REQUEST:
                 draft.loadMoviesLoading=false;
@@ -36,16 +43,10 @@ const reducer =  (state=initialState, action)=>{
                 break;
             
             case type.LOAD_MOVIES_SUCCESS:
-                draft.movieLists= Array(10).fill(0).map((v,i)=>({
-                    id:shortid.generate(),
-                    title:faker.name.findName(),
-                    director:faker.name.findName(),
-                    image:faker.image.image(),
-                    pubDate:faker.date.past(),
-                    
-                }));
+                draft.movieLists=draft.movieLists.concat(action.data); // 불러온 영화 추가하기 
                 draft.loadMoviesDone=true;
                 draft.loadMoviesLoading=false;
+                draft.hasMoreMovies = action.data.length===10; // 10개가 안되면 더이상 불러올 영화가 없음 
                 break;
 
             case type.LOAD_MOVIES_FAIL:

@@ -1,4 +1,7 @@
 
+// 영화 리스트 초기화
+export const INIT_MOVIES="INIT_MOVIES";
+
 // 영화 리스트 
 export const LOAD_MOVIES_REQUEST="LOAD_MOVIES_REQUEST";
 export const LOAD_MOVIES_SUCCESS="LOAD_MOVIES_SUCCESS";

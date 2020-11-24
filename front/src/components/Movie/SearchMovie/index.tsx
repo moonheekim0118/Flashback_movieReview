@@ -7,13 +7,8 @@ import Icon from '../../../atoms/Icons';
 import { LOAD_RELATED_SEARCH_REQUEST } from '../../../actions/movie';
 import { faSearch, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { debounce } from 'lodash';
+import { titleParser } from '../../../util/titleParser';
 import SearchResult from '../SearchResult';
-
-const parseTitle = (title)=>{ // 제목 파싱해주는 함수 
-    let newTitle = title.replace('<b>','');
-    newTitle=newTitle.replace('</b>','');
-    return newTitle
-}
 
 const SearchMovie=()=>{
 
@@ -23,7 +18,7 @@ const SearchMovie=()=>{
     const { loadRelatedSearchLoading , loadRelatedSearchDone, searchLists } = useSelector(state=>state.movie);
 
     const onClickSearch=useCallback(()=>{
-        Router.push(`/searchResult/${SearchInput}`);
+        Router.push(`/movieResult/${SearchInput}`);
     },[SearchInput]);
 
     const onChnageInput=useCallback((e)=>{
@@ -63,7 +58,7 @@ const SearchMovie=()=>{
                 searchLists.map((val)=>
                 <SearchResult
                 key={val.link} 
-                movieName={parseTitle(val.title)}/>)}
+                movieName={titleParser(val.title)}/>)}
             </SearchResultContainer>
         </Container>
     );

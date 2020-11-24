@@ -25,17 +25,18 @@ exports.singleMovie=async(req,res,next)=>{
 
 exports.movieList=async(req,res,next)=>{
     try{
-        const keyword=req.params.keyword;
+        const title=req.params.title;
+        const start=+req.query.start; // 스타트지점 
         await request.get(
         {
-            uri:process.env.API_URI+`?query=${encodeURIComponent(keyword)}`,
+            uri:process.env.API_URI+`?query=${encodeURIComponent(title)}&start=${start}`, 
             headers:headers,
             method: 'GET'
         },
         (error,response,body) => {
             if(!error){
-                console.log(body);
-                res.json(body);
+                const data = JSON.parse(body); // 오브젝트로 파싱 
+                res.status(200).json(data.items);
             }
             else{
                 console.log(response);
@@ -61,7 +62,7 @@ exports.relatedSearch=async(req,res,next)=>{
         (error,response,body) => {
             if(!error){
                 const data = JSON.parse(body); // 오브젝트로 파싱 
-                res.json(data.items);
+                res.status(200).json(data.items);
             }
             else{
                 console.log(response);
