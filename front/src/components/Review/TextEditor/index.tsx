@@ -2,7 +2,7 @@ import React , { useCallback , useRef,useState , useEffect } from 'react';
 import shortid from 'shortid';
 import useToggle from '../../../hooks/useSelecting';
 import Router from 'next/router';
-import { useDispatch } from 'react-redux';
+import { useDispatch , useSelector } from 'react-redux';
 import MovieCard from '../../Movie/MovieCard';
 import Button from '../../../atoms/Buttons';
 import Icon from '../../../atoms/Icons';
@@ -25,7 +25,7 @@ const TextEditor=({Review , ButtonType}:Props)=>{
     const [ line, setLine, lineError ] = useValidation(Review.line,5,50);
     const [ scene, setScene, sceneError ] = useValidation(Review.scene,5,50);
     const [ freeComment, setFreeComment ,freeCommentError ] = useValidation(Review.freeComment,0,50);
-
+    
     const initialUpdate = useRef(true);
     const [initial, setInitial]=useState(true);
     
@@ -41,6 +41,7 @@ const TextEditor=({Review , ButtonType}:Props)=>{
     const PassedIcon=<Icon icon={faCheck} color={'green'}/>
     const ErrorIcon=<Icon icon={faTimes} color={'red'}/>
 
+    const { myReviews , addMyReviewDone } = useSelector((state)=>state.review);
 
     useEffect(()=>{ // 초기 상태라면 validation 에러 띄워주지 않음 
         if(initialUpdate.current){
@@ -52,6 +53,12 @@ const TextEditor=({Review , ButtonType}:Props)=>{
         }
     },[initialUpdate.current]);
 
+    useEffect(()=>{ // 리뷰 수정말고 생성시에만 실행 ! 
+        if(addMyReviewDone){ // 리뷰 작성 완료했을 경우 리다이렉팅 
+            Router.replace(`/singleReview/${myReviews[0].id}`);
+        }
+    },[addMyReviewDone,myReviews]);
+    
     const onCreate=useCallback(()=>{ // 리뷰 저장
 
         let rating='BAD';
@@ -64,7 +71,7 @@ const TextEditor=({Review , ButtonType}:Props)=>{
         dispatch({
             type:ADD_MY_REVIEW_REQUEST,
             data:{
-                movieInfo:Review.movieInfo,
+                Movie:Review.Movie,
                 rating:rating,
                 shortComment:shortComment,
                 character:character,
@@ -73,9 +80,7 @@ const TextEditor=({Review , ButtonType}:Props)=>{
                 freeComment:freeComment,
             }
         });
-        // 저장 디스패치 보내주고
-        // 라우터로 푸시해서 preview 페이지로 보내주기 
-        Router.push(`/singleReview/${shortid.generate()}`);
+
     },[goodSelect,sosoSelect,badSelect,shortComment,character,line,scene,freeComment]);
 
     const onUpdate=useCallback(()=>{ // 리뷰 수정 
@@ -91,7 +96,7 @@ const TextEditor=({Review , ButtonType}:Props)=>{
             data:{
                 id:Review.id,
                 User:Review.User,
-                movieInfo:Review.movieInfo,
+                Movie:Review.Movie,
                 rating:rating,
                 shortComment:shortComment,
                 line:line,
@@ -100,8 +105,9 @@ const TextEditor=({Review , ButtonType}:Props)=>{
                 freeComment:freeComment,
             }
         })
-        Router.push(`/singleReview/${Review.id}`);
-    },[]);
+        Router.replace(`/singleReview/${Review.id}`); // 리뷰 페이지로 돌아가기 
+
+    },[goodSelect,sosoSelect,badSelect,shortComment,character,line,scene,freeComment]);
 
     const SubmitButton= ButtonType==='create' ?
     <Button
@@ -119,7 +125,7 @@ const TextEditor=({Review , ButtonType}:Props)=>{
 
     return(
         <Container>
-            <MovieCard Movie={Review.movieInfo}/>
+            <MovieCard Movie={Review.Movie}/>
             <BadgeContainer>
                 <Badge badgeName={"GOOD"} selected={goodSelect} onClick={setGoodSelect}/>
                 <Badge badgeName={"SOSO"} selected={sosoSelect} onClick={setSoSoSelect}/>

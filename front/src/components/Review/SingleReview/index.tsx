@@ -29,14 +29,17 @@ const SingleReview=({Review}:Props)=>{
                 onClick={onClickButton}
                 />}
             </ButtonContainer>
-            <MovieCard Movie={Review.movieInfo}/>
-            <BadgeContainer>
-                <Badge badgeName={Review.rating} selected={true}/>
-            </BadgeContainer>
+            <MovieCard Movie={Review.Movie}/>
             <ReviewContainer>
             <TitleContainer>
                 <Title>{Review.shortComment}</Title>
-                <Author> <Avatar nickname={Review.User.nickname}/> <Nickname>{Review.User.nickname} 작성</Nickname></Author>
+                <MiddleContainer>
+                    <Author> 
+                        <Avatar nickname={Review.User.nickname}/>
+                             <Nickname>{Review.User.nickname} 작성</Nickname>
+                        </Author>
+                    <Badge badgeName={Review.rating} selected={true}/>
+                </MiddleContainer>
             </TitleContainer>
             <ContentsContainer>
                 <SubTitle>기억에 남는 인물</SubTitle>
@@ -115,7 +118,13 @@ const ButtonContainer = styled.div`
 
 const BadgeContainer = styled.div`
     position:absolute;
-    top:-10px;
+    top:-20px;
     left:10px;
+`;
+
+const MiddleContainer = styled.div`
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 `;
 export default SingleReview;

@@ -1,5 +1,5 @@
 import React , { useEffect } from 'react';
-import { useRouter }from 'next/router';
+import { useRouter } from 'next/router';
 import { useDispatch,useSelector } from 'react-redux';
 import { LOAD_SINGLE_REVIEW_REQUEST } from '../../actions/review';
 import Layout from '../../components/Layout';
@@ -12,12 +12,16 @@ const singleReview=()=>{
     const { id } = router.query;
     const singleReview = useSelector(state=>state.review.singleReview);
 
+    // id 값이 불러와지면 서버에 요청 보내는 것으로 대체! -> 안그러면 404 에러남 
+    // 서버사이드 렌더링하면 이부분은 없어도 된다.
     useEffect(()=>{
-        dispatch({
-            type:LOAD_SINGLE_REVIEW_REQUEST,
-            data:id,
-        });
-    },[]);
+        if(id){
+            dispatch({
+                type:LOAD_SINGLE_REVIEW_REQUEST,
+                data:id,
+            });
+        }
+    },[id]);
 
     if(!singleReview) return (
         <Layout PageName="리뷰">

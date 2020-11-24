@@ -82,27 +82,7 @@ const reducer =  (state=initialState, action)=>{
             case type.LOAD_SINGLE_REVIEW_SUCCESS:
                 draft.loadSingleReviewDone=true;
                 draft.loadSingleReviewLoading=false;
-                draft.singleReview= {
-                    id:shortid.generate(),
-                    movieInfo:{
-                        id:shortid.generate(),
-                        title:faker.name.findName(),
-                        director:faker.name.findName(),
-                        image:faker.image.image(),
-                        pubDate:faker.date.past(), 
-                    },
-                    author:{
-                        id:shortid.generate(),
-                        nickname:'아무개',
-                        profilePic:'',
-                    },
-                    rating:'GOOD',
-                    shortComment:faker.name.findName(),
-                    character:faker.name.findName(),
-                    line:faker.name.findName(),
-                    scene:faker.name.findName(),
-                    freeComment:faker.name.findName(),
-                };
+                draft.singleReview=action.data;
                 break;
             
             case type.LOAD_SINGLE_REVIEW_FAIL:

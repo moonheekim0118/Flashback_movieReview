@@ -2,7 +2,7 @@ const { User, Review, Movie } = require('../../models');
 
 exports.createReview = async(req,res,next)=>{
     try{
-        const movieInfo = req.body.movieInfo; // 영화 정보 
+        const movieInfo = req.body.Movie; // 영화 정보 
         const exMovie = await Movie.findOne({ // 이미 존재 하는 지 체크 
             where:{title:movieInfo.title,
                 director:movieInfo.director,
@@ -45,3 +45,22 @@ exports.createReview = async(req,res,next)=>{
         next(error);
     }
 };
+
+
+exports.sendReview=async(req,res,next)=>{
+    try{
+        const reviewId=req.params.reviewId;
+        const review = await Review.findOne(
+            { where:{id:reviewId},
+            include:[
+                { model : Movie},  // 영화 정보 포함 
+                { model : User, attributes:['id','nickname']},  // 작성자 정보 포함 
+            ]
+        });
+        console.log(review, reviewId);
+        res.status(201).json(review);
+    }catch(error){
+        console.error(error);
+        next(error);
+    }
+}

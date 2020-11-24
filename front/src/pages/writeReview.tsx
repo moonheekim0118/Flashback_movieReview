@@ -9,9 +9,8 @@ const WriteReview=()=>{
     const dispatch = useDispatch();
     const singleMovie = useSelector((state)=>state.movie.singleMovie);
     const myInfo = useSelector((state)=>state.user.myInfo);
-    
-    const base = {id:null, movieInfo:singleMovie, User:{id:myInfo.id, nickname:myInfo.nickname},
-        shortComment:"", line:"", character:"", scene:"", freeComment:"", rating:"GOOD"};
+    let base = {id:null, Movie:singleMovie, User:{id:null, nickname:null},
+    shortComment:"", line:"", character:"", scene:"", freeComment:"", rating:"GOOD"};
 
     useEffect(()=>{
         dispatch({
@@ -20,6 +19,10 @@ const WriteReview=()=>{
 
         if(!myInfo){ // 로그인 안되어있는 경우 리다이렉트 
             Router.replace('/login');
+        }
+        else{
+            base = {id:myInfo.id, Movie:singleMovie, User:{id:myInfo.id, nickname:myInfo.nickname},
+            shortComment:"", line:"", character:"", scene:"", freeComment:"", rating:"GOOD"};
         }
 
         // 새로고침 시 영화 정보가 사라지므로, 경고창을 띄운다.

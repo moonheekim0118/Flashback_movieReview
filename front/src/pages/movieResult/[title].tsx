@@ -25,8 +25,7 @@ const movieResult=()=>{
         function onScroll(){
             if(window.pageYOffset + document.documentElement.clientHeight+10>=document.documentElement.scrollHeight){
                 if(hasMoreMovies && !loadMoviesLoading){
-                    const start = movieLists.length+1; // 다음 스타트 지점 
-                    console.log(movieLists.length);
+                    const start = movieLists.length+1; // 다음 스타트 지점
                     dispatch({
                         type:LOAD_MOVIES_REQUEST,
                         data:{title:title, start:start}
