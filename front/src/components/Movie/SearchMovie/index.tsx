@@ -7,8 +7,8 @@ import Icon from '../../../atoms/Icons';
 import { LOAD_RELATED_SEARCH_REQUEST } from '../../../actions/movie';
 import { faSearch, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { debounce } from 'lodash';
+import { titleParser } from '../../../util/titleParser';
 import SearchResult from '../SearchResult';
-
 
 const SearchMovie=()=>{
 
@@ -18,7 +18,7 @@ const SearchMovie=()=>{
     const { loadRelatedSearchLoading , loadRelatedSearchDone, searchLists } = useSelector(state=>state.movie);
 
     const onClickSearch=useCallback(()=>{
-        Router.push(`/searchResult/${SearchInput}`);
+        Router.push(`/movieResult/${SearchInput}`);
     },[SearchInput]);
 
     const onChnageInput=useCallback((e)=>{
@@ -57,8 +57,8 @@ const SearchMovie=()=>{
                 {loadRelatedSearchDone && SearchInput.length>0 &&
                 searchLists.map((val)=>
                 <SearchResult
-                key={val.id} 
-                movieName={val.title}/>)}
+                key={val.link} 
+                movieName={titleParser(val.title)}/>)}
             </SearchResultContainer>
         </Container>
     );

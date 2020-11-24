@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const userRouter = require('./routes/user');
+const movieRouter = require('./routes/movie');
 const db = require('../models');
 const dotenv = require('dotenv');
 const session = require('express-session');
@@ -22,7 +23,7 @@ app.use(cors({ // cors 설정
     origin:'http://localhost:3000',
     credentials:true,
 }));
-
+app.use(express.json()); // body parser
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(session({
     saveUninitialized:false,
@@ -35,6 +36,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
 app.use('/user',userRouter);
+app.use('/movie',movieRouter); 
 
 app.listen(3065,()=>{
     console.log('서버 실행중');

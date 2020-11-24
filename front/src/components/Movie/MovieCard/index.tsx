@@ -1,8 +1,11 @@
 import React , { useCallback } from 'react';
 import Router from 'next/router';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { SAVE_MOVIE } from '../../../actions/movie';
 import { MovieList } from '../../../model/MovieList';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { titleParser } from '../../../util/titleParser';
 import Icon from '../../../atoms/Icons';
 
 interface Props {
@@ -12,16 +15,21 @@ interface Props {
 
 // 검색창 검색시 해당 영화 리스트 가져오기
 const MovieCard=({Movie, Search=false}:Props)=>{
+    const dispatch = useDispatch();
 
-    const onSelectMovie=useCallback(()=>{ 
-        Router.push(`/writeReview/${Movie.id}`); // redirect
+    const onSelectMovie=useCallback(()=>{  // 리뷰 작성할 영화 선택 
+        dispatch({
+            type:SAVE_MOVIE,
+            data:Movie,
+        });
+        Router.push(`/writeReview`); // redirect
     },[]);
 
     return(
         <Container>
             <MoviePoster src={Movie.image}/>
             <MovieDescription>
-                <MovieTitle>{Movie.title}</MovieTitle>
+                <MovieTitle>{titleParser(Movie.title)}</MovieTitle>
                 <p>{Movie.director} 감독</p>
                 <p> 2019.08 제작</p>
             </MovieDescription>

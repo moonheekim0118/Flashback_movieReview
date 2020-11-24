@@ -11,7 +11,7 @@ interface Props {
 const SearchResult=({movieName}:Props)=>{
 
     const onClick=useCallback(()=>{
-        Router.push(`/searchResult/${movieName}`);
+        Router.push(`/movieResult/${movieName}`);
     },[]);
     
     return(

@@ -1,18 +1,12 @@
 import * as type from '../actions/movie';
 import { produce } from 'immer';
-import faker from 'faker';
-import shortid from 'shortid';
 
 export const initialState={
     // 영화리스트 가져오기 
     loadMoviesLoading:false,
     loadMoviesDone:false,
     loadMoviesError:null,
-    
-    // 영화 하나 가져오기
-    loadSingleMovieLoading:false,
-    loadSingleMovieDone:false,
-    loadSingleMovieError:null,
+    hasMoreMovies:true, // for pagination
 
     // 연관검색어 가져오기
     loadRelatedSearchLoading:false,
@@ -28,6 +22,12 @@ export const initialState={
 const reducer =  (state=initialState, action)=>{
     return produce(state,draft=>{
         switch(action.type){
+            // 영화 리스트 초기화
+            case type.INIT_MOVIES:
+                draft.movieLists=[];
+                draft.hasMoreMovies=true;
+                break;
+                
             // 영화 리스트 불러오기 
             case type.LOAD_MOVIES_REQUEST:
                 draft.loadMoviesLoading=false;
@@ -36,16 +36,10 @@ const reducer =  (state=initialState, action)=>{
                 break;
             
             case type.LOAD_MOVIES_SUCCESS:
-                draft.movieLists= Array(10).fill(0).map((v,i)=>({
-                    id:shortid.generate(),
-                    title:faker.name.findName(),
-                    director:faker.name.findName(),
-                    image:faker.image.image(),
-                    pubDate:faker.date.past(),
-                    
-                }));
+                draft.movieLists=draft.movieLists.concat(action.data); // 불러온 영화 추가하기 
                 draft.loadMoviesDone=true;
                 draft.loadMoviesLoading=false;
+                draft.hasMoreMovies = action.data.length===10; // 10개가 안되면 더이상 불러올 영화가 없음 
                 break;
 
             case type.LOAD_MOVIES_FAIL:
@@ -53,30 +47,11 @@ const reducer =  (state=initialState, action)=>{
                 draft.loadMoviesError=action.error;
                 break;
             
-            // 영화 하나 가져오기 
-            case type.LOAD_SINGLE_MOVIE_REQUEST:
-                draft.loadSingleMovieLoading=true;
-                draft.loadSingleMovieDone=false;
-                draft.loadSingleMovieError=null;
+            // 영화 하나 저장하기
+            case type.SAVE_MOVIE:
+                draft.singleMovie=action.data;
                 break;
             
-            case type.LOAD_SINGLE_MOVIE_SUCCESS:
-                draft.loadSingleMovieDone=true;
-                draft.loadSingleMovieLoading=false;
-                draft.singleMovie={
-                    id:shortid.generate(),
-                    title:faker.name.findName(),
-                    director:faker.name.findName(),
-                    image:faker.image.image(),
-                    pubDate:faker.date.past(),
-                }
-                break;
-
-            case type.LOAD_SINGLE_MOVIE_FAIL:
-                draft.loadSingleMovieLoading=false;
-                draft.loadSingleMovieError=action.error;
-                break;
-
             // 연관검색어 불러오기 
             case type.LOAD_RELATED_SEARCH_REQUEST:
                 draft.loadRelatedSearchDone=false;
@@ -86,12 +61,11 @@ const reducer =  (state=initialState, action)=>{
                 break;
             
             case type.LOAD_RELATED_SEARCH_SUCCESS:
+                console.log(action.data);
+
                 draft.loadRelatedSearchDone=true;
                 draft.loadRelatedSearchLoading=false;
-                draft.searchLists= Array(10).fill(0).map((v,i)=>({
-                    id:shortid.generate(),
-                    title:faker.name.findName(),
-                })) ;
+                draft.searchLists= action.data;
                 break;
 
             case type.LOAD_RELATED_SEARCH_FAIL:
