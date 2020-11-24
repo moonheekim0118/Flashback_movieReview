@@ -23,7 +23,7 @@ const SingleReview=({Review}:Props)=>{
     return(
         <Container>
             <ButtonContainer>
-                { myInfo && myInfo.id === Review.author.id &&
+                { myInfo && myInfo.id === Review.User.id &&
                 <Button 
                 title={"수정하기"}
                 onClick={onClickButton}
@@ -36,7 +36,7 @@ const SingleReview=({Review}:Props)=>{
             <ReviewContainer>
             <TitleContainer>
                 <Title>{Review.shortComment}</Title>
-                <Author> <Avatar nickname={Review.author.nickname}/> <Nickname>{Review.author.nickname} 작성</Nickname></Author>
+                <Author> <Avatar nickname={Review.User.nickname}/> <Nickname>{Review.User.nickname} 작성</Nickname></Author>
             </TitleContainer>
             <ContentsContainer>
                 <SubTitle>기억에 남는 인물</SubTitle>
