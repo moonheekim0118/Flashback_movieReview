@@ -4,8 +4,9 @@ import Layout from '../../components/Layout';
 import { useDispatch,useSelector } from 'react-redux';
 import { INIT_MOVIES,LOAD_MOVIES_REQUEST } from '../../actions/movie';
 import MovieCard from '../../components/Movie/MovieCard';
+import styled from 'styled-components';
 
-const searchResult=()=>{
+const movieResult=()=>{
     const dispatch = useDispatch();
     const router = useRouter();
     const { title } = router.query;
@@ -41,11 +42,17 @@ const searchResult=()=>{
     
     return(
         <Layout PageName={`${title} 검색결과`}>
-            {movieLists && movieLists.map((v,i)=>(
+            {movieLists&&movieLists.map((v,i)=>(
                 <MovieCard key={v.link} Movie={v} Search={true}/>
             ))}
+            {movieLists.length===0 && <Message>{`${title} 검색결과가 없습니다!`}</Message>}
         </Layout>
     );
 }
 
-export default searchResult;
+const Message = styled.div`
+    text-align:center;
+    margin-top:50px;
+`;
+
+export default movieResult;
