@@ -4,3 +4,8 @@ export interface MyInfo {
     Reviews:number,
     profilePic:string,
 };
+
+export interface AuthorInfo{
+    id:string,
+    nickname:string,
+}

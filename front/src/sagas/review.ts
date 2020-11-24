@@ -17,7 +17,7 @@ function loadSingleReviewAPI(id){
 }
 
 function addMyReivewAPI(data){
-    return axios.post('/');
+    return axios.post('/review/createReview',data);
 }
 
 function removeMyReviewAPI(id){
@@ -63,10 +63,10 @@ function* loadSingleReivew(action){
 
 function* addMyReivew(action){
     try{
-        // const result = yield call(loadRelatedSearchAPI,action.data);
+        const result = yield call(addMyReivewAPI,action.data);
         yield put({
             type:type.ADD_MY_REVIEW_SUCCESS,
-            data:action.data,
+            data:result.data,
         })        
     }catch(err){
         yield put({

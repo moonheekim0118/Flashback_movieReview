@@ -10,7 +10,7 @@ const WriteReview=()=>{
     const singleMovie = useSelector((state)=>state.movie.singleMovie);
     const myInfo = useSelector((state)=>state.user.myInfo);
     
-    const base = {id:null, movieInfo:singleMovie, author:myInfo,
+    const base = {id:null, movieInfo:singleMovie, User:{id:myInfo.id, nickname:myInfo.nickname},
         shortComment:"", line:"", character:"", scene:"", freeComment:"", rating:"GOOD"};
 
     useEffect(()=>{
