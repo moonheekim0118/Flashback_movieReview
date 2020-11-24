@@ -8,11 +8,6 @@ export const initialState={
     loadMoviesError:null,
     hasMoreMovies:true, // for pagination
 
-    // 영화 하나 가져오기
-    loadSingleMovieLoading:false,
-    loadSingleMovieDone:false,
-    loadSingleMovieError:null,
-
     // 연관검색어 가져오기
     loadRelatedSearchLoading:false,
     loadRelatedSearchDone:false,

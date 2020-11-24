@@ -11,18 +11,6 @@ const headers =  {
     'X-Naver-Client-Secret':process.env.CLIENT_SECRET
 }
 
-exports.singleMovie=async(req,res,next)=>{
-    try{
-        const movieId=req.params.movieId;
-        await request.get({
-
-        });
-    }catch(err){
-        console.error(err);
-        next(err);
-    }
-}
-
 exports.movieList=async(req,res,next)=>{
     try{
         const title=req.params.title;
