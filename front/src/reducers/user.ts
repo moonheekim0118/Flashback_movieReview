@@ -1,7 +1,5 @@
 import * as type from '../actions/user';
 import { produce } from 'immer';
-import shortid from 'shortid';
-import { clear } from 'console';
 
 export const initialState={
     loginDone:false, // 로그인 
@@ -98,12 +96,7 @@ const reducer =  (state=initialState, action)=>{
             case type.LOAD_MY_INFO_SUCCESS:
                 draft.loadMyInfoDone=true;
                 draft.loadMyInfoLoading=false;
-                draft.myInfo={
-                    id:shortid.generate(),
-                    nickname:'테스트',
-                    reviewsCount:15,
-                    profilePic:'',
-                };
+                draft.myInfo=action.data;
                 break;
             
             case type.LOAD_MY_INFO_FAIL:

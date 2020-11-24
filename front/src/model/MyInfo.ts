@@ -1,6 +1,6 @@
 export interface MyInfo { 
     id:string,
     nickname:string,
-    reviewsCount:number,
+    Reviews:number,
     profilePic:string,
 };

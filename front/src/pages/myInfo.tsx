@@ -1,4 +1,5 @@
 import React , { useEffect } from 'react';
+import Router from 'next/router';
 import Layout from '../components/Layout';
 import { LOAD_MY_INFO_REQUEST } from '../actions/user';
 import { useDispatch, useSelector } from 'react-redux'
@@ -6,18 +7,23 @@ import Info from '../components/User/Info';
 
 const User=()=>{
     const dispatch = useDispatch();
-    const myInfo = useSelector((state)=>state.user.myInfo);
+    const { myInfo, loginDone } = useSelector((state)=>state.user);
 
     useEffect(()=>{
-        dispatch({
-            type:LOAD_MY_INFO_REQUEST
-        });
+        if(!loginDone){ // 로그인 안되어있는 경우 
+            Router.replace('/login');
+        }
+        else{
+            dispatch({ // 로그인 되어있는 경우 
+                type:LOAD_MY_INFO_REQUEST
+            });
+        }
     },[]);
     
     if(!myInfo){
         return(
             <Layout PageName="내 정보">
-                잠시후에 다시 시도해주세요.
+                다시 로그인 해주세요.
             </Layout>
         )
     }

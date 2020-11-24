@@ -9,7 +9,7 @@ import * as type from '../actions/user';
 import axios from 'axios';
 
 function loadMyInfoAPI(){
-    //return axios.get('/');
+    return axios.get('/user');
 }
 
 function loginAPI(data){
@@ -33,12 +33,12 @@ function updateProfilePicAPI(){
     
 }
 
-function* loadMyInfo(action){
+function* loadMyInfo(){
     try{
-        //const result = yield call(loadMyInfoAPI);
+        const result = yield call(loadMyInfoAPI);
         yield put({
             type:type.LOAD_MY_INFO_SUCCESS,
-            data:action.data
+            data:result.data
         })        
     }catch(err){
         yield put({
