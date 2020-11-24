@@ -4,7 +4,7 @@ import { AuthorInfo } from './MyInfo';
 export interface ReviewList { 
     id:string;
     User:AuthorInfo;
-    movieInfo:MovieList,
+    Movie:MovieList,
     rating:string;
     shortComment:string;
     character:string;

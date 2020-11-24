@@ -8,12 +8,12 @@ import {
 import * as type from '../actions/review';
 import axios from 'axios';
 
-function loadMyReivewsAPI(){
-    return axios.get('/');
+function loadMyReivewsAPI(lastId){
+    return axios.get(`/review/myReviews?lastId=${lastId}`);
 }
 
-function loadSingleReviewAPI(id){
-    return axios.get('/');
+function loadSingleReviewAPI(data){
+    return axios.get(`/review/${data}/singleReview`);
 }
 
 function addMyReivewAPI(data){
@@ -30,10 +30,10 @@ function updateMyReviewAPI(data){
 
 function* loadMyReivews(action){
     try{
-        // const result = yield call(loadMovieListsAPI,action.data);
+        const result = yield call(loadMyReivewsAPI,action.data);
         yield put({
             type:type.LOAD_MY_REVIEWS_SUCCESS,
-            data:''
+            data:result.data
         })        
     }catch(err){
         console.log(err);
@@ -47,10 +47,10 @@ function* loadMyReivews(action){
 
 function* loadSingleReivew(action){
     try{
-        // const result = yield call(loadMovieListsAPI,action.data);
+        const result = yield call(loadSingleReviewAPI,action.data);
         yield put({
             type:type.LOAD_SINGLE_REVIEW_SUCCESS,
-            data:'',
+            data:result.data,
         })        
     }catch(err){
         console.log(err);

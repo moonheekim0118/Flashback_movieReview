@@ -27,7 +27,6 @@ export const initialState={
     updateProfilePicError:null,
 
     myInfo:null, // 현재 로그인된 사용자 정보 
-    myReviews:[], // 현재 로그인된 사용자의 리뷰리스트 
 };
 
 const reducer =  (state=initialState, action)=>{
