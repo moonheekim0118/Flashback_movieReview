@@ -1,23 +1,27 @@
 import React , { useEffect } from 'react';
-import { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router';
 import Layout from '../../components/Layout';
 import { LOAD_SINGLE_REVIEW_REQUEST } from '../../actions/review';
 import { useDispatch,useSelector } from 'react-redux'
 import TextEditor from '../../components/Review/TextEditor';
 
 const UpdateReview=()=>{
-    // 로그인 정보 확인 추가 필수, author랑 로그인된 유저랑 같은지 확인 필수
-
     const router = useRouter();
     const dispatch = useDispatch();
     const { id } = router.query;
+    const myInfo = useSelector((state)=>state.user.myInfo);
     const singleReview = useSelector((state)=>state.review.singleReview);
     
     useEffect(()=>{
-        dispatch({
-            type:LOAD_SINGLE_REVIEW_REQUEST,
-            data:id,
-        });
+        if(!myInfo){ // 로그인되지 않은 경우 리다이렉트 
+            Router.replace('/login');
+        }
+        else{
+            dispatch({
+                type:LOAD_SINGLE_REVIEW_REQUEST,
+                data:id,
+            });
+        }
     },[]);
 
     if(!singleReview) return(

@@ -1,5 +1,6 @@
 import React , { useCallback }from 'react';
 import Router from 'next/router';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { ReviewList } from '../../../model/ReviewList';
 import Badge from '../Badge';
@@ -12,6 +13,8 @@ interface Props {
 }
 
 const SingleReview=({Review}:Props)=>{
+    
+    const myInfo = useSelector((state)=>state.user.myInfo); // 내 정보와 리뷰 작성자가 같은 경우만 수정 가능하도록 구현
 
     const onClickButton = useCallback(()=>{
         Router.push(`/updateReview/${Review.id}`); // 수정하는 곳 
@@ -20,10 +23,11 @@ const SingleReview=({Review}:Props)=>{
     return(
         <Container>
             <ButtonContainer>
+                { myInfo && myInfo.id === Review.author.id &&
                 <Button 
                 title={"수정하기"}
                 onClick={onClickButton}
-                />
+                />}
             </ButtonContainer>
             <MovieCard Movie={Review.movieInfo}/>
             <BadgeContainer>
