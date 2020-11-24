@@ -20,6 +20,10 @@ module.exports=(sequelize, DataType)=>{
             type: DataType.STRING(50),
             allowNull :false,
         },
+        rating:{
+            type:DataType.STRING(10),
+            allowNull:false,
+        }
     }, {
         charset:'utf8',
         collate: 'utf8_general_ci'

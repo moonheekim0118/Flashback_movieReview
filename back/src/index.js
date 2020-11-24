@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const userRouter = require('./routes/user');
 const movieRouter = require('./routes/movie');
+const reviewRouter = require('./routes/review');
 const db = require('../models');
 const dotenv = require('dotenv');
 const session = require('express-session');
@@ -37,6 +38,7 @@ app.use(express.urlencoded({extended:true}));
 
 app.use('/user',userRouter);
 app.use('/movie',movieRouter); 
+app.use('/review',reviewRouter);
 
 app.listen(3065,()=>{
     console.log('서버 실행중');

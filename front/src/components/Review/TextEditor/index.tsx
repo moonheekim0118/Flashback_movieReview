@@ -42,7 +42,7 @@ const TextEditor=({Review , ButtonType}:Props)=>{
     const ErrorIcon=<Icon icon={faTimes} color={'red'}/>
 
 
-    useEffect(()=>{
+    useEffect(()=>{ // 초기 상태라면 validation 에러 띄워주지 않음 
         if(initialUpdate.current){
             initialUpdate.current=false;
             return;
@@ -52,7 +52,7 @@ const TextEditor=({Review , ButtonType}:Props)=>{
         }
     },[initialUpdate.current]);
 
-    const onCreate=useCallback(()=>{ // 저장
+    const onCreate=useCallback(()=>{ // 리뷰 저장
 
         let rating='BAD';
         if(goodSelect){
@@ -64,7 +64,6 @@ const TextEditor=({Review , ButtonType}:Props)=>{
         dispatch({
             type:ADD_MY_REVIEW_REQUEST,
             data:{
-                id:shortid.generate(),
                 movieInfo:Review.movieInfo,
                 rating:rating,
                 shortComment:shortComment,
@@ -79,7 +78,7 @@ const TextEditor=({Review , ButtonType}:Props)=>{
         Router.push(`/singleReview/${shortid.generate()}`);
     },[goodSelect,sosoSelect,badSelect,shortComment,character,line,scene,freeComment]);
 
-    const onUpdate=useCallback(()=>{
+    const onUpdate=useCallback(()=>{ // 리뷰 수정 
         let rating='BAD';
         if(goodSelect){
             rating='GOOD';
@@ -91,7 +90,7 @@ const TextEditor=({Review , ButtonType}:Props)=>{
             type:UPDATE_MY_REVIEW_REQUEST,
             data:{
                 id:Review.id,
-                author:Review.author,
+                User:Review.User,
                 movieInfo:Review.movieInfo,
                 rating:rating,
                 shortComment:shortComment,

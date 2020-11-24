@@ -118,13 +118,14 @@ const reducer =  (state=initialState, action)=>{
             
             case type.ADD_MY_REVIEW_SUCCESS:
                 draft.myReviews.unshift(action.data);
+                console.log(action.data, draft.myReviews);
                 draft.addMyReviewDone=true;
                 draft.addMyReviewLoading=false;
                 break;
 
             case type.ADD_MY_REVIEW_FAIL:
-                draft.loadMyReviewsLoading=false;
-                draft.loadMyReviewsError=action.error;
+                draft.addMyReviewLoading=false;
+                draft.addMyReviewError=action.error;
                 break;
             
             // 삭제 

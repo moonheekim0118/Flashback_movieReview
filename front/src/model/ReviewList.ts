@@ -1,9 +1,9 @@
 import { MovieList } from './MovieList';
-import { MyInfo } from './MyInfo';
+import { AuthorInfo } from './MyInfo';
 
 export interface ReviewList { 
     id:string;
-    author:MyInfo;
+    User:AuthorInfo;
     movieInfo:MovieList,
     rating:string;
     shortComment:string;

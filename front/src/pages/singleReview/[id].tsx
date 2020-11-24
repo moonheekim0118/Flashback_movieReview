@@ -1,5 +1,5 @@
 import React , { useEffect } from 'react';
-import Router, { useRouter }from 'next/router';
+import { useRouter }from 'next/router';
 import { useDispatch,useSelector } from 'react-redux';
 import { LOAD_SINGLE_REVIEW_REQUEST } from '../../actions/review';
 import Layout from '../../components/Layout';
@@ -10,7 +10,6 @@ const singleReview=()=>{
     const router = useRouter();
     const dispatch = useDispatch();
     const { id } = router.query;
-    const myInfo = useSelector(state=>state.user.myInfo);
     const singleReview = useSelector(state=>state.review.singleReview);
 
     useEffect(()=>{
