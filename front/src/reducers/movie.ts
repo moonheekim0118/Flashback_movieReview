@@ -1,7 +1,5 @@
 import * as type from '../actions/movie';
 import { produce } from 'immer';
-import faker from 'faker';
-import shortid from 'shortid';
 
 export const initialState={
     // 영화리스트 가져오기 
@@ -54,30 +52,11 @@ const reducer =  (state=initialState, action)=>{
                 draft.loadMoviesError=action.error;
                 break;
             
-            // 영화 하나 가져오기 
-            case type.LOAD_SINGLE_MOVIE_REQUEST:
-                draft.loadSingleMovieLoading=true;
-                draft.loadSingleMovieDone=false;
-                draft.loadSingleMovieError=null;
+            // 영화 하나 저장하기
+            case type.SAVE_MOVIE:
+                draft.singleMovie=action.data;
                 break;
             
-            case type.LOAD_SINGLE_MOVIE_SUCCESS:
-                draft.loadSingleMovieDone=true;
-                draft.loadSingleMovieLoading=false;
-                draft.singleMovie={
-                    id:shortid.generate(),
-                    title:faker.name.findName(),
-                    director:faker.name.findName(),
-                    image:faker.image.image(),
-                    pubDate:faker.date.past(),
-                }
-                break;
-
-            case type.LOAD_SINGLE_MOVIE_FAIL:
-                draft.loadSingleMovieLoading=false;
-                draft.loadSingleMovieError=action.error;
-                break;
-
             // 연관검색어 불러오기 
             case type.LOAD_RELATED_SEARCH_REQUEST:
                 draft.loadRelatedSearchDone=false;
