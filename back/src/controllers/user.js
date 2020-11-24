@@ -66,3 +66,31 @@ exports.logout=(req,res,next)=>{
     req.session.destroy();
     res.status(200).send('okay');
 }
+
+
+exports.loadUser=async(req,res,next)=>{
+    try{
+        if(req.user){
+            // 패스워드 제외한 유저 정보 
+            const fullUserwithoutPassword = await User.findOne({
+                where:{id:req.user.id},
+                attributes:{
+                    exclude:['password']
+                },
+                include:[{
+                    model:Review,
+                    attributes:['id']
+                }]
+            });
+            const data = fullUserwithoutPassword.toJSON();
+            data.Reviews = data.Reviews.length; // 리뷰 개수만 보내줌 
+            return res.status(200).json(data);
+        }
+        else{
+            res.status(200).json(null);
+        }
+    }catch(error){
+        console.log(error);
+        next(error);
+    }
+}

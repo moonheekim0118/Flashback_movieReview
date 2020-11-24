@@ -6,7 +6,6 @@ import { useDispatch,useSelector } from 'react-redux'
 import TextEditor from '../components/Review/TextEditor';
 
 const WriteReview=()=>{
-    // 로그인 정보 확인 추가 필수 
     const dispatch = useDispatch();
     const singleMovie = useSelector((state)=>state.movie.singleMovie);
     const myInfo = useSelector((state)=>state.user.myInfo);
@@ -18,6 +17,10 @@ const WriteReview=()=>{
         dispatch({
             type:LOAD_MY_INFO_REQUEST
         });
+
+        if(!myInfo){ // 로그인 안되어있는 경우 리다이렉트 
+            Router.replace('/login');
+        }
 
         // 새로고침 시 영화 정보가 사라지므로, 경고창을 띄운다.
         function leaveAlert(event){  // 새로고침 누를 시 뜨는 경고 
@@ -38,7 +41,7 @@ const WriteReview=()=>{
         }
     },[singleMovie]);
 
-    if(!singleMovie){
+    if(!singleMovie || !myInfo){
         return(
             <Layout PageName="리뷰작성">
             </Layout>

@@ -84,8 +84,8 @@ const Info=({myInfo} : Props)=>{
             </Form>
             {showAlert && <Alert text={"닉네임 변경이 완료되었습니다."}/>}
             <ReviewCountContainer>
-                <Title>{myInfo.reviewsCount}개의 리뷰를 쓰신 당신은!</Title>
-                 <Slot reviewsCount={myInfo.reviewsCount}/>
+                <Title>{myInfo.Reviews} 개의 리뷰를 쓰신 당신은!</Title>
+                 <Slot reviewsCount={myInfo.Reviews}/>
             </ReviewCountContainer>
             <LogoutContainer>
                 로그아웃 <Logout/>
