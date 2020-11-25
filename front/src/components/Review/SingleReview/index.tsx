@@ -133,12 +133,6 @@ const ButtonContainer = styled.div`
     right:10px;
 `;
 
-const BadgeContainer = styled.div`
-    position:absolute;
-    top:-20px;
-    left:10px;
-`;
-
 const MiddleContainer = styled.div`
     display:flex;
     justify-content:space-between;
