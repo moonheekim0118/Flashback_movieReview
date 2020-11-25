@@ -19,17 +19,18 @@ const Alert=({text}:Props)=>{
 }
 
 const Container = styled.div`
-    position:absolute;
+    position:fixed;
     left:50%;
-    bottom:20%;
-    transform:translate(-50%);
+    bottom:10%;
+    transform:translateX(-50%);
 
-    padding: 20px 15px;
+    padding: 25px 15px;
     
     background-color:#cc00cc;
-    border-raidus:5px;
+    border-raidus:10px;
     color:#fff;
     font-size:1.2rem;
+    box-shadow:0px 0px 11px -1px rgba(0,0,0,0.75);
 
     z-index:7000;
 `;
