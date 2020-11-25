@@ -109,7 +109,8 @@ const reducer =  (state=initialState, action)=>{
                 draft.removeMyReviewError=action.error;
                 break;
 
-            // 수정 
+            // 수정 , 업데이트한 기록 초기화
+            case type.INIT_UPDATE:
             case type.UPDATE_MY_REVIEW_REQUEST:
                 draft.updateMyReviewDone=false;
                 draft.updateMyReviewLoading=true;

@@ -1,27 +1,44 @@
-import React , { useCallback }from 'react';
+import React , { useCallback, useEffect }from 'react';
 import Router from 'next/router';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { INIT_UPDATE } from '../../../actions/review';
+import useAlert from '../../../hooks/useAlert';
 import styled from 'styled-components';
 import { ReviewList } from '../../../model/ReviewList';
 import Badge from '../Badge';
 import MovieCard from '../../Movie/MovieCard';
 import Avatar from '../../Avatar';
 import Button from '../../../atoms/Buttons';
+import Alert from '../../Alert';
 
 interface Props {
     Review?:ReviewList
 }
 
 const SingleReview=({Review}:Props)=>{
-    
+    const dispatch = useDispatch();
     const myInfo = useSelector((state)=>state.user.myInfo); // 내 정보와 리뷰 작성자가 같은 경우만 수정 가능하도록 구현
+    const updateMyReviewDone = useSelector((state)=>state.review.updateMyReviewDone);
+    const [showAlert, openAlert, closeAlert] = useAlert();
 
     const onClickButton = useCallback(()=>{
         Router.push(`/updateReview/${Review.id}`); // 수정하는 곳 
-    },[]);
+    },[Review]);
+
+    useEffect(()=>{
+        if(updateMyReviewDone){
+            openAlert();
+            const timer = setTimeout(closeAlert,2000);
+            return ()=>{
+                clearTimeout(timer);
+                dispatch({type:INIT_UPDATE});
+            }
+        }
+    },[updateMyReviewDone]);
 
     return(
         <Container>
+            {showAlert && <Alert text={"수정되었습니다."}/>}
             <ButtonContainer>
                 { myInfo && myInfo.id === Review.User.id &&
                 <Button 
