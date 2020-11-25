@@ -1,5 +1,4 @@
 import React , { useCallback , useRef,useState , useEffect } from 'react';
-import shortid from 'shortid';
 import useToggle from '../../../hooks/useSelecting';
 import Router from 'next/router';
 import { useDispatch , useSelector } from 'react-redux';
@@ -10,7 +9,10 @@ import styled from 'styled-components';
 import useValidation from '../../../hooks/useValidation';
 import Badge from '../Badge';
 import { faCheck , faTimes } from '@fortawesome/free-solid-svg-icons';
-import { ADD_MY_REVIEW_REQUEST,UPDATE_MY_REVIEW_REQUEST } from '../../../actions/review';
+import { ADD_MY_REVIEW_REQUEST,
+        UPDATE_MY_REVIEW_REQUEST,
+        INIT_ADD } 
+        from '../../../actions/review';
 import { ReviewList } from '../../../model/ReviewList';
 
 interface Props {
@@ -53,11 +55,11 @@ const TextEditor=({Review , ButtonType}:Props)=>{
         }
     },[initialUpdate.current]);
 
-    useEffect(()=>{ // 리뷰 수정말고 생성시에만 실행 ! 
-        if(addMyReviewDone){ // 리뷰 작성 완료했을 경우 리다이렉팅 
+    useEffect(()=>{ // 리뷰 생성 후 리다이렉트 
+        if(addMyReviewDone){
             Router.replace(`/singleReview/${myReviews[0].id}`);
         }
-    },[addMyReviewDone,myReviews]);
+    },[addMyReviewDone]);
     
     const onCreate=useCallback(()=>{ // 리뷰 저장
 
@@ -80,7 +82,6 @@ const TextEditor=({Review , ButtonType}:Props)=>{
                 freeComment:freeComment,
             }
         });
-
     },[goodSelect,sosoSelect,badSelect,shortComment,character,line,scene,freeComment]);
 
     const onUpdate=useCallback(()=>{ // 리뷰 수정 

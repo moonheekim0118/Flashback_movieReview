@@ -43,7 +43,7 @@ function* loadMyInfo(){
     }catch(err){
         yield put({
             type:type.LOAD_MY_INFO_FAIL,
-            error:err
+            error:err.response.data || '다시 시도해주세요.'
         });
     }
 }
@@ -73,7 +73,7 @@ function* logout(){
     }catch(err){
         yield put({
             type:type.LOGOUT_FAIL,
-            error:err
+            error:err.response.data || '다시 시도해주세요.'
         });
     }
 }
@@ -104,7 +104,7 @@ function* updateNickname(action){
     }catch(err){
         yield put({
             type:type.UPDATE_NICKNAME_FAIL,
-            error:err
+            error:err.response.data || '다시 시도해주세요.'
         });
     }
 }
@@ -120,7 +120,7 @@ function* updateProfilePic(action){
     }catch(err){
         yield put({
             type:type.UPDATE_PROFILE_PIC_FAIL,
-            error:err
+            error:err.response.data || '다시 시도해주세요.'
         });
     }
 }
