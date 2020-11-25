@@ -49,10 +49,10 @@ const Container = styled.div`
     width:310px;
     height:150px;
     
-    background-color:#fff;
+    background-color:${props => props.theme.colors.bgColor};
+    color:${props => props.theme.colors.fontColor};
     border-raidus:10px;
     border: 1px solid #e0e0d1;
-    color:black;
     font-size:1.2rem;
 
     z-index:9000;
@@ -77,7 +77,9 @@ const Button = styled.button<{ title: string }>`
     background-color:inherit;
     padding: 19px 10px;
     color:${(props)=>props.title==='remove' ? 'red' : 'green'};
-    
+    font-weight:bold;
+    font-size:1rem;
+
     cursor:pointer;
 
     &:hover{
