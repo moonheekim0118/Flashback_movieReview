@@ -25,7 +25,7 @@ function removeMyReviewAPI(id){
 }
 
 function updateMyReviewAPI(data){
-    return axios.put('/');
+    return axios.put('/review/updateReview',data);
 }
 
 function* loadMyReivews(action){
@@ -94,10 +94,10 @@ function* removeMyReview(action){
 
 function* updateMyReivew(action){
     try{
-        // const result = yield call(loadRelatedSearchAPI,action.data);
+        const result = yield call(updateMyReviewAPI,action.data);
         yield put({
             type:type.UPDATE_MY_REVIEW_SUCCESS,
-            data:''
+            data:result.data,
         })        
     }catch(err){
         yield put({

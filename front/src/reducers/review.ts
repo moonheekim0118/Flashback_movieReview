@@ -118,7 +118,12 @@ const reducer =  (state=initialState, action)=>{
             
             case type.UPDATE_MY_REVIEW_SUCCESS:
                 const index = draft.myReviews.findIndex((v)=>v.id === action.data.id);
-                draft.myReviews[index]=action.data;
+                draft.myReviews[index].rating=action.data.rating;
+                draft.myReviews[index].shortComment=action.data.shortComment;
+                draft.myReviews[index].character=action.data.character;
+                draft.myReviews[index].line=action.data.line;
+                draft.myReviews[index].scene=action.data.scene;
+                draft.myReviews[index].freeComment=action.data.freeComment;
                 draft.updateMyReviewDone=true;
                 draft.updateMyReviewLoading=false;
                 break;
