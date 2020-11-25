@@ -73,6 +73,7 @@ const reducer =  (state=initialState, action)=>{
                 draft.loadSingleReviewError=action.error;
                 break;
             // 추가 
+            case type.INIT_ADD: // 초기화
             case type.ADD_MY_REVIEW_REQUEST:
                 draft.addMyReviewDone=false;
                 draft.addMyReviewLoading=true;
@@ -91,7 +92,8 @@ const reducer =  (state=initialState, action)=>{
                 draft.addMyReviewError=action.error;
                 break;
             
-            // 삭제 
+            // 삭제   
+            case type.INIT_REMOVE: // 초기화 
             case type.REMOVE_MY_REVIEW_REQUEST:
                 draft.removeMyReviewDone=false;
                 draft.removeMyReviewLoading=true;
