@@ -39,7 +39,7 @@ function* loadMyReivews(action){
         console.log(err);
         yield put({
             type:type.LOAD_MY_REVIEWS_FAIL,
-            error:err
+            error:err.response.data || '다시 시도해주세요.'
         });
     }
 }
@@ -56,7 +56,7 @@ function* loadSingleReivew(action){
         console.log(err);
         yield put({
             type:type.LOAD_SINGLE_REVIEW_FAIL,
-            error:err
+            error:err.response.data || '다시 시도해주세요.'
         });
     }
 }
@@ -71,7 +71,7 @@ function* addMyReivew(action){
     }catch(err){
         yield put({
             type:type.ADD_MY_REVIEW_FAIL,
-            error:err
+            error:err.response.data || '다시 시도해주세요.'
         });
     } 
 }
@@ -87,7 +87,7 @@ function* removeMyReview(action){
     }catch(err){
         yield put({
             type:type.REMOVE_MY_REVIEW_FAIL,
-            error:err
+            error:err.response.data || '다시 시도해주세요.'
         });
     } 
 }
@@ -102,7 +102,7 @@ function* updateMyReivew(action){
     }catch(err){
         yield put({
             type:type.UPDATE_MY_REVIEW_FAIL,
-            error:err
+            error:err.response.data || '다시 시도해주세요.'
         });
     } 
 }

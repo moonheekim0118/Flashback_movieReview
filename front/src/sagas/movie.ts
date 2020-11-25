@@ -27,7 +27,7 @@ function* loadMovieLists(action){
         console.log(err);
         yield put({
             type:type.LOAD_MOVIES_FAIL,
-            error:err
+            error:err.response.data || '다시 시도해주세요.'
         });
     }
 }
@@ -42,7 +42,7 @@ function* loadRelatedSearch(action){
     }catch(err){
         yield put({
             type:type.LOAD_RELATED_SEARCH_FAIL,
-            error:err
+            error:err.response.data || '다시 시도해주세요.'
         });
     } 
 }
