@@ -100,9 +100,10 @@ function* updateMyReivew(action){
             data:result.data,
         })        
     }catch(err){
+        console.log(err);
         yield put({
             type:type.UPDATE_MY_REVIEW_FAIL,
-            error:err.response.data || '다시 시도해주세요.'
+            error:err || '다시 시도해주세요.'
         });
     } 
 }

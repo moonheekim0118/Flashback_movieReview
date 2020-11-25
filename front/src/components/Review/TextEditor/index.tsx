@@ -1,4 +1,4 @@
-import React , { useCallback , useRef,useState , useEffect } from 'react';
+import React , { useCallback , useRef, useState , useEffect } from 'react';
 import useToggle from '../../../hooks/useSelecting';
 import Router from 'next/router';
 import { useDispatch , useSelector } from 'react-redux';
@@ -9,10 +9,7 @@ import styled from 'styled-components';
 import useValidation from '../../../hooks/useValidation';
 import Badge from '../Badge';
 import { faCheck , faTimes } from '@fortawesome/free-solid-svg-icons';
-import { ADD_MY_REVIEW_REQUEST,
-        UPDATE_MY_REVIEW_REQUEST,
-        INIT_ADD } 
-        from '../../../actions/review';
+import { ADD_MY_REVIEW_REQUEST, UPDATE_MY_REVIEW_REQUEST,} from '../../../actions/review';
 import { ReviewList } from '../../../model/ReviewList';
 
 interface Props {
@@ -27,7 +24,7 @@ const TextEditor=({Review , ButtonType}:Props)=>{
     const [ line, setLine, lineError ] = useValidation(Review.line,5,50);
     const [ scene, setScene, sceneError ] = useValidation(Review.scene,5,50);
     const [ freeComment, setFreeComment ,freeCommentError ] = useValidation(Review.freeComment,0,50);
-    
+
     const initialUpdate = useRef(true);
     const [initial, setInitial]=useState(true);
     
@@ -60,9 +57,8 @@ const TextEditor=({Review , ButtonType}:Props)=>{
             Router.replace(`/singleReview/${myReviews[0].id}`);
         }
     },[addMyReviewDone]);
-    
-    const onCreate=useCallback(()=>{ // 리뷰 저장
 
+    const onCreate=useCallback(()=>{ // 리뷰 저장
         let rating='BAD';
         if(goodSelect){
             rating='GOOD';
@@ -107,7 +103,6 @@ const TextEditor=({Review , ButtonType}:Props)=>{
             }
         })
         Router.replace(`/singleReview/${Review.id}`); // 리뷰 페이지로 돌아가기 
-
     },[goodSelect,sosoSelect,badSelect,shortComment,character,line,scene,freeComment]);
 
     const SubmitButton= ButtonType==='create' ?

@@ -82,7 +82,6 @@ const reducer =  (state=initialState, action)=>{
             
             case type.ADD_MY_REVIEW_SUCCESS:
                 draft.myReviews.unshift(action.data);
-                console.log(action.data, draft.myReviews);
                 draft.addMyReviewDone=true;
                 draft.addMyReviewLoading=false;
                 break;
@@ -112,7 +111,6 @@ const reducer =  (state=initialState, action)=>{
                 break;
 
             // 수정 , 업데이트한 기록 초기화
-            case type.INIT_UPDATE:
             case type.UPDATE_MY_REVIEW_REQUEST:
                 draft.updateMyReviewDone=false;
                 draft.updateMyReviewLoading=true;
@@ -120,13 +118,7 @@ const reducer =  (state=initialState, action)=>{
                 break;
             
             case type.UPDATE_MY_REVIEW_SUCCESS:
-                const index = draft.myReviews.findIndex((v)=>v.id === action.data.id);
-                draft.myReviews[index].rating=action.data.rating;
-                draft.myReviews[index].shortComment=action.data.shortComment;
-                draft.myReviews[index].character=action.data.character;
-                draft.myReviews[index].line=action.data.line;
-                draft.myReviews[index].scene=action.data.scene;
-                draft.myReviews[index].freeComment=action.data.freeComment;
+                draft.singleReview=action.data;
                 draft.updateMyReviewDone=true;
                 draft.updateMyReviewLoading=false;
                 break;
