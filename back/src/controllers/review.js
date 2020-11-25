@@ -47,6 +47,27 @@ exports.createReview = async(req,res,next)=>{
     }
 };
 
+exports.updateReview=async(req,res,next)=>{
+    try{
+        const content = req.body;
+        const review = await Review.findOne({
+            where:{id:content.id, UserId:req.user.id}
+        });
+        // 내용 수정 
+        review.shortComment=content.shortComment;
+        review.line=content.line;
+        review.character=content.character;
+        review.rating=content.rating;
+        review.scene=content.scene;
+        review.freeComment=content.freeComment;
+
+        await review.save();
+        res.status(200).json(review);
+    }catch(error){
+        console.error(error);
+        next(error);
+    }
+};
 
 exports.sendReview=async(req,res,next)=>{
     try{
