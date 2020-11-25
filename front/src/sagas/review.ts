@@ -21,7 +21,7 @@ function addMyReivewAPI(data){
 }
 
 function removeMyReviewAPI(id){
-    return axios.delete('/');
+    return axios.delete(`/review/${id}/removeReview`);
 }
 
 function updateMyReviewAPI(data){
@@ -79,10 +79,10 @@ function* addMyReivew(action){
 
 function* removeMyReview(action){
     try{
-        // const result = yield call(loadRelatedSearchAPI,action.data);
+        const result = yield call(removeMyReviewAPI,action.data);
         yield put({
             type:type.REMOVE_MY_REVIEW_SUCCESS,
-            data:''
+            data:result.data
         })        
     }catch(err){
         yield put({

@@ -9,6 +9,9 @@ router.post('/createReview',isLoggedIn, reviewController.createReview);
 // 리뷰 수정하기
 router.put('/updateReview',isLoggedIn, reviewController.updateReview);
 
+// 리뷰 삭제하기
+router.delete('/:reviewId/removeReview',isLoggedIn,reviewController.removeReview);
+
 // 내 리뷰리스트 가져오기
 router.get('/myReviews',isLoggedIn,reviewController.myReviews);
 

@@ -32,7 +32,8 @@ const Preview=({Review}:Props)=>{
         closeConfirmAlert();
     },[]);
 
-    const onClickRemove = useCallback(()=>{
+    const onClickRemove = useCallback((e)=>{
+        e.stopPropagation();
         dispatch({type:REMOVE_MY_REVIEW_REQUEST, data:Review.id});
         closeConfirmAlert();
     },[]);

@@ -69,6 +69,21 @@ exports.updateReview=async(req,res,next)=>{
     }
 };
 
+exports.removeReview=async(req,res,next)=>{
+    try{
+        const reviewId = +req.params.reviewId;
+        const review = await Review.findOne({where:{id:reviewId,UserId:req.user.id}}); // 삭제할 리뷰 존재하는지 찾기 
+        if(!review){ // 존재하지 않는 경우 
+            return res.status(401).json('존재하지 않는 리뷰입니다.');
+        }
+        await Review.destroy({where:{id:reviewId, UserId:req.user.id}}); // 삭제 
+        res.status(200).json(reviewId);
+    }catch(error){
+        console.error(error);
+        next(error);
+    } 
+}
+
 exports.sendReview=async(req,res,next)=>{
     try{
         const reviewId=req.params.reviewId;

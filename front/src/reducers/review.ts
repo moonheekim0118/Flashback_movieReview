@@ -99,7 +99,7 @@ const reducer =  (state=initialState, action)=>{
                 break;
             
             case type.REMOVE_MY_REVIEW_SUCCESS:
-                draft.myReviews=draft.myReviews.filter((v)=>v.id!==action.data.id);
+                draft.myReviews=draft.myReviews.filter((v)=>v.id!==action.data);
                 draft.removeMyReviewDone=true;
                 draft.removeMyReviewLoading=false;
                 break;
