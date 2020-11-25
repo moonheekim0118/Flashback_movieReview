@@ -96,6 +96,9 @@ const reducer =  (state=initialState, action)=>{
                 draft.loadMyInfoDone=true;
                 draft.loadMyInfoLoading=false;
                 draft.myInfo=action.data;
+                if(draft.myInfo){
+                    draft.loginDone=true;
+                }
                 break;
             
             case type.LOAD_MY_INFO_FAIL:

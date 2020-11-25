@@ -2,23 +2,20 @@ import React , { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Layout from '../../components/Layout';
 import { useDispatch,useSelector } from 'react-redux';
-import { INIT_MOVIES,LOAD_MOVIES_REQUEST } from '../../actions/movie';
+import { LOAD_MY_INFO_REQUEST } from '../../actions/user';
+import { LOAD_MOVIES_REQUEST } from '../../actions/movie';
 import MovieCard from '../../components/Movie/MovieCard';
 import styled from 'styled-components';
+import axios from 'axios';
+import { END } from 'redux-saga';
+import wrapper from '../../store/configureStore';
+
 
 const movieResult=()=>{
     const dispatch = useDispatch();
     const router = useRouter();
     const { title } = router.query;
     const { movieLists,loadMoviesLoading,hasMoreMovies } = useSelector((state)=>state.movie);
-
-    useEffect(()=>{
-        dispatch({ type:INIT_MOVIES }); // 영화리스트 초기화해서 이전에 남아있던 기록 삭제 
-        dispatch({
-            type:LOAD_MOVIES_REQUEST,
-            data:{title:title, start:1}
-        })
-    },[]);
 
     useEffect(()=>{
         // 인피니트 스크롤링
@@ -48,6 +45,21 @@ const movieResult=()=>{
         </Layout>
     );
 }
+
+export const getServerSideProps = wrapper.getServerSideProps(async (context)=>{
+    const cookie=context.req ? context.req.headers.cookie : '';
+    axios.defaults.headers.Cookie='';
+    if(context.req && cookie){
+        axios.defaults.headers.Cookie=cookie;
+    }
+    context.store.dispatch({type:LOAD_MY_INFO_REQUEST});
+    context.store.dispatch({
+        type:LOAD_MOVIES_REQUEST,
+        data:{title:context.params.title,start:1}
+    })
+    context.store.dispatch(END);
+    await context.store['sagaTask'].toPromise();
+});
 
 export const Message = styled.div`
     text-align:center;

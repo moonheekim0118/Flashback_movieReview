@@ -13,7 +13,7 @@ const headers =  {
 
 exports.movieList=async(req,res,next)=>{
     try{
-        const title=req.params.title;
+        const title=decodeURIComponent(req.params.title);
         const start=+req.query.start; // 스타트지점 
         await request.get(
         {

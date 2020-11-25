@@ -1,10 +1,15 @@
 import React , { useEffect } from 'react';
 import Router from 'next/router';
 import Layout from '../components/Layout';
+import axios from 'axios';
 import { useSelector , useDispatch } from 'react-redux';
 import { LOAD_MY_REVIEWS_REQUEST , INIT_REVIEWS} from '../actions/review';
+import { LOAD_MY_INFO_REQUEST } from '../actions/user';
 import Preview from '../components/Review/Preview';
 import { Message } from './movieResult/[title]';
+import { END } from 'redux-saga';
+import wrapper from '../store/configureStore';
+
 
 const MyReviews=()=>{
     const dispatch = useDispatch();
@@ -12,14 +17,11 @@ const MyReviews=()=>{
     const { myReviews, hasMoreReviews,loadMyReviewsLoading }  = useSelector(state=>state.review);
 
     useEffect(()=>{
-        // 기존에 남아있던 리뷰 초기화 
-        dispatch({type:INIT_REVIEWS});
         if(!loginDone){ // 로그인 안되어있는 경우 리다이렉트 
             Router.replace('/login');
         }
-        else { 
-            // 첫 로딩 
-            dispatch({type:LOAD_MY_REVIEWS_REQUEST, data:0}); 
+        else{
+            dispatch({type:LOAD_MY_REVIEWS_REQUEST, data:0});
         }
     },[]);
 
@@ -55,5 +57,18 @@ const MyReviews=()=>{
         </Layout>
     );
 }
+
+export const getServerSideProps = wrapper.getServerSideProps(async (context)=>{
+    const cookie=context.req ? context.req.headers.cookie : '';
+    axios.defaults.headers.Cookie='';
+    if(context.req && cookie){
+        axios.defaults.headers.Cookie=cookie;
+    }
+    context.store.dispatch({type:INIT_REVIEWS});
+    context.store.dispatch({type:LOAD_MY_INFO_REQUEST});
+    context.store.dispatch(END);
+    await context. store['sagaTask'].toPromise();
+});
+
 
 export default MyReviews;

@@ -2,21 +2,18 @@ import React , { useEffect } from 'react';
 import Router from 'next/router';
 import Layout from '../components/Layout';
 import { LOAD_MY_INFO_REQUEST } from '../actions/user';
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import Info from '../components/User/Info';
+import axios from 'axios';
+import { END } from 'redux-saga';
+import wrapper from '../store/configureStore';
 
 const User=()=>{
-    const dispatch = useDispatch();
     const { myInfo, loginDone } = useSelector((state)=>state.user);
 
     useEffect(()=>{
         if(!loginDone){ // 로그인 안되어있는 경우 
             Router.replace('/login');
-        }
-        else{
-            dispatch({ // 로그인 되어있는 경우 
-                type:LOAD_MY_INFO_REQUEST
-            });
         }
     },[]);
     
@@ -33,5 +30,16 @@ const User=()=>{
         </Layout>
     );
 }
+
+export const getServerSideProps = wrapper.getServerSideProps(async (context)=>{
+    const cookie=context.req ? context.req.headers.cookie : '';
+    axios.defaults.headers.Cookie='';
+    if(context.req && cookie){
+        axios.defaults.headers.Cookie=cookie;
+    }
+    context.store.dispatch({type:LOAD_MY_INFO_REQUEST});
+    context.store.dispatch(END);
+    await context. store['sagaTask'].toPromise();
+});
 
 export default User;

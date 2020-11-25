@@ -1,27 +1,17 @@
-import React , { useEffect } from 'react';
-import { useRouter } from 'next/router';
-import { useDispatch,useSelector } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { LOAD_MY_INFO_REQUEST } from '../../actions/user';
 import { LOAD_SINGLE_REVIEW_REQUEST } from '../../actions/review';
+import { END } from 'redux-saga';
+import axios from 'axios';
 import Layout from '../../components/Layout';
 import SingleReviewComponent from '../../components/Review/SingleReview';
+import wrapper from '../../store/configureStore';
+
 
 const singleReview=()=>{
 
-    const router = useRouter();
-    const dispatch = useDispatch();
-    const { id } = router.query;
     const singleReview = useSelector(state=>state.review.singleReview);
-
-    // id 값이 불러와지면 서버에 요청 보내는 것으로 대체! -> 안그러면 404 에러남 
-    // 서버사이드 렌더링하면 이부분은 없어도 된다.
-    useEffect(()=>{
-        if(id){
-            dispatch({
-                type:LOAD_SINGLE_REVIEW_REQUEST,
-                data:id,
-            });
-        }
-    },[id]);
 
     if(!singleReview) return (
         <Layout PageName="리뷰">
@@ -35,5 +25,21 @@ const singleReview=()=>{
         </Layout>
     );
 }
+
+
+export const getServerSideProps = wrapper.getServerSideProps(async (context)=>{
+    const cookie=context.req ? context.req.headers.cookie : '';
+    axios.defaults.headers.Cookie='';
+    if(context.req && cookie){
+        axios.defaults.headers.Cookie=cookie;
+    }
+    context.store.dispatch({type:LOAD_MY_INFO_REQUEST});
+    context.store.dispatch({
+        type:LOAD_SINGLE_REVIEW_REQUEST,
+        data:context.params.id,});
+    context.store.dispatch(END);
+    await context. store['sagaTask'].toPromise();
+});
+
 
 export default singleReview;
