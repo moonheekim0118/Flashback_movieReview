@@ -1,35 +1,25 @@
 import React , { useEffect } from 'react';
 import Router from 'next/router';
 import Layout from '../components/Layout';
-import { LOAD_MY_INFO_REQUEST } from '../actions/user';
-import { useDispatch,useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import TextEditor from '../components/Review/TextEditor';
+import { backUrl } from '../Config/config';
+import useSWR from 'swr';
+import axios from 'axios';
+
+const fetcher = (url) =>axios.get(url, {withCredentials: true}).then((result)=>result.data); 
 
 const WriteReview=()=>{
-    const dispatch = useDispatch();
     const singleMovie = useSelector((state)=>state.movie.singleMovie);
-    const myInfo = useSelector((state)=>state.user.myInfo);
-    let base = {id:null, Movie:singleMovie, User:{id:null, nickname:null},
-    shortComment:"", line:"", character:"", scene:"", freeComment:"", rating:"GOOD"};
+    // swr로 myInfo 불러오기 
+    const { data: myInfo, error: myInfoError } = useSWR(`${backUrl}/user`,fetcher);
+    let base; // 불러온 정보 저장할 곳 
 
     useEffect(()=>{
-        dispatch({
-            type:LOAD_MY_INFO_REQUEST
-        });
-
-        if(!myInfo){ // 로그인 안되어있는 경우 리다이렉트 
-            Router.replace('/login');
-        }
-        else{
-            base = {id:myInfo.id, Movie:singleMovie, User:{id:myInfo.id, nickname:myInfo.nickname},
-            shortComment:"", line:"", character:"", scene:"", freeComment:"", rating:"GOOD"};
-        }
-
         // 새로고침 시 영화 정보가 사라지므로, 경고창을 띄운다.
         function leaveAlert(event){  // 새로고침 누를 시 뜨는 경고 
             event.returnValue = `변경사항이 저장되지 않습니다.`;
         };
-
         window.addEventListener('beforeunload',leaveAlert); //새로고침 이벤트   
 
         return()=>{
@@ -44,12 +34,25 @@ const WriteReview=()=>{
         }
     },[singleMovie]);
 
-    if(!singleMovie || !myInfo){
-        return(
-            <Layout PageName="리뷰작성">
-            </Layout>
-        );
+     
+    if(myInfoError || !myInfo ){
+        return(        
+        <Layout PageName="리뷰작성">
+           잠시후에 다시 시도해주세요.
+        </Layout>)
     }
+    else{
+        base = {id:myInfo.id, Movie:singleMovie, User:{id:myInfo.id, nickname:myInfo.nickname},
+        shortComment:"", line:"", character:"", scene:"", freeComment:"", rating:"GOOD"};
+    }
+
+    if(!singleMovie){
+        return(        
+            <Layout PageName="리뷰작성">
+               잠시후에 다시 시도해주세요.
+            </Layout>)
+    }
+
     return(
         <Layout PageName="리뷰작성">
             <TextEditor 
