@@ -39,7 +39,7 @@ const Info=({myInfo} : Props)=>{
         e.preventDefault();
         dispatch({
             type:UPDATE_NICKNAME_REQUEST,
-            data:{id:myInfo.id, nickname:nickname},
+            data:{nickname:nickname},
         })
         dispatch({type:OPEN_ALERT, data:"닉네임이 변경되었습니다."});
     },[nickname]);

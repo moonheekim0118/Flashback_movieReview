@@ -94,3 +94,19 @@ exports.loadUser=async(req,res,next)=>{
         next(error);
     }
 }
+
+
+exports.updateNickname=async(req,res,next)=>{
+    try{
+        const newNickname = req.body.nickname; // 새로운 닉네임 
+        const user = await User.findOne({ 
+            where:{id:req.user.id}
+        });
+        user.nickname=newNickname; // 닉네임 변경 
+        await user.save();
+        res.status(200).json(newNickname);
+    }catch(error){
+        console.error(error);
+        next(error);
+    }
+};

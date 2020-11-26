@@ -24,9 +24,8 @@ function signUpAPI(data){
     return axios.post('/user/signUp',data);
 }
 
-function updateNicknameAPI(){
-    return setTimeout(null,1000);
-    //return axios.put('/'); // id와 닉네임 가져오기
+function updateNicknameAPI(data){
+    return axios.put('/user/updateNickname',data); // id와 닉네임 가져오기
 }
 
 function updateProfilePicAPI(){
@@ -95,10 +94,10 @@ function* signUp(action){
 
 function* updateNickname(action){
     try{
-        const result = yield call(updateNicknameAPI);
+        const result = yield call(updateNicknameAPI,action.data);
         yield put({
             type:type.UPDATE_NICKNAME_SUCCESS,
-            data:action.data,
+            data:result.data,
         })   
 
     }catch(err){
