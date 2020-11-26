@@ -126,18 +126,28 @@ const TextEditor=({Review , ButtonType}:Props)=>{
         })
     },[goodSelect,sosoSelect,badSelect,shortComment,character,line,scene,freeComment]);
 
+    // 버튼 disabeld 공통 조건 
+    const disabledRequirements= 
+    shortCommentError||characterError||lineError||sceneError||freeCommentError||shortComment.length===0||
+    character.length===0||line.length===0|| scene.length===0; 
+
+    // 업데이트 버튼 disabeld 조건 
+    const updateDisabledRequirements=
+    shortComment===Review.shortComment && freeComment===Review.freeComment && 
+    character===Review.character && line===Review.line && scene===Review.scene ; 
     const SubmitButton= ButtonType==='create' ?
+    
     <Button
     color={"purple"}
     onClick={onCreate}
     title={"저장하기"}
-    disabled={shortCommentError || characterError || lineError || sceneError || freeCommentError }
+    disabled={disabledRequirements }
     /> : 
     <Button
     color={"purple"}
     onClick={onUpdate}
     title={"수정하기"}
-    disabled={shortCommentError || characterError || lineError || sceneError || freeCommentError }
+    disabled={disabledRequirements || updateDisabledRequirements}
     /> ;
 
     return(
