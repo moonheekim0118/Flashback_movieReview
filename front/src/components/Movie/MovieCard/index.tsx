@@ -31,7 +31,7 @@ const MovieCard=({Movie, Search=false}:Props)=>{
             <MovieDescription>
                 <MovieTitle>{titleParser(Movie.title)}</MovieTitle>
                 <p>{Movie.director} 감독</p>
-                <p> 2019.08 제작</p>
+                <p> {Movie.pubDate} 제작</p>
             </MovieDescription>
             {Search &&
             <Selector>

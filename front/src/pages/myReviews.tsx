@@ -23,7 +23,6 @@ const MyReviews=()=>{
            }  
             = useSelector(state=>state.review);
 
-    console.log(removeMyReviewDone);
     useEffect(()=>{
         if(!loginDone){ // 로그인 안되어있는 경우 리다이렉트 
             Router.replace('/login');
@@ -61,8 +60,7 @@ const MyReviews=()=>{
         }
     },[removeMyReviewDone,removeMyReviewError]);
 
-
-    if(!myReviews){
+    if(myReviews.length===0){ // 리뷰가 없는 경우 
         return(
         <Layout PageName="내가 작성한 리뷰">
             <Message>리뷰가 아직 없습니다.</Message>
