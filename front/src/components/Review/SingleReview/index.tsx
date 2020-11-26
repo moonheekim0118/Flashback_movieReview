@@ -34,7 +34,7 @@ const SingleReview=({Review}:Props)=>{
                 <Title>{Review.shortComment}</Title>
                 <MiddleContainer>
                     <Author> 
-                        <Avatar nickname={Review.User.nickname}/>
+                        <Avatar/>
                              <Nickname>{Review.User.nickname} 작성</Nickname>
                         </Author>
                     <Badge badgeName={Review.rating} selected={true}/>

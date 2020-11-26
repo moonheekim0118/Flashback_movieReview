@@ -9,6 +9,7 @@ const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const passport = require('passport');
 const passportConfig = require('./passport');
+const path = require('path');
 const app = express();
 
 dotenv.config();
@@ -35,10 +36,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+app.use('/',express.static(path.join(__dirname, '/../uploads')));
 
 app.use('/user',userRouter);
 app.use('/movie',movieRouter); 
 app.use('/review',reviewRouter);
+
 
 app.listen(3065,()=>{
     console.log('서버 실행중');

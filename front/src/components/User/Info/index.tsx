@@ -30,9 +30,8 @@ const Info=({myInfo} : Props)=>{
 
     const onChangeImage = useCallback((e)=>{
         const imageFormData = new FormData();
-        [].forEach.call(e.target.files, (f)=>{
-            imageFormData.append('image',f);
-        });
+        imageFormData.append('image',e.target.files[0]);
+        dispatch({type:UPDATE_PROFILE_PIC_REQUEST, data:imageFormData});
     },[]);
 
     const onChangeNickname = useCallback((e)=>{
@@ -53,7 +52,7 @@ const Info=({myInfo} : Props)=>{
                 <EditIcon onClick={onUploadImage}>
                     <Icon icon={faPlus} color={"white"} />
                  </EditIcon>
-                <Avatar nickname={myInfo.nickname} size={70}/>
+                <Avatar size={100}/>
             </AvatarContainer>
             <Form>
                 <InputContainer>
@@ -108,8 +107,8 @@ const Overlay = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-    width:70px;
-    height:70px;
+    width:100px;
+    height:100px;
     border-radius:50%;
     background-color: rgba(0,0,0,0.3);
     z-index: 1000;

@@ -28,8 +28,8 @@ function updateNicknameAPI(data){
     return axios.put('/user/updateNickname',data); // id와 닉네임 가져오기
 }
 
-function updateProfilePicAPI(){
-    
+function updateProfilePicAPI(data){
+    return axios.post('/user/updateProfilePic',data); // id와 닉네임 가져오기
 }
 
 function* loadMyInfo(){
@@ -110,10 +110,10 @@ function* updateNickname(action){
 
 function* updateProfilePic(action){
     try{
-        const result = yield call(updateProfilePicAPI);
+        const result = yield call(updateProfilePicAPI,action.data);
         yield put({
             type:type.UPDATE_PROFILE_PIC_SUCCESS,
-            data:action.data,
+            data:result.data,
         })   
 
     }catch(err){

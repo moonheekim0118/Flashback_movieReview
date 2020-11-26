@@ -1,18 +1,20 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { backUrl } from '../../Config/config';
 
 interface Props {
-    nickname?:string;
-    imgSrc?:string;
     size?:number;
 }
 
 // 유저 아바타
-const Avatar=({nickname, imgSrc="", size=40}:Props)=>{
+const Avatar=({size=50}:Props)=>{
+
+    const myInfo = useSelector((state)=>state.user.myInfo);
 
     return(
         <Container size={size}>
-            {imgSrc? <Image src={imgSrc}/> : <Nickname size={size}>{nickname[0]}</Nickname>}
+            {myInfo.profilePic? <Image src={`${backUrl}/${myInfo.profilePic}`}/> : <Nickname size={size}>{myInfo.nickname[0]}</Nickname>}
         </Container>
     );
 }
@@ -27,7 +29,7 @@ const Image = styled.img`
     height:100%;
     border-radius:100%;
     oveflow:hidden;
-    object-fit:fill;
+    object-fit:cover;
 `;
 
 const Nickname=styled.div<{ size:number }>`

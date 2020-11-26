@@ -110,3 +110,20 @@ exports.updateNickname=async(req,res,next)=>{
         next(error);
     }
 };
+
+
+exports.updateProfilePic = async(req,res,next)=>{
+    try{
+        const fileUrl=req.files[0].filename;
+        const user = await User.findOne({
+            where:{id:req.user.id}
+        });
+        user.profilePic=fileUrl;
+        await user.save();
+        res.status(200).json(fileUrl);
+        
+    }catch(error){
+        console.error(error);
+        next(error);
+    }
+}
