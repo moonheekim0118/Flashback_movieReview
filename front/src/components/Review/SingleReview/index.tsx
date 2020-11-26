@@ -1,57 +1,26 @@
-import React , { useCallback, useEffect , useState }from 'react';
+import React , { useCallback }from 'react';
 import Router from 'next/router';
-import { useSelector, useDispatch } from 'react-redux';
-import { INIT_UPDATE , INIT_ADD } from '../../../actions/review';
-import useAlert from '../../../hooks/useAlert';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { ReviewList } from '../../../model/ReviewList';
 import Badge from '../Badge';
 import MovieCard from '../../Movie/MovieCard';
 import Avatar from '../../Avatar';
 import Button from '../../../atoms/Buttons';
-import Alert from '../../Alert';
-
 interface Props {
     Review?:ReviewList
 }
 
 const SingleReview=({Review}:Props)=>{
-    const dispatch = useDispatch();
     const myInfo = useSelector((state)=>state.user.myInfo); // 내 정보와 리뷰 작성자가 같은 경우만 수정 가능하도록 구현
-    const [ alertMessage , setAlertMessage ] = useState("리뷰 작성이 완료되었습니다."); // Alert 메시지 
-    const { updateMyReviewDone,addMyReviewDone }  =  useSelector((state)=>state.review);
-    const [showAlert, openAlert, closeAlert] = useAlert();
 
     const onClickButton = useCallback(()=>{
         Router.push(`/updateReview/${Review.id}`); // 수정하는 곳 
     },[Review]);
 
-    useEffect(()=>{ // 수정완료 후 Alert 띄워주기 
-        if(updateMyReviewDone){
-            openAlert();
-            setAlertMessage("리뷰가 수정되었습니다.");
-            const timer = setTimeout(closeAlert,2000);
-            return ()=>{
-                clearTimeout(timer);
-                dispatch({type:INIT_UPDATE});
-            }
-        }
-    },[updateMyReviewDone]);
-
-    useEffect(()=>{ // 리뷰 생성 완료 후 Alert 띄워주기 
-        if(addMyReviewDone){
-            openAlert();
-            const timer = setTimeout(closeAlert,2000);
-            return ()=>{
-                clearTimeout(timer);
-                dispatch({type:INIT_ADD});
-            }
-        }
-    },[addMyReviewDone]);
 
     return(
         <Container>
-            {showAlert && <Alert text={alertMessage}/>}
             <ButtonContainer>
                 { myInfo && myInfo.id === Review.User.id &&
                 <Button 

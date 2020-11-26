@@ -31,11 +31,6 @@ export const initialState={
 const reducer =  (state=initialState, action)=>{
     return produce(state,draft=>{
         switch(action.type){
-            // 초기화
-            case type.INIT_REVIEWS:
-                draft.myReviews=[];
-                draft.hasMoreReviews=true;
-                break;
             // 로딩 
             case type.LOAD_MY_REVIEWS_REQUEST:
                 draft.loadMyReviewsDone=false;
@@ -73,7 +68,6 @@ const reducer =  (state=initialState, action)=>{
                 draft.loadSingleReviewError=action.error;
                 break;
             // 추가 
-            case type.INIT_ADD: // 초기화
             case type.ADD_MY_REVIEW_REQUEST:
                 draft.addMyReviewDone=false;
                 draft.addMyReviewLoading=true;
@@ -82,7 +76,6 @@ const reducer =  (state=initialState, action)=>{
             
             case type.ADD_MY_REVIEW_SUCCESS:
                 draft.myReviews.unshift(action.data);
-                console.log(action.data, draft.myReviews);
                 draft.addMyReviewDone=true;
                 draft.addMyReviewLoading=false;
                 break;
@@ -93,7 +86,6 @@ const reducer =  (state=initialState, action)=>{
                 break;
             
             // 삭제   
-            case type.INIT_REMOVE: // 초기화 
             case type.REMOVE_MY_REVIEW_REQUEST:
                 draft.removeMyReviewDone=false;
                 draft.removeMyReviewLoading=true;
@@ -112,7 +104,6 @@ const reducer =  (state=initialState, action)=>{
                 break;
 
             // 수정 , 업데이트한 기록 초기화
-            case type.INIT_UPDATE:
             case type.UPDATE_MY_REVIEW_REQUEST:
                 draft.updateMyReviewDone=false;
                 draft.updateMyReviewLoading=true;
@@ -120,13 +111,7 @@ const reducer =  (state=initialState, action)=>{
                 break;
             
             case type.UPDATE_MY_REVIEW_SUCCESS:
-                const index = draft.myReviews.findIndex((v)=>v.id === action.data.id);
-                draft.myReviews[index].rating=action.data.rating;
-                draft.myReviews[index].shortComment=action.data.shortComment;
-                draft.myReviews[index].character=action.data.character;
-                draft.myReviews[index].line=action.data.line;
-                draft.myReviews[index].scene=action.data.scene;
-                draft.myReviews[index].freeComment=action.data.freeComment;
+                draft.singleReview=action.data;
                 draft.updateMyReviewDone=true;
                 draft.updateMyReviewLoading=false;
                 break;

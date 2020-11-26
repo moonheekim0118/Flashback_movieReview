@@ -1,4 +1,4 @@
-import React , { useCallback , useRef,useState , useEffect } from 'react';
+import React , { useCallback , useRef, useState , useEffect } from 'react';
 import useToggle from '../../../hooks/useSelecting';
 import Router from 'next/router';
 import { useDispatch , useSelector } from 'react-redux';
@@ -9,10 +9,8 @@ import styled from 'styled-components';
 import useValidation from '../../../hooks/useValidation';
 import Badge from '../Badge';
 import { faCheck , faTimes } from '@fortawesome/free-solid-svg-icons';
-import { ADD_MY_REVIEW_REQUEST,
-        UPDATE_MY_REVIEW_REQUEST,
-        INIT_ADD } 
-        from '../../../actions/review';
+import { ADD_MY_REVIEW_REQUEST, UPDATE_MY_REVIEW_REQUEST,} from '../../../actions/review';
+import { OPEN_ALERT } from '../../../actions/alert';
 import { ReviewList } from '../../../model/ReviewList';
 
 interface Props {
@@ -27,7 +25,7 @@ const TextEditor=({Review , ButtonType}:Props)=>{
     const [ line, setLine, lineError ] = useValidation(Review.line,5,50);
     const [ scene, setScene, sceneError ] = useValidation(Review.scene,5,50);
     const [ freeComment, setFreeComment ,freeCommentError ] = useValidation(Review.freeComment,0,50);
-    
+
     const initialUpdate = useRef(true);
     const [initial, setInitial]=useState(true);
     
@@ -43,7 +41,12 @@ const TextEditor=({Review , ButtonType}:Props)=>{
     const PassedIcon=<Icon icon={faCheck} color={'green'}/>
     const ErrorIcon=<Icon icon={faTimes} color={'red'}/>
 
-    const { myReviews , addMyReviewDone } = useSelector((state)=>state.review);
+    const { myReviews ,
+            addMyReviewDone, 
+            addMyReviewError, 
+            updateMyReviewDone, 
+            updateMyReviewError } 
+            = useSelector((state)=>state.review);
 
     useEffect(()=>{ // 초기 상태라면 validation 에러 띄워주지 않음 
         if(initialUpdate.current){
@@ -55,14 +58,29 @@ const TextEditor=({Review , ButtonType}:Props)=>{
         }
     },[initialUpdate.current]);
 
-    useEffect(()=>{ // 리뷰 생성 후 리다이렉트 
+    useEffect(()=>{ // 리뷰 생성 후 alert 보여준 후 리다이렉트 
         if(addMyReviewDone){
-            Router.replace(`/singleReview/${myReviews[0].id}`);
+            dispatch({type:OPEN_ALERT,data:"리뷰가 등록되었습니다."});
+            const  timer = setTimeout(()=> Router.replace(`/singleReview/${myReviews[0].id}`),5000);
+            return ()=>clearTimeout(timer);
         }
-    },[addMyReviewDone]);
-    
-    const onCreate=useCallback(()=>{ // 리뷰 저장
+        else if(addMyReviewError){ // 에러 발생 시 에러 메시지 띄워줌 
+            dispatch({type:OPEN_ALERT,data:"리뷰가 등록되었습니다."});
+        }
+    },[addMyReviewDone,addMyReviewError]);
 
+    useEffect(()=>{ // 리뷰 수정 후 alert 보여준 후 리다이렉트
+        if(updateMyReviewDone){
+            dispatch({type:OPEN_ALERT,data:"리뷰가 수정되었습니다."});
+            const timer = setTimeout(()=>Router.replace(`/singleReview/${Review.id}`),5000);
+            return ()=>clearTimeout(timer);
+        }
+        else if(updateMyReviewError){ // 에러 발생시 에러 메시지 띄워줌 
+            dispatch({type:OPEN_ALERT,data:updateMyReviewError});
+        }
+    },[updateMyReviewDone,updateMyReviewError]);
+
+    const onCreate=useCallback(()=>{ // 리뷰 저장
         let rating='BAD';
         if(goodSelect){
             rating='GOOD';
@@ -106,8 +124,6 @@ const TextEditor=({Review , ButtonType}:Props)=>{
                 freeComment:freeComment,
             }
         })
-        Router.replace(`/singleReview/${Review.id}`); // 리뷰 페이지로 돌아가기 
-
     },[goodSelect,sosoSelect,badSelect,shortComment,character,line,scene,freeComment]);
 
     const SubmitButton= ButtonType==='create' ?

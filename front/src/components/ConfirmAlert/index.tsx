@@ -75,7 +75,7 @@ const Button = styled.button<{ title: string }>`
     border-right:${(props)=>props.title==='remove' ? '1px solid #e0e0d1;' : 'none'};
     width:50%;
     background-color:inherit;
-    padding: 19px 10px;
+    padding: 17px 10px;
     color:${(props)=>props.title==='remove' ? 'red' : 'green'};
     font-weight:bold;
     font-size:1rem;

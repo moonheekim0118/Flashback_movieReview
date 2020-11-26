@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 import user from './user';
 import movie from './movie';
 import review from './review';
+import alert from './alert';
 
 const rootReducer=(state,action)=>{
     switch(action.type){
@@ -13,6 +14,7 @@ const rootReducer=(state,action)=>{
                 user,
                 movie,
                 review,
+                alert,
             });
             return combineReducer(state,action);
         }

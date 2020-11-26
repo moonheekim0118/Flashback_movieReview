@@ -1,26 +1,21 @@
 import React , { useEffect } from 'react';
-import Router, { useRouter } from 'next/router';
+import Router from 'next/router';
 import Layout from '../../components/Layout';
+import axios from 'axios';
+import { END } from 'redux-saga';
+import { LOAD_MY_INFO_REQUEST } from '../../actions/user';
 import { LOAD_SINGLE_REVIEW_REQUEST } from '../../actions/review';
-import { useDispatch,useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import TextEditor from '../../components/Review/TextEditor';
+import wrapper from '../../store/configureStore';
 
 const UpdateReview=()=>{
-    const router = useRouter();
-    const dispatch = useDispatch();
-    const { id } = router.query;
     const myInfo = useSelector((state)=>state.user.myInfo);
     const singleReview = useSelector((state)=>state.review.singleReview);
     
     useEffect(()=>{
         if(!myInfo){ // 로그인되지 않은 경우 리다이렉트 
             Router.replace('/login');
-        }
-        else{
-            dispatch({
-                type:LOAD_SINGLE_REVIEW_REQUEST,
-                data:id,
-            });
         }
     },[]);
 
@@ -35,5 +30,20 @@ const UpdateReview=()=>{
         </Layout>
     );
 }
+
+export const getServerSideProps = wrapper.getServerSideProps(async (context)=>{
+    const cookie=context.req ? context.req.headers.cookie : '';
+    axios.defaults.headers.Cookie='';
+    if(context.req && cookie){
+        axios.defaults.headers.Cookie=cookie;
+    }
+    context.store.dispatch({type:LOAD_MY_INFO_REQUEST});
+    context.store.dispatch({
+        type:LOAD_SINGLE_REVIEW_REQUEST,
+        data:context.params.id,});
+    context.store.dispatch(END);
+    await context. store['sagaTask'].toPromise();
+});
+
 
 export default UpdateReview;

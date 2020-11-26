@@ -1,21 +1,19 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-interface Props {
-    text?:string;
-}
 
 // 알림창 
-const Alert=({text}:Props)=>{
-    const root= document.getElementById('alert-root');
-    return(
-       ReactDOM.createPortal((
-        <Container>
-        {text}
-        </Container>
-       ), root)
-    );
+const Alert=()=>{
+    const { message, showAlert } = useSelector((state)=>state.alert);
+    if(showAlert){
+        return(
+            <Container>
+            {message}
+            </Container>
+        )
+    }
+    return(<></>)
 }
 
 const Container = styled.div`

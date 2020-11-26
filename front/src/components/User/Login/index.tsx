@@ -1,10 +1,9 @@
 import React , { useEffect,useCallback } from 'react';
 import { useDispatch , useSelector } from 'react-redux';
 import { LOGIN_REQUEST } from '../../../actions/user';
+import { OPEN_ALERT } from '../../../actions/alert';
 import styled from 'styled-components';
 import Button from '../../../atoms/Buttons';
-import Alert from '../../Alert';
-import useAlert from '../../../hooks/useAlert';
 import useInput from '../../../hooks/useInput';
 
 
@@ -15,17 +14,11 @@ const Login=()=>{
     const loginError = useSelector((state)=>state.user.loginError);
     const [email, setEmail]=useInput("");
     const [password, setPassword]=useInput("");
-    const [showAlert, openAlert, closeAlert]=useAlert();
     
-
-    useEffect(()=>{
+    useEffect(()=>{ // 로그인 에러 alert 
         if(loginError){
-            openAlert();
-            const timer = setTimeout(closeAlert,2000);
-            return ()=>{
-                clearTimeout(timer);
-            }
-        }
+            dispatch({type:OPEN_ALERT, data:loginError});
+        }    
     },[loginError]);
 
     const onSubmit = useCallback((e)=>{
@@ -38,7 +31,6 @@ const Login=()=>{
 
     return(
        <Container>
-           {showAlert && <Alert text={loginError}/>}
            <InputContainer>
                 <Label htmlFor="user-email">이메일</Label>
                 <TextInput

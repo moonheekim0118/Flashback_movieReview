@@ -1,9 +1,8 @@
 import React , { useEffect, useCallback , useState } from 'react';
 import { useDispatch , useSelector } from 'react-redux';
 import { SIGNUP_REQUEST } from '../../../actions/user';
+import { OPEN_ALERT } from '../../../actions/alert';
 import Button from '../../../atoms/Buttons';
-import Alert from '../../Alert';
-import useAlert from '../../../hooks/useAlert';
 import useInput from '../../../hooks/useInput';
 import useValidation from '../../../hooks/useValidation';
 import {
@@ -23,15 +22,10 @@ const SignUp=()=>{
     const [password, setPassword, passwordLengthError]=useValidation("",6,15);
     const [checkpassword,setCheckpassword]=useState("");
     const [passwordError, setPasswordError]=useState(false);
-    const [showAlert, openAlert, closeAlert]=useAlert();
 
-    useEffect(()=>{
+    useEffect(()=>{ // 회원가입 에러 alert
          if(signUpError){
-          openAlert();
-          const timer = setTimeout(closeAlert,2000);
-          return ()=>{
-              clearTimeout(timer);
-          }
+              dispatch({type:OPEN_ALERT,data:signUpError});
          }
     },[signUpError]);
 
@@ -52,7 +46,6 @@ const SignUp=()=>{
 
     return(
        <Container>
-            {showAlert && <Alert text={signUpError}/>}
             <InputContainer>
                 <Label htmlFor="user-nickname">닉네임</Label>
                 <TextInput

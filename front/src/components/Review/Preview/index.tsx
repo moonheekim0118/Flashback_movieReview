@@ -6,8 +6,8 @@ import Badge from '../Badge';
 import Icon from '../../../atoms/Icons';
 import ConfirmAlert from '../../ConfirmAlert';
 import useAlert from '../../../hooks/useAlert';
-import Alert from '../../Alert';
-import { REMOVE_MY_REVIEW_REQUEST , INIT_REMOVE } from '../../../actions/review';
+import { OPEN_ALERT } from '../../../actions/alert';
+import { REMOVE_MY_REVIEW_REQUEST } from '../../../actions/review';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { ReviewList } from '../../../model/ReviewList';
 import { Container,MoviePoster,MovieDescription } from '../../Movie/MovieCard';
@@ -18,30 +18,9 @@ interface Props {
 
 const Preview=({Review}:Props)=>{
     const dispatch = useDispatch();
-    const [ alertMessage , setAlertMessage ] = useState("삭제 되었습니다.");
     const [ showConfirmAlert, openConfirmAlert, closeConfirmAlert ] = useAlert();
-    const [ showDoneAlert, openDoneAlert, closeDoneAlert ] = useAlert();
-    const { removeMyReviewDone, removeMyReviewError  } = useSelector((state)=>state.review);
-
-    useEffect(()=>{
-        if(removeMyReviewDone){
-            openDoneAlert();
-            const timer = setTimeout(closeDoneAlert,2000);
-            return ()=>{
-                clearTimeout(timer);
-                dispatch({type:INIT_REMOVE});
-            }
-        }
-        else if(removeMyReviewError){
-            setAlertMessage(removeMyReviewError);
-            const timer = setTimeout(closeDoneAlert,2000);
-            return ()=>{
-                clearTimeout(timer);
-                dispatch({type:INIT_REMOVE});
-            }
-        }
-    },[removeMyReviewDone,removeMyReviewError]);
-
+    const { removeMyReviewDone, removeMyReviewError } = useSelector((state)=>state.review);
+    
     const onMove = useCallback(()=>{
         Router.push(`/singleReview/${Review.id}`);
     },[]);
@@ -65,7 +44,6 @@ const Preview=({Review}:Props)=>{
 
     return(
         <Container onClick={onMove}>
-            {showDoneAlert && <Alert text={alertMessage}/>}
             {showConfirmAlert && <ConfirmAlert text={"정말 삭제하시겠습니까?"} clickYes={onClickRemove} clickNo={closeRemoveAlert}/>}
             <MoviePoster src={Review.Movie.image}/>
             <MovieDescription>

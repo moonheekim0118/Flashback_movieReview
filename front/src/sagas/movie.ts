@@ -9,7 +9,7 @@ import * as type from '../actions/movie';
 import axios from 'axios';
 
 function loadMovieListsAPI(data){
-    return axios.get(`/movie/${data.title}/movieList?start=${data.start}`);
+    return axios.get(`/movie/${encodeURIComponent(data.title)}/movieList?start=${data.start}`);
 }
 
 function loadRelatedSearchAPI(keyword){
@@ -19,6 +19,7 @@ function loadRelatedSearchAPI(keyword){
 function* loadMovieLists(action){
     try{
         const result = yield call(loadMovieListsAPI,action.data);
+        console.log(result);
         yield put({
             type:type.LOAD_MOVIES_SUCCESS,
             data:result.data
@@ -27,7 +28,7 @@ function* loadMovieLists(action){
         console.log(err);
         yield put({
             type:type.LOAD_MOVIES_FAIL,
-            error:err.response.data || '다시 시도해주세요.'
+            error:err || '다시 시도해주세요.'
         });
     }
 }

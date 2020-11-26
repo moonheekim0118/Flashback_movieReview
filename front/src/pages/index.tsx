@@ -3,7 +3,11 @@ import Link from 'next/link';
 import Layout from '../components/Layout';
 import Button from '../atoms/Buttons';
 import styled from 'styled-components';
+import axios from 'axios';
+import { END } from 'redux-saga';
+import { LOAD_MY_INFO_REQUEST } from '../actions/user';
 import { useSelector } from 'react-redux';
+import wrapper from '../store/configureStore';
 
 const index=()=>{
     const loginDone = useSelector(state=>state.user.loginDone);
@@ -51,6 +55,17 @@ const index=()=>{
         </Layout>
     );
 }
+
+export const getServerSideProps = wrapper.getServerSideProps(async (context)=>{
+    const cookie=context.req ? context.req.headers.cookie : '';
+    axios.defaults.headers.Cookie='';
+    if(context.req && cookie){
+        axios.defaults.headers.Cookie=cookie;
+    }
+    context.store.dispatch({type:LOAD_MY_INFO_REQUEST});
+    context.store.dispatch(END);
+    await context. store['sagaTask'].toPromise();
+});
 
 const TitleContainer = styled.div`
     position:absolute;

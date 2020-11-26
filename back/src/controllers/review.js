@@ -62,7 +62,14 @@ exports.updateReview=async(req,res,next)=>{
         review.freeComment=content.freeComment;
 
         await review.save();
-        res.status(200).json(review);
+        const fullReview = await Review.findOne({ // 전체 리뷰 불러오기 
+            where:{id:review.id},
+            include:[
+                { model : Movie},  // 영화 정보 포함 
+                { model : User, attributes:['id','nickname']},  // 작성자 정보 포함 
+            ]
+        });
+        res.status(200).json(fullReview);
     }catch(error){
         console.error(error);
         next(error);

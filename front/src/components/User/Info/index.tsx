@@ -1,12 +1,11 @@
-import React , { useRef, useCallback , useEffect } from 'react';
-import { useDispatch , useSelector } from 'react-redux';
+import React , { useRef, useCallback  } from 'react';
+import { useDispatch } from 'react-redux';
 import { MyInfo } from '../../../model/MyInfo';
+import { OPEN_ALERT } from '../../../actions/alert';
 import { UPDATE_NICKNAME_REQUEST , UPDATE_PROFILE_PIC_REQUEST } from '../../../actions/user';
 import useValidation from '../../../hooks/useValidation';
-import useAlert from '../../../hooks/useAlert';
 import Button from '../../../atoms/Buttons';
 import Icon from '../../../atoms/Icons';
-import Alert from '../../Alert';
 import Logout from '../Logout';
 import Avatar from '../../Avatar';
 import Slot from '../../Slot';
@@ -20,24 +19,14 @@ interface Props {
 // 닉네임 수정 
 const Info=({myInfo} : Props)=>{
     const dispatch = useDispatch();
-    const updateNicknameDone= useSelector((state)=>state.user.updateNicknameDone);
     const imageInput = useRef(null);
     const [nickname, setNickname, nicknameError] = useValidation(myInfo.nickname,2,6);
-    const [showAlert, openAlert, closeAlert ] = useAlert();
 
-    useEffect(()=>{
-        if(updateNicknameDone){
-            openAlert();
-            const timer = setTimeout(closeAlert,2000);
-            return ()=>{
-                clearTimeout(timer);
-            }
-        }
-    },[updateNicknameDone]);
 
     const onUploadImage = useCallback(()=>{
         imageInput.current.click();
     },[imageInput.current]);
+
 
     const onChangeImage = useCallback((e)=>{
         const imageFormData = new FormData();
@@ -52,6 +41,7 @@ const Info=({myInfo} : Props)=>{
             type:UPDATE_NICKNAME_REQUEST,
             data:{id:myInfo.id, nickname:nickname},
         })
+        dispatch({type:OPEN_ALERT, data:"닉네임이 변경되었습니다."});
     },[nickname]);
 
 
@@ -82,7 +72,6 @@ const Info=({myInfo} : Props)=>{
                     />
                 </ButtonContainer>
             </Form>
-            {showAlert && <Alert text={"닉네임 변경이 완료되었습니다."}/>}
             <ReviewCountContainer>
                 <Title>{myInfo.Reviews} 개의 리뷰를 쓰신 당신은!</Title>
                  <Slot reviewsCount={myInfo.Reviews}/>
