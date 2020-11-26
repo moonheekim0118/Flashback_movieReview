@@ -24,6 +24,7 @@ module.exports=(sequelize, DataType)=>{
 
     User.associate = (db) => {
         db.User.hasMany(db.Review);
-    };
+        db.User.belongsToMany(db.Movie, {through:'favoriteMovie', as:'Liker'});
+    }
     return User;
 }
