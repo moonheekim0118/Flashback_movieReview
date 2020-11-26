@@ -4,12 +4,11 @@ import Layout from '../../components/Layout';
 import { useDispatch,useSelector } from 'react-redux';
 import { LOAD_MY_INFO_REQUEST } from '../../actions/user';
 import { LOAD_MOVIES_REQUEST } from '../../actions/movie';
+import { Message } from '../../components/GlobalStyle';
 import MovieCard from '../../components/Movie/MovieCard';
-import styled from 'styled-components';
 import axios from 'axios';
 import { END } from 'redux-saga';
 import wrapper from '../../store/configureStore';
-
 
 const movieResult=()=>{
     const dispatch = useDispatch();
@@ -61,9 +60,5 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context)=>{
     await context.store['sagaTask'].toPromise();
 });
 
-export const Message = styled.div`
-    text-align:center;
-    margin-top:50px;
-`;
 
 export default movieResult;

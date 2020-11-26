@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
     *,
@@ -16,6 +16,11 @@ const GlobalStyle = createGlobalStyle`
         overflow-x:hidden;
         background-color:#f4f4f4;
     }
+`;
+
+export const Message = styled.div`
+text-align:center;
+margin-top:50px;
 `;
 
 export default GlobalStyle;

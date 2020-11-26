@@ -1,14 +1,14 @@
 import React , { useEffect } from 'react';
 import Router from 'next/router';
 import Layout from '../components/Layout';
-import axios from 'axios';
 import { useSelector , useDispatch } from 'react-redux';
 import { OPEN_ALERT } from '../actions/alert';
 import { LOAD_MY_REVIEWS_REQUEST } from '../actions/review';
 import { LOAD_MY_INFO_REQUEST } from '../actions/user';
-import Preview from '../components/Review/Preview';
-import { Message } from './movieResult/[title]';
 import { END } from 'redux-saga';
+import { Message } from '../components/GlobalStyle';
+import axios from 'axios';
+import Preview from '../components/Review/Preview';
 import wrapper from '../store/configureStore';
 
 
@@ -53,7 +53,6 @@ const MyReviews=()=>{
     },[loadMyReviewsLoading,hasMoreReviews,myReviews]);
 
     useEffect(()=>{ // 삭제 후 alert 
-        console.log('왜 안될까용..'+removeMyReviewDone);
         if(removeMyReviewDone){  // 삭제 완료시 alert 
             dispatch({type:OPEN_ALERT, data:'리뷰가 삭제되었습니다.'});
         }

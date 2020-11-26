@@ -2,10 +2,11 @@ import React , { useEffect } from 'react';
 import Router from 'next/router';
 import Layout from '../components/Layout';
 import { useSelector } from 'react-redux'
-import TextEditor from '../components/Review/TextEditor';
 import { backUrl } from '../Config/config';
+import { Message } from '../components/GlobalStyle';
 import useSWR from 'swr';
 import axios from 'axios';
+import TextEditor from '../components/Review/TextEditor';
 
 const fetcher = (url) =>axios.get(url, {withCredentials: true}).then((result)=>result.data); 
 
@@ -35,22 +36,14 @@ const WriteReview=()=>{
     },[singleMovie]);
 
      
-    if(myInfoError || !myInfo ){
-        return(        
-        <Layout PageName="리뷰작성">
-           잠시후에 다시 시도해주세요.
-        </Layout>)
+    if(myInfoError || !myInfo || !singleMovie ){
+        return(<Layout PageName="리뷰작성">
+                    <Message>잠시후에 다시 시도해주세요.</Message>
+                </Layout>)
     }
     else{
         base = {id:myInfo.id, Movie:singleMovie, User:{id:myInfo.id, nickname:myInfo.nickname},
         shortComment:"", line:"", character:"", scene:"", freeComment:"", rating:"GOOD"};
-    }
-
-    if(!singleMovie){
-        return(        
-            <Layout PageName="리뷰작성">
-               잠시후에 다시 시도해주세요.
-            </Layout>)
     }
 
     return(

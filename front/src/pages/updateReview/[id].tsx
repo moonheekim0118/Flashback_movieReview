@@ -6,6 +6,7 @@ import { END } from 'redux-saga';
 import { LOAD_MY_INFO_REQUEST } from '../../actions/user';
 import { LOAD_SINGLE_REVIEW_REQUEST } from '../../actions/review';
 import { useSelector } from 'react-redux'
+import { Message } from '../../components/GlobalStyle';
 import TextEditor from '../../components/Review/TextEditor';
 import wrapper from '../../store/configureStore';
 
@@ -21,7 +22,7 @@ const UpdateReview=()=>{
 
     if(!singleReview) return(
         <Layout PageName="리뷰수정">
-            <p>리뷰가 존재하지 않습니다.</p>
+            <Message>리뷰가 존재하지 않습니다.</Message>
         </Layout>
     )
     return(

@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { LOAD_MY_INFO_REQUEST } from '../../actions/user';
 import { LOAD_SINGLE_REVIEW_REQUEST } from '../../actions/review';
 import { END } from 'redux-saga';
+import { Message } from '../../components/GlobalStyle';
 import axios from 'axios';
 import Layout from '../../components/Layout';
 import SingleReviewComponent from '../../components/Review/SingleReview';
@@ -15,7 +16,7 @@ const singleReview=()=>{
 
     if(!singleReview) return (
         <Layout PageName="리뷰">
-            <p>존재하지 않는 리뷰 입니다.</p>
+            <Message>존재하지 않는 리뷰 입니다.</Message>
         </Layout>
     )
 

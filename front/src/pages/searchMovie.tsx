@@ -1,9 +1,9 @@
 import React from 'react';
 import Layout from '../components/Layout';
 import SearchMovie from '../components/Movie/SearchMovie';
-import axios from 'axios';
-import { END } from 'redux-saga';
 import { LOAD_MY_INFO_REQUEST } from '../actions/user';
+import { END } from 'redux-saga';
+import axios from 'axios';
 import wrapper from '../store/configureStore';
 
 const searchMovie=()=>{

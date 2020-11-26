@@ -4,8 +4,8 @@ import SignUpForm from '../components/User/SignUp';
 import Router from 'next/router';
 import { useSelector } from 'react-redux';
 import { LOAD_MY_INFO_REQUEST } from '../actions/user';
-import axios from 'axios';
 import { END } from 'redux-saga';
+import axios from 'axios';
 import wrapper from '../store/configureStore';
 
 const SingUp=()=>{

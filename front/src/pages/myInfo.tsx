@@ -3,10 +3,11 @@ import Router from 'next/router';
 import Layout from '../components/Layout';
 import { LOAD_MY_INFO_REQUEST } from '../actions/user';
 import { useSelector } from 'react-redux'
-import Info from '../components/User/Info';
-import axios from 'axios';
+import { Message } from '../components/GlobalStyle';
 import { END } from 'redux-saga';
+import axios from 'axios';
 import wrapper from '../store/configureStore';
+import Info from '../components/User/Info';
 
 const User=()=>{
     const { myInfo, loginDone } = useSelector((state)=>state.user);
@@ -20,7 +21,7 @@ const User=()=>{
     if(!myInfo){
         return(
             <Layout PageName="내 정보">
-                다시 로그인 해주세요.
+               <Message>다시 로그인 해주세요.</Message>
             </Layout>
         )
     }
