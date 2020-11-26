@@ -31,11 +31,6 @@ export const initialState={
 const reducer =  (state=initialState, action)=>{
     return produce(state,draft=>{
         switch(action.type){
-            // 초기화
-            case type.INIT_REVIEWS:
-                draft.myReviews=[];
-                draft.hasMoreReviews=true;
-                break;
             // 로딩 
             case type.LOAD_MY_REVIEWS_REQUEST:
                 draft.loadMyReviewsDone=false;
@@ -73,7 +68,6 @@ const reducer =  (state=initialState, action)=>{
                 draft.loadSingleReviewError=action.error;
                 break;
             // 추가 
-            case type.INIT_ADD: // 초기화
             case type.ADD_MY_REVIEW_REQUEST:
                 draft.addMyReviewDone=false;
                 draft.addMyReviewLoading=true;
@@ -92,7 +86,6 @@ const reducer =  (state=initialState, action)=>{
                 break;
             
             // 삭제   
-            case type.INIT_REMOVE: // 초기화 
             case type.REMOVE_MY_REVIEW_REQUEST:
                 draft.removeMyReviewDone=false;
                 draft.removeMyReviewLoading=true;

@@ -1,11 +1,14 @@
-import React ,{ useCallback } from 'react';
-import { useSelector } from 'react-redux';
+import React ,{ useCallback , useEffect , useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import Link from 'next/link';
 import Router from 'next/router'
+import Alert from '../../components/Alert';
 import Icons from '../../atoms/Icons';
 import styled from 'styled-components';
+import { CLOSE_ALERT } from '../../actions/alert';
 import { faChevronLeft, faBars } from '@fortawesome/free-solid-svg-icons';
 import Logout from '../User/Logout';
+import { clear } from 'console';
 
 interface Props {
     PageName?:string;
@@ -13,17 +16,27 @@ interface Props {
 }
 
 const Layout=({ PageName="" , children} : Props)=>{
-
+    const dispatch = useDispatch();
+    const { showAlert } = useSelector((state)=>state.alert);
     const loginDone = useSelector(state=>state.user.loginDone);
+  
     const onPushBack = useCallback(()=>{
         Router.back();
     },[]);
+
+    useEffect(()=>{
+        if(showAlert){
+            const timer = setTimeout(()=>dispatch({type:CLOSE_ALERT}),5000);
+            return()=>clearTimeout(timer);
+        }
+    },[showAlert]);
 
     const MainButton = PageName ==='메뉴' && loginDone ? <Logout/> : 
     <Link href="/menu"><a><Icons icon={faBars} color="lightPurple"/></a></Link> ;
     
     return(
         <App>
+        <Alert/>
         {PageName &&         
         <Header>
             <div><Icons icon={faChevronLeft} className={"fa-chevron-left"} onClick={onPushBack}/></div>

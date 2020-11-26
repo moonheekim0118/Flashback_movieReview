@@ -27,10 +27,3 @@ export const UPDATE_MY_REVIEW_REQUEST="UPDATE_MY_REVIEW_REQUEST";
 export const UPDATE_MY_REVIEW_SUCCESS="UPDATE_MY_REVIEW_SUCCESS";
 export const UPDATE_MY_REVIEW_FAIL="UPDATE_MY_REVIEW_FAIL";
 
-
-// init add
-export const INIT_ADD="INIT_ADD";
-// init update
-export const INIT_UPDATE="INIT_UPDATE";
-// init remove
-export const INIT_REMOVE="INIT_REMOVE";

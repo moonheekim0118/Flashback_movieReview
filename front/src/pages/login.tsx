@@ -6,6 +6,7 @@ import axios from 'axios';
 import { END } from 'redux-saga';
 import { useSelector } from 'react-redux';
 import { LOAD_MY_INFO_REQUEST } from '../actions/user';
+import { CLOSE_ALERT } from '../actions/alert';
 import wrapper from '../store/configureStore';
 
 
