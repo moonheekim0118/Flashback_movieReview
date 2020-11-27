@@ -1,12 +1,14 @@
 import React , { useCallback } from 'react';
 import Router from 'next/router';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import useToggle from '../../../hooks/useToggle';
 import styled from 'styled-components';
 import { SAVE_MOVIE } from '../../../actions/movie';
 import { MovieList } from '../../../model/MovieList';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { titleParser } from '../../../util/titleParser';
 import Icon from '../../../atoms/Icons';
+import Tooltip from '../../Tooltip';
 
 interface Props {
     Movie?:MovieList;
@@ -16,6 +18,8 @@ interface Props {
 // 검색창 검색시 해당 영화 리스트 가져오기
 const MovieCard=({Movie, Search=false}:Props)=>{
     const dispatch = useDispatch();
+    const [ showTooltip, setShowTooltip ]= useToggle(); // 툴팁 토글 
+    const loginDone = useSelector((state)=>state.user.loginDone);
 
     const onSelectMovie=useCallback(()=>{  // 리뷰 작성할 영화 선택 
         dispatch({
@@ -25,6 +29,9 @@ const MovieCard=({Movie, Search=false}:Props)=>{
         Router.push(`/writeReview`); // redirect
     },[]);
 
+    const ButtonList =[ { title:'인생영화 등록', onClick:onSelectMovie}, {title:'리뷰 작성', onClick:onSelectMovie} ];
+    // 둘다 로그인되어잇을 경우만 보여주기 
+    
     return(
         <Container>
             <MoviePoster src={Movie.image}/>
@@ -33,17 +40,19 @@ const MovieCard=({Movie, Search=false}:Props)=>{
                 <p>{Movie.director} 감독</p>
                 <p> {Movie.pubDate} 제작</p>
             </MovieDescription>
-            {Search &&
+            {loginDone && Search &&
             <Selector>
                 <Icon
                 size={45}
                 icon={faPlusCircle}
-                onClick={onSelectMovie}
+                onClick={setShowTooltip}
                 />
             </Selector>}
+            {loginDone && Search && showTooltip && <Tooltip onClose={setShowTooltip} buttonList={ButtonList}/> } 
         </Container>
     );
 }
+
 
 export const Container = styled.div`
     display:flex;

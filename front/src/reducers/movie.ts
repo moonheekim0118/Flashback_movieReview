@@ -22,11 +22,6 @@ export const initialState={
 const reducer =  (state=initialState, action)=>{
     return produce(state,draft=>{
         switch(action.type){
-            // 영화 리스트 초기화
-            case type.INIT_MOVIES:
-                draft.movieLists=[];
-                draft.hasMoreMovies=true;
-                break;
                 
             // 영화 리스트 불러오기 
             case type.LOAD_MOVIES_REQUEST:

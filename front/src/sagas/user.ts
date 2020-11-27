@@ -42,7 +42,7 @@ function* loadMyInfo(){
     }catch(err){
         yield put({
             type:type.LOAD_MY_INFO_FAIL,
-            error:err.response.data || '다시 시도해주세요.'
+            error:err || '다시 시도해주세요.'
         });
     }
 }

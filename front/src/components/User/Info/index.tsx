@@ -22,11 +22,9 @@ const Info=({myInfo} : Props)=>{
     const imageInput = useRef(null);
     const [nickname, setNickname, nicknameError] = useValidation(myInfo.nickname,2,6);
 
-
     const onUploadImage = useCallback(()=>{
         imageInput.current.click();
     },[imageInput.current]);
-
 
     const onChangeImage = useCallback((e)=>{
         const imageFormData = new FormData();
@@ -42,7 +40,6 @@ const Info=({myInfo} : Props)=>{
         })
         dispatch({type:OPEN_ALERT, data:"닉네임이 변경되었습니다."});
     },[nickname]);
-
 
     return(
         <Container>
