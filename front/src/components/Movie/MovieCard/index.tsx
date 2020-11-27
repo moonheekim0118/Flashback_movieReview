@@ -89,7 +89,6 @@ const MovieTitle = styled.p`
 `;
 
 const Selector = styled.div`
-    z-index:1000;
     position:absolute;
     bottom:60px;
     right:30px;
