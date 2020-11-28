@@ -88,15 +88,20 @@ const Header = styled.header`
 `;
 
 const PageInfo = styled.div`
-    width:200px;
-    max-width:80%;
+    max-width:700px;
     display:flex;
     justify-content:space-evenly;
     align-items:center;
+    overflow:ellipsis;
+
+    @media screen and (max-width:768px){
+        max-width: 190px;
+    };
 `;
 
 const PageDescription = styled.div`
-    padding-left:20px;
+    width:100%;
+    margin-right:20px;
 `;
 
 export default Layout;
