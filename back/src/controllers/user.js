@@ -1,6 +1,8 @@
-const { User, Review } = require('../../models');
+const { User, Review, Movie } = require('../../models');
 const bcrypt = require('bcrypt');
 const passport = require('passport');
+const user = require('../../models/user');
+const movie = require('../../models/movie');
 
 exports.signUp=async(req,res,next)=>{
     try{
@@ -121,6 +123,43 @@ exports.updateProfilePic = async(req,res,next)=>{
         user.profilePic=fileUrl;
         await user.save();
         res.status(200).json(fileUrl);
+        
+    }catch(error){
+        console.error(error);
+        next(error);
+    }
+}
+
+exports.addFavoriteMovie = async(req,res,next)=>{ // 인생영화 추가 
+    try{
+        // 이미 10개 등록되어있다면 에러메시지 띄워주기.
+        // user.getLiked
+
+        // movie db에 저장 
+        const movieInfo = req.body;
+        const exMovie = await Movie.findOne({
+            where:{title:movieInfo.title, director:movieInfo.director, image:movieInfo.image}
+        });
+        let movie;
+        if(exMovie){
+            movie=exMovie;
+        }
+        else{
+            movie = await Movie.create({
+                title:movieInfo.title,
+                image:movieInfo.image,
+                pubDate:movieInfo.pubDate,
+                director:movieInfo.director
+            })
+        }
+        const user = await User.findOne({where:{id:req.user.id}});
+        
+        const counts = await user.countLiker(); // 저장된 인생영화 
+        if(counts === 10) { // 인생영화가 10개일 경우  
+            return res.status(401).json('이미 인생영화가 꽉 찼습니다!');
+        }
+        user.addLiker(movie); // 인생영화 저장
+        return res.status(200).json(movie);
         
     }catch(error){
         console.error(error);

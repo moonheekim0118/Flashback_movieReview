@@ -38,6 +38,8 @@ router.put('/updateNickname',isLoggedIn,userController.updateNickname);
 
 router.post('/updateProfilePic', isLoggedIn, upload.array('image'), userController.updateProfilePic);
 
+router.post('/addFavoriteMovie',isLoggedIn,userController.addFavoriteMovie); // 인생영화 등록 
+
 router.get('/',userController.loadUser); // 현재 로그인한 유저 정보 로딩 
 
 module.exports=router;

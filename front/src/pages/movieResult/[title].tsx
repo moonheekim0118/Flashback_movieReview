@@ -4,6 +4,7 @@ import Layout from '../../components/Layout';
 import { useDispatch,useSelector } from 'react-redux';
 import { LOAD_MY_INFO_REQUEST } from '../../actions/user';
 import { LOAD_MOVIES_REQUEST } from '../../actions/movie';
+import { OPEN_ALERT } from '../../actions/alert';
 import { Message } from '../../components/GlobalStyle';
 import MovieCard from '../../components/Movie/MovieCard';
 import axios from 'axios';
@@ -14,6 +15,7 @@ const movieResult=()=>{
     const dispatch = useDispatch();
     const router = useRouter();
     const { title } = router.query;
+    const { addFavoriteMovieDone,addFavoriteMovieError } = useSelector((state)=>state.user);
     const { movieLists,loadMoviesLoading,hasMoreMovies } = useSelector((state)=>state.movie);
 
     useEffect(()=>{
@@ -35,6 +37,16 @@ const movieResult=()=>{
         }
     },[hasMoreMovies,loadMoviesLoading,movieLists]);
     
+    // 인생영화 추가 후 alert 
+    useEffect(()=>{
+        if(addFavoriteMovieDone){ // 정상적으로 추가 
+            dispatch({type:OPEN_ALERT, data:'인생영화로 추가되었습니다.'});
+        }
+        else if(addFavoriteMovieError){ // 에러 
+            dispatch({type:OPEN_ALERT, data:addFavoriteMovieError});
+        }
+    },[addFavoriteMovieDone,addFavoriteMovieError]);
+
     return(
         <Layout PageName={`${title} 검색결과`}>
             {movieLists&&movieLists.map((v,i)=>(

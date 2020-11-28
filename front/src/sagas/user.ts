@@ -32,6 +32,10 @@ function updateProfilePicAPI(data){
     return axios.post('/user/updateProfilePic',data); // id와 닉네임 가져오기
 }
 
+function addFavoriteMovieAPI(data){
+    return axios.post('/user/addFavoriteMovie',data); // id와 닉네임 가져오기
+}
+
 function* loadMyInfo(){
     try{
         const result = yield call(loadMyInfoAPI);
@@ -124,6 +128,23 @@ function* updateProfilePic(action){
     }
 }
 
+function* addFavoriteMovie(action){
+    try{
+        const result = yield call(addFavoriteMovieAPI,action.data);
+        yield put({
+            type:type.ADD_FAVORITE_MOVIE_SUCCESS,
+            data:result.data,
+        })   
+
+    }catch(err){
+        yield put({
+            type:type.ADD_FAVORITE_MOVIE_FAIL,
+            error:err.response.data || '다시 시도해주세요.'
+        });
+    }
+}
+
+
 function* watchLoadMyInfo(){
     yield takeLatest(type.LOAD_MY_INFO_REQUEST, loadMyInfo);
 };
@@ -148,6 +169,11 @@ function* watchUpdateProfilePic(){
     yield takeLatest(type.UPDATE_PROFILE_PIC_REQUEST,updateProfilePic);
 }
 
+function* watchAddFavoriteMovie(){
+    yield takeLatest(type.ADD_FAVORITE_MOVIE_REQUEST,addFavoriteMovie);
+}
+
+
 export default function* userSaga(){
     yield all([
         fork(watchLoadMyInfo),
@@ -156,5 +182,6 @@ export default function* userSaga(){
         fork(watchSignUp),
         fork(watchUpdateNickname),
         fork(watchUpdateProfilePic),
+        fork(watchAddFavoriteMovie),
     ]);
 }

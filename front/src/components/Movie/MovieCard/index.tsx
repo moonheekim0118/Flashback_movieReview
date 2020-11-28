@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import useToggle from '../../../hooks/useToggle';
 import styled from 'styled-components';
 import { SAVE_MOVIE } from '../../../actions/movie';
+import { ADD_FAVORITE_MOVIE_REQUEST } from '../../../actions/user';
 import { MovieList } from '../../../model/MovieList';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
-import { titleParser } from '../../../util/titleParser';
 import Icon from '../../../atoms/Icons';
 import Tooltip from '../../Tooltip';
 
@@ -21,7 +21,7 @@ const MovieCard=({Movie, Search=false}:Props)=>{
     const [ showTooltip, setShowTooltip ]= useToggle(); // 툴팁 토글 
     const loginDone = useSelector((state)=>state.user.loginDone);
 
-    const onSelectMovie=useCallback(()=>{  // 리뷰 작성할 영화 선택 
+    const onWriteReview=useCallback(()=>{  // 리뷰 작성할 영화 선택 
         dispatch({
             type:SAVE_MOVIE,
             data:Movie,
@@ -29,16 +29,23 @@ const MovieCard=({Movie, Search=false}:Props)=>{
         Router.push(`/writeReview`); // redirect
     },[]);
 
-    const ButtonList =[ { title:'인생영화 등록', onClick:onSelectMovie}, {title:'리뷰 작성', onClick:onSelectMovie} ];
-    // 둘다 로그인되어잇을 경우만 보여주기 
+    const onAddFavorite=useCallback(()=>{
+        dispatch({
+            type:ADD_FAVORITE_MOVIE_REQUEST,
+            data:Movie,
+        });
+        setShowTooltip(); // 툴팁 닫기 
+    },[showTooltip]);
+
+    const ButtonList =[ { title:'인생영화 등록', onClick:onAddFavorite}, {title:'리뷰 작성', onClick:onWriteReview} ];
     
     return(
         <Container>
             <MoviePoster src={Movie.image}/>
             <MovieDescription>
-                <MovieTitle>{titleParser(Movie.title)}</MovieTitle>
+                <MovieTitle>{Movie.title}</MovieTitle>
                 <p>{Movie.director} 감독</p>
-                <p> {Movie.pubDate} 제작</p>
+                <p>{Movie.pubDate} 제작</p>
             </MovieDescription>
             {loginDone && Search &&
             <Selector>

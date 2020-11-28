@@ -7,7 +7,6 @@ import Icon from '../../../atoms/Icons';
 import { LOAD_RELATED_SEARCH_REQUEST } from '../../../actions/movie';
 import { faSearch, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { debounce } from 'lodash';
-import { titleParser } from '../../../util/titleParser';
 import SearchResult from '../SearchResult';
 
 const SearchMovie=()=>{
@@ -58,7 +57,7 @@ const SearchMovie=()=>{
                 searchLists.map((val)=>
                 <SearchResult
                 key={val.link} 
-                movieName={titleParser(val.title)}/>)}
+                movieName={val.title}/>)}
             </SearchResultContainer>
         </Container>
     );

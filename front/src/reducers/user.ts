@@ -26,7 +26,12 @@ export const initialState={
     updateProfilePicLoading:false,
     updateProfilePicError:null,
 
+    addFavoriteMovieDone:false, // 인생영화 등록 
+    addFavoriteMovieLoading:false,
+    addFavoriteMovieError:null,
+
     myInfo:null, // 현재 로그인된 사용자 정보 
+    favoriteMovies:[], // 현재 로그인된 사용자의 인생영화 리스트  
 };
 
 const reducer =  (state=initialState, action)=>{
@@ -140,6 +145,24 @@ const reducer =  (state=initialState, action)=>{
             case type.UPDATE_PROFILE_PIC_FAIL:
                 draft.updateProfilePicLoading=false;
                 draft.updateProfilePicError=action.error;
+                break;
+
+            // 인생영화 등록하기
+            case type.ADD_FAVORITE_MOVIE_REQUEST:
+                draft.addFavoriteMovieDone=false;
+                draft.addFavoriteMovieLoading=true;
+                draft.addFavoriteMovieError=null;
+                break;
+
+            case type.ADD_FAVORITE_MOVIE_SUCCESS:
+                draft.addFavoriteMovieDone=true;
+                draft.addFavoriteMovieLoading=false;
+                draft.favoriteMovies.push(action.data);
+                break;
+            
+            case type.ADD_FAVORITE_MOVIE_FAIL:
+                draft.addFavoriteMovieLoading=false;
+                draft.addFavoriteMovieError=action.error;
                 break;
         }
     });
