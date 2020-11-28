@@ -1,12 +1,14 @@
 import React , { useCallback } from 'react';
 import Router from 'next/router';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import useToggle from '../../../hooks/useToggle';
 import styled from 'styled-components';
 import { SAVE_MOVIE } from '../../../actions/movie';
+import { ADD_FAVORITE_MOVIE_REQUEST } from '../../../actions/user';
 import { MovieList } from '../../../model/MovieList';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
-import { titleParser } from '../../../util/titleParser';
 import Icon from '../../../atoms/Icons';
+import Tooltip from '../../Tooltip';
 
 interface Props {
     Movie?:MovieList;
@@ -16,8 +18,10 @@ interface Props {
 // 검색창 검색시 해당 영화 리스트 가져오기
 const MovieCard=({Movie, Search=false}:Props)=>{
     const dispatch = useDispatch();
+    const [ showTooltip, setShowTooltip ]= useToggle(); // 툴팁 토글 
+    const loginDone = useSelector((state)=>state.user.loginDone);
 
-    const onSelectMovie=useCallback(()=>{  // 리뷰 작성할 영화 선택 
+    const onWriteReview=useCallback(()=>{  // 리뷰 작성할 영화 선택 
         dispatch({
             type:SAVE_MOVIE,
             data:Movie,
@@ -25,25 +29,37 @@ const MovieCard=({Movie, Search=false}:Props)=>{
         Router.push(`/writeReview`); // redirect
     },[]);
 
+    const onAddFavorite=useCallback(()=>{
+        dispatch({
+            type:ADD_FAVORITE_MOVIE_REQUEST,
+            data:Movie,
+        });
+        setShowTooltip(); // 툴팁 닫기 
+    },[showTooltip]);
+
+    const ButtonList =[ { title:'인생영화 등록', onClick:onAddFavorite}, {title:'리뷰 작성', onClick:onWriteReview} ];
+    
     return(
         <Container>
             <MoviePoster src={Movie.image}/>
             <MovieDescription>
-                <MovieTitle>{titleParser(Movie.title)}</MovieTitle>
+                <MovieTitle>{Movie.title}</MovieTitle>
                 <p>{Movie.director} 감독</p>
-                <p> {Movie.pubDate} 제작</p>
+                <p>{Movie.pubDate} 제작</p>
             </MovieDescription>
-            {Search &&
+            {loginDone && Search &&
             <Selector>
                 <Icon
                 size={45}
                 icon={faPlusCircle}
-                onClick={onSelectMovie}
+                onClick={setShowTooltip}
                 />
             </Selector>}
+            {loginDone && Search && showTooltip && <Tooltip onClose={setShowTooltip} buttonList={ButtonList}/> } 
         </Container>
     );
 }
+
 
 export const Container = styled.div`
     display:flex;
@@ -80,7 +96,6 @@ const MovieTitle = styled.p`
 `;
 
 const Selector = styled.div`
-    z-index:1000;
     position:absolute;
     bottom:60px;
     right:30px;

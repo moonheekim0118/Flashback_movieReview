@@ -32,6 +32,18 @@ function updateProfilePicAPI(data){
     return axios.post('/user/updateProfilePic',data); // id와 닉네임 가져오기
 }
 
+function addFavoriteMovieAPI(data){
+    return axios.post('/user/addFavoriteMovie',data); // id와 닉네임 가져오기
+}
+
+function loadFavoriteMovieAPI(){
+    return axios.get('/user/favoriteMovies'); // id와 닉네임 가져오기
+}
+
+function removeFavoriteMovieAPI(data){
+    return axios.delete(`/user/${data}/favoriteMovies`);
+}
+
 function* loadMyInfo(){
     try{
         const result = yield call(loadMyInfoAPI);
@@ -42,7 +54,7 @@ function* loadMyInfo(){
     }catch(err){
         yield put({
             type:type.LOAD_MY_INFO_FAIL,
-            error:err.response.data || '다시 시도해주세요.'
+            error:err || '다시 시도해주세요.'
         });
     }
 }
@@ -124,6 +136,57 @@ function* updateProfilePic(action){
     }
 }
 
+function* addFavoriteMovie(action){
+    try{
+        const result = yield call(addFavoriteMovieAPI,action.data);
+        yield put({
+            type:type.ADD_FAVORITE_MOVIE_SUCCESS,
+            data:result.data,
+        })   
+
+    }catch(err){
+        yield put({
+            type:type.ADD_FAVORITE_MOVIE_FAIL,
+            error:err.response.data || '다시 시도해주세요.'
+        });
+    }
+}
+
+
+function* loadFavoriteMovie(){
+    try{
+        const result = yield call(loadFavoriteMovieAPI);
+        yield put({
+            type:type.LOAD_FAVORITE_MOVIE_SUCCESS,
+            data:result.data,
+        })   
+
+    }catch(err){
+        yield put({
+            type:type.LOAD_FAVORITE_MOVIE_FAIL,
+            error:err.response.data || '다시 시도해주세요.'
+        });
+    }
+}
+
+function* removeFavoriteMovie(action){
+    try{
+        const result = yield call(removeFavoriteMovieAPI,action.data);
+        yield put({
+            type:type.REMOVE_FAVORITE_MOVIE_SUCCESS,
+            data:result.data,
+        })   
+
+    }catch(err){
+        yield put({
+            type:type.REMOVE_FAVORITE_MOVIE_FAIL,
+            error:err.response.data || '다시 시도해주세요.'
+        });
+    }
+}
+
+
+
 function* watchLoadMyInfo(){
     yield takeLatest(type.LOAD_MY_INFO_REQUEST, loadMyInfo);
 };
@@ -148,6 +211,18 @@ function* watchUpdateProfilePic(){
     yield takeLatest(type.UPDATE_PROFILE_PIC_REQUEST,updateProfilePic);
 }
 
+function* watchAddFavoriteMovie(){
+    yield takeLatest(type.ADD_FAVORITE_MOVIE_REQUEST,addFavoriteMovie);
+}
+
+function* watchLoadFavoriteMovie(){
+    yield takeLatest(type.LOAD_FAVORITE_MOVIE_REQUEST,loadFavoriteMovie);
+}
+
+function* watchRemoveFavoriteMovie(){
+    yield takeLatest(type.REMOVE_FAVORITE_MOVIE_REQUEST,removeFavoriteMovie);
+}
+
 export default function* userSaga(){
     yield all([
         fork(watchLoadMyInfo),
@@ -156,5 +231,8 @@ export default function* userSaga(){
         fork(watchSignUp),
         fork(watchUpdateNickname),
         fork(watchUpdateProfilePic),
+        fork(watchAddFavoriteMovie),
+        fork(watchLoadFavoriteMovie),
+        fork(watchRemoveFavoriteMovie),
     ]);
 }

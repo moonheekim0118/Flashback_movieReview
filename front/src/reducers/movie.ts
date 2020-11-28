@@ -1,4 +1,5 @@
 import * as type from '../actions/movie';
+import { titleParser,directorParser } from '../util/movieParser';
 import { produce } from 'immer';
 
 export const initialState={
@@ -22,11 +23,6 @@ export const initialState={
 const reducer =  (state=initialState, action)=>{
     return produce(state,draft=>{
         switch(action.type){
-            // 영화 리스트 초기화
-            case type.INIT_MOVIES:
-                draft.movieLists=[];
-                draft.hasMoreMovies=true;
-                break;
                 
             // 영화 리스트 불러오기 
             case type.LOAD_MOVIES_REQUEST:
@@ -36,6 +32,10 @@ const reducer =  (state=initialState, action)=>{
                 break;
             
             case type.LOAD_MOVIES_SUCCESS:
+                action.data.forEach((v,i)=>{
+                    v.title=titleParser(v.title);
+                    v.director=directorParser(v.director);
+                }); // 타이틀 및 디렉터 파싱 
                 draft.movieLists=draft.movieLists.concat(action.data); // 불러온 영화 추가하기 
                 draft.loadMoviesDone=true;
                 draft.loadMoviesLoading=false;
@@ -61,8 +61,10 @@ const reducer =  (state=initialState, action)=>{
                 break;
             
             case type.LOAD_RELATED_SEARCH_SUCCESS:
-                console.log(action.data);
-
+                action.data.forEach((v,i)=>{ // 타이틀 및 디렉터 파싱 
+                    v.title=titleParser(v.title);
+                    v.director=directorParser(v.director);
+                })
                 draft.loadRelatedSearchDone=true;
                 draft.loadRelatedSearchLoading=false;
                 draft.searchLists= action.data;

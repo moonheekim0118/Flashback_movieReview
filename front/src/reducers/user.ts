@@ -26,7 +26,20 @@ export const initialState={
     updateProfilePicLoading:false,
     updateProfilePicError:null,
 
+    addFavoriteMovieDone:false, // 인생영화 등록 
+    addFavoriteMovieLoading:false,
+    addFavoriteMovieError:null,
+
+    loadFavoriteMovieDone:false, // 인생영화 로딩
+    loadFavoriteMovieLoading:false,
+    loadFavoriteMovieError:null,
+
+    removeFavoriteMovieDone:false, // 인생영화 삭제
+    removeFavoriteMovieLoading:false,
+    removeFavoriteMovieError:null,
+
     myInfo:null, // 현재 로그인된 사용자 정보 
+    favoriteMovies:[], // 현재 로그인된 사용자의 인생영화 리스트  
 };
 
 const reducer =  (state=initialState, action)=>{
@@ -140,6 +153,60 @@ const reducer =  (state=initialState, action)=>{
             case type.UPDATE_PROFILE_PIC_FAIL:
                 draft.updateProfilePicLoading=false;
                 draft.updateProfilePicError=action.error;
+                break;
+
+            // 인생영화 등록하기
+            case type.ADD_FAVORITE_MOVIE_REQUEST:
+                draft.addFavoriteMovieDone=false;
+                draft.addFavoriteMovieLoading=true;
+                draft.addFavoriteMovieError=null;
+                break;
+
+            case type.ADD_FAVORITE_MOVIE_SUCCESS:
+                draft.addFavoriteMovieDone=true;
+                draft.addFavoriteMovieLoading=false;
+                draft.favoriteMovies.push(action.data);
+                break;
+            
+            case type.ADD_FAVORITE_MOVIE_FAIL:
+                draft.addFavoriteMovieLoading=false;
+                draft.addFavoriteMovieError=action.error;
+                break;
+
+            // 인생영화 불러오기
+            case type.LOAD_FAVORITE_MOVIE_REQUEST:
+                draft.loadFavoriteMovieDone=false;
+                draft.loadFavoriteMovieLoading=false;
+                draft.loadFavoriteMovieError=null;
+                break;
+            
+            case type.LOAD_FAVORITE_MOVIE_SUCCESS:
+                draft.loadFavoriteMovieDone=true;
+                draft.loadFavoriteMovieLoading=false;
+                draft.favoriteMovies=action.data;
+                break;
+            
+            case type.LOAD_FAVORITE_MOVIE_FAIL:
+                draft.loadFavoriteMovieLoading=false;
+                draft.loadFavoriteMovieError=action.error;
+                break;
+            
+            // 인생영화 삭제
+            case type.REMOVE_FAVORITE_MOVIE_REQUEST:
+                draft.removeFavoriteMovieDone=false;
+                draft.removeFavoriteMovieLoading=true;
+                draft.removeFavoriteMovieError=null;
+                break;
+            
+            case type.REMOVE_FAVORITE_MOVIE_SUCCESS:
+                draft.removeFavoriteMovieDone=true;
+                draft.removeFavoriteMovieLoading=false;
+                draft.favoriteMovies=draft.favoriteMovies.filter((v)=>v.id!==action.data);
+                break;
+            
+            case type.REMOVE_FAVORITE_MOVIE_FAIL:
+                draft.removeFavoriteMovieLoading=false;
+                draft.removeFavoriteMovieError=action.error;
                 break;
         }
     });
