@@ -172,10 +172,22 @@ exports.loadFavoriteMovies=async(req,res,next)=>{
     try{
         const user = await User.findOne({where:{id:req.user.id}});
         const movies = await user.getLiker();
-        console.log(movies);
         res.status(200).json(movies);
     }catch(error){
         console.error(error);
         next(error);
     }
 };
+
+exports.removeFavoriteMovie=async(req,res,next)=>{
+    try{
+        const movieId=+req.params.movieId;
+        const user = await User.findOne({where:{id:req.user.id}});
+        await user.removeLiker(movieId); // 삭제 
+        res.status(200).json(movieId);
+    }catch(error){
+        console.error(error);
+        next(error);
+    }
+};
+

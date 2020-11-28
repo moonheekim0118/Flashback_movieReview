@@ -1,18 +1,27 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import Icon from '../../atoms/Icons';
+import React, { 
+    useState, 
+    useEffect, 
+    useRef, 
+    useCallback 
+} from 'react';
 import { 
     faChevronCircleLeft, 
     faChevronCircleRight,
     faTimes, 
-    } from '@fortawesome/free-solid-svg-icons';
-import styled from 'styled-components';
+} from '@fortawesome/free-solid-svg-icons';
+import { useDispatch } from 'react-redux'; 
 import { MovieList } from '../../model/MovieList';
+import { REMOVE_FAVORITE_MOVIE_REQUEST } from '../../actions/user';
+import Icon from '../../atoms/Icons';
+import styled from 'styled-components';
+
 
 interface Props {
     movieLists?:Array<MovieList>;
     editMode?:boolean;
 }
 const Slider=({movieLists,editMode=false} : Props)=>{
+    const dispatch = useDispatch();
     const [ TOTAL_SLIDES, setTotalSlides ] = useState(2);
     const [ currentSlide, setCurrentSlide ] = useState(0);
     const slideRef = useRef(null);
@@ -57,6 +66,13 @@ const Slider=({movieLists,editMode=false} : Props)=>{
         }
     },[currentSlide]);
 
+    const removeMovie = useCallback((id)=>{ // 특정 영화 삭제 
+        dispatch({
+            type:REMOVE_FAVORITE_MOVIE_REQUEST,
+            data:id,
+        });
+    },[]);
+
     return(
         <Container>
             <SliderContainer ref={slideRef}>
@@ -64,13 +80,14 @@ const Slider=({movieLists,editMode=false} : Props)=>{
                 <Slide key={v.image}>
                     <IMG src={v.image}/>
                     <MovieTitle>{v.title}</MovieTitle>
+                    {editMode &&
                     <CloseButton>
                         <Icon icon={faTimes}
-                        onClick={prevSlide}
+                        onClick={removeMovie.bind(this,v.id)}
                         color="red"
                         size={30}
                         />
-                    </CloseButton>
+                    </CloseButton>}
                 </Slide>)}
             </SliderContainer>
             <MoveButton direction="left">
@@ -100,7 +117,7 @@ const Container = styled.div`
 const SliderContainer = styled.div`
     width:80%;
     display:flex;
-    padding:30px;
+    padding:10px 25px 25px 25px;
 `;
 
 const Slide = styled.div`

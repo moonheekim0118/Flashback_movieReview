@@ -34,6 +34,10 @@ export const initialState={
     loadFavoriteMovieLoading:false,
     loadFavoriteMovieError:null,
 
+    removeFavoriteMovieDone:false, // 인생영화 삭제
+    removeFavoriteMovieLoading:false,
+    removeFavoriteMovieError:null,
+
     myInfo:null, // 현재 로그인된 사용자 정보 
     favoriteMovies:[], // 현재 로그인된 사용자의 인생영화 리스트  
 };
@@ -185,6 +189,24 @@ const reducer =  (state=initialState, action)=>{
             case type.LOAD_FAVORITE_MOVIE_FAIL:
                 draft.loadFavoriteMovieLoading=false;
                 draft.loadFavoriteMovieError=action.error;
+                break;
+            
+            // 인생영화 삭제
+            case type.REMOVE_FAVORITE_MOVIE_REQUEST:
+                draft.removeFavoriteMovieDone=false;
+                draft.removeFavoriteMovieLoading=true;
+                draft.removeFavoriteMovieError=null;
+                break;
+            
+            case type.REMOVE_FAVORITE_MOVIE_SUCCESS:
+                draft.removeFavoriteMovieDone=true;
+                draft.removeFavoriteMovieLoading=false;
+                draft.favoriteMovies=draft.favoriteMovies.filter((v)=>v.id!==action.data);
+                break;
+            
+            case type.REMOVE_FAVORITE_MOVIE_FAIL:
+                draft.removeFavoriteMovieLoading=false;
+                draft.removeFavoriteMovieError=action.error;
                 break;
         }
     });

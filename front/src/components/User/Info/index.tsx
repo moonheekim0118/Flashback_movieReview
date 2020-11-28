@@ -72,6 +72,9 @@ const Info=({myInfo} : Props)=>{
                 <Title>{myInfo.Reviews} 개의 리뷰를 쓰신 당신은!</Title>
                  <Slot reviewsCount={myInfo.Reviews}/>
             </ReviewCountContainer>
+            <ReviewCountContainer>
+                <Title>{myInfo.nickname}님의 인생영화</Title>
+            </ReviewCountContainer>
             <LogoutContainer>
                 로그아웃 <Logout/>
             </LogoutContainer>
@@ -169,7 +172,8 @@ const ButtonContainer = styled.div`
 `;
 
 const Title = styled.div`
-    font-size:1rem;
+    font-size:1.3rem;
+    font-weight:bold;
     color:#cc00cc;
     margin-bottom:20px;
 `;

@@ -2,17 +2,27 @@ import React , { useEffect } from 'react';
 import Router from 'next/router';
 import Layout from '../components/Layout';
 import Slider from '../components/Slider';
+import Info from '../components/User/Info';
+import Icon from '../atoms/Icons';
+import useToggle from '../hooks/useToggle';
+import { faCog, faEye } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
+import { OPEN_ALERT } from '../actions/alert';
 import { LOAD_MY_INFO_REQUEST, LOAD_FAVORITE_MOVIE_REQUEST } from '../actions/user';
-import { useSelector } from 'react-redux'
+import { useDispatch,useSelector } from 'react-redux'
 import { Message } from '../components/GlobalStyle';
 import { END } from 'redux-saga';
 import axios from 'axios';
 import wrapper from '../store/configureStore';
-import Info from '../components/User/Info';
 
 const User=()=>{
-    const { myInfo, loginDone, favoriteMovies } = useSelector((state)=>state.user);
+    const dispatch = useDispatch();
+    const { myInfo, 
+            loginDone, 
+            favoriteMovies,
+            removeFavoriteMovieDone,
+         } = useSelector((state)=>state.user);
+    const [ editMode, setEditMode ] = useToggle();
 
     useEffect(()=>{
         if(!loginDone){ // 로그인 안되어있는 경우 
@@ -20,6 +30,12 @@ const User=()=>{
         }
     },[]);
     
+    useEffect(()=>{ // 인생영화 삭제 or 에러 시 Alert 띄워주기 
+        if(removeFavoriteMovieDone){
+            dispatch({type:OPEN_ALERT, data:'삭제되었습니다'});
+        } 
+    },[removeFavoriteMovieDone]);
+
     if(!myInfo){
         return(
             <Layout PageName="내 정보">
@@ -30,7 +46,23 @@ const User=()=>{
     return(
         <Layout PageName="내 정보">
             <Info myInfo={myInfo}/>
-            {favoriteMovies && <Slider movieLists={favoriteMovies}/>}
+            {favoriteMovies && 
+            <FavoriteMovieContainer>
+                <Mode>
+                    {editMode ? 
+                    <Icon icon={faEye}
+                    color="lightPurple"
+                    size={30}
+                    onClick={setEditMode}
+                    /> : 
+                    <Icon icon={faCog}
+                    color="lightPurple"
+                    size={30}
+                    onClick={setEditMode}
+                    />}
+                </Mode>
+                <Slider movieLists={favoriteMovies} editMode={editMode}/>
+            </FavoriteMovieContainer>}
         </Layout>
     );
 }
@@ -46,5 +78,15 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context)=>{
     context.store.dispatch(END);
     await context. store['sagaTask'].toPromise();
 });
+
+const FavoriteMovieContainer = styled.div`
+    position:relative;
+`;
+const Mode = styled.div`
+    position:absolute;
+    right:30px;
+    top:-10px;
+    cursor:pointer;
+`;
 
 export default User;
