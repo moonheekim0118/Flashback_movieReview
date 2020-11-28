@@ -59,6 +59,7 @@ const Login=()=>{
             onClick={onSubmit}
             title={"로그인"}
            />
+            <br/>
        </Container>
     );
 }
@@ -66,9 +67,8 @@ const Login=()=>{
 
 export const Container = styled.form`
     width:75%;
-    height:100%;
-    margin:40px auto;
-    padding-top:70px;
+    margin:0 auto;
+    padding-top:80px;
     background-color:inherit;
     color:inherit;
 `;
