@@ -40,6 +40,8 @@ router.post('/updateProfilePic', isLoggedIn, upload.array('image'), userControll
 
 router.post('/addFavoriteMovie',isLoggedIn,userController.addFavoriteMovie); // 인생영화 등록 
 
+router.get('/favoriteMovies', isLoggedIn, userController.loadFavoriteMovies); // 인생영화 불러오기 
+
 router.get('/',userController.loadUser); // 현재 로그인한 유저 정보 로딩 
 
 module.exports=router;

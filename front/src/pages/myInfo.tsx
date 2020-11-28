@@ -1,7 +1,7 @@
 import React , { useEffect } from 'react';
 import Router from 'next/router';
 import Layout from '../components/Layout';
-import { LOAD_MY_INFO_REQUEST } from '../actions/user';
+import { LOAD_MY_INFO_REQUEST, LOAD_FAVORITE_MOVIE_REQUEST } from '../actions/user';
 import { useSelector } from 'react-redux'
 import { Message } from '../components/GlobalStyle';
 import { END } from 'redux-saga';
@@ -39,6 +39,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context)=>{
         axios.defaults.headers.Cookie=cookie;
     }
     context.store.dispatch({type:LOAD_MY_INFO_REQUEST});
+    context.store.dispatch({type:LOAD_FAVORITE_MOVIE_REQUEST});
     context.store.dispatch(END);
     await context. store['sagaTask'].toPromise();
 });

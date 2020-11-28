@@ -166,3 +166,16 @@ exports.addFavoriteMovie = async(req,res,next)=>{ // 인생영화 추가
         next(error);
     }
 }
+
+
+exports.loadFavoriteMovies=async(req,res,next)=>{
+    try{
+        const user = await User.findOne({where:{id:req.user.id}});
+        const movies = await user.getLiker();
+        console.log(movies);
+        res.status(200).json(movies);
+    }catch(error){
+        console.error(error);
+        next(error);
+    }
+};
