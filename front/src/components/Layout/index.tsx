@@ -8,7 +8,6 @@ import styled from 'styled-components';
 import { CLOSE_ALERT } from '../../actions/alert';
 import { faChevronLeft, faBars } from '@fortawesome/free-solid-svg-icons';
 import Logout from '../User/Logout';
-import { clear } from 'console';
 
 interface Props {
     PageName?:string;

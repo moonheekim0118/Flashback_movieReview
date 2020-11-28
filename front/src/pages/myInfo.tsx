@@ -1,6 +1,8 @@
 import React , { useEffect } from 'react';
 import Router from 'next/router';
 import Layout from '../components/Layout';
+import Slider from '../components/Slider';
+import styled from 'styled-components';
 import { LOAD_MY_INFO_REQUEST, LOAD_FAVORITE_MOVIE_REQUEST } from '../actions/user';
 import { useSelector } from 'react-redux'
 import { Message } from '../components/GlobalStyle';
@@ -10,7 +12,7 @@ import wrapper from '../store/configureStore';
 import Info from '../components/User/Info';
 
 const User=()=>{
-    const { myInfo, loginDone } = useSelector((state)=>state.user);
+    const { myInfo, loginDone, favoriteMovies } = useSelector((state)=>state.user);
 
     useEffect(()=>{
         if(!loginDone){ // 로그인 안되어있는 경우 
@@ -28,6 +30,7 @@ const User=()=>{
     return(
         <Layout PageName="내 정보">
             <Info myInfo={myInfo}/>
+            {favoriteMovies && <Slider movieLists={favoriteMovies}/>}
         </Layout>
     );
 }
