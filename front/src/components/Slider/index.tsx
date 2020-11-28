@@ -29,10 +29,10 @@ const Slider=({movieLists,editMode=false} : Props)=>{
     useEffect(()=>{
         const onResize=()=>{
             if(window.innerWidth<=768){
-                setTotalSlides(movieLists.length/2);
+                setTotalSlides(Math.ceil(movieLists.length/2));
             }
             else{
-                setTotalSlides(movieLists.length/5);
+                setTotalSlides(Math.ceil(movieLists.length/5));
             }
         };
         onResize(); // 최초 TOTAL_SLIDES 정하기 
@@ -49,7 +49,7 @@ const Slider=({movieLists,editMode=false} : Props)=>{
 
 
     const nextSlide = useCallback(()=>{ // 다음 슬라이드 보여주기 버튼 
-        if(currentSlide >=TOTAL_SLIDES){
+        if(currentSlide >=TOTAL_SLIDES-1){
             setCurrentSlide(0);
         }
         else{
@@ -59,7 +59,7 @@ const Slider=({movieLists,editMode=false} : Props)=>{
 
     const prevSlide = useCallback(() => { // 이전 슬라이드 보여주기 버튼 
         if(currentSlide === 0){
-            setCurrentSlide(TOTAL_SLIDES);
+            setCurrentSlide(TOTAL_SLIDES-1);
         }
         else{
             setCurrentSlide(currentSlide-1);
