@@ -1,4 +1,8 @@
-import React , { useEffect, useCallback , useState } from 'react';
+import React , { 
+       useEffect, 
+       useCallback , 
+       useState 
+} from 'react';
 import { useDispatch , useSelector } from 'react-redux';
 import { SIGNUP_REQUEST } from '../../../actions/user';
 import { OPEN_ALERT } from '../../../actions/alert';
@@ -18,12 +22,19 @@ const SignUp=()=>{
     const dispatch = useDispatch();
     const signUpError = useSelector((state)=>state.user.signUpError);
     const [email, setEmail]=useInput("");
-    const [nickname, setNickname, nicknameLengthError]=useValidation("",2,6);
-    const [password, setPassword, passwordLengthError]=useValidation("",6,15);
-    const [checkpassword,setCheckpassword]=useState("");
-    const [passwordError, setPasswordError]=useState(false);
+    const [nickname,  // 닉네임 
+           setNickname, 
+           nicknameLengthError
+          ]=useValidation("",2,6);
+    const [password, // 비밀번호  
+           setPassword, 
+           passwordLengthError
+          ]=useValidation("",6,15);
+    const [checkpassword,setCheckpassword]=useState(""); // 확인용 비밀번호  
+    const [passwordError, setPasswordError]=useState(false); // 비밀번호 불일치 에러  
 
-    useEffect(()=>{ // 회원가입 에러 alert
+    // 회원가입 에러 alert
+    useEffect(()=>{ 
          if(signUpError){
               dispatch({type:OPEN_ALERT,data:signUpError});
          }
@@ -38,10 +49,10 @@ const SignUp=()=>{
          
     },[email,nickname,password,checkpassword]);
 
-
+    // 비밀번호 변경 
     const onChangeCheckPassword = useCallback((e)=>{
-         setCheckpassword(e.target.value);
-         setPasswordError(e.target.value!==password);
+         setCheckpassword(e.target.value); 
+         setPasswordError(e.target.value!==password); // 비밀번호가 불일치 할 경우 
     },[password]);
 
     return(

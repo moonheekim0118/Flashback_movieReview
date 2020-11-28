@@ -1,4 +1,9 @@
-import React , { useCallback , useRef, useState , useEffect } from 'react';
+import React , { 
+       useCallback , 
+       useRef, 
+       useState , 
+       useEffect 
+} from 'react';
 import useToggle from '../../../hooks/useSelecting';
 import Router from 'next/router';
 import { useDispatch , useSelector } from 'react-redux';
@@ -20,19 +25,39 @@ interface Props {
 
 const TextEditor=({Review , ButtonType}:Props)=>{
     const dispatch = useDispatch();
-    const [ shortComment, setShortComment, shortCommentError ] = useValidation(Review.shortComment,5,20);
-    const [ character, setCharacter, characterError ] = useValidation(Review.character,5,50);
-    const [ line, setLine, lineError ] = useValidation(Review.line,5,50);
-    const [ scene, setScene, sceneError ] = useValidation(Review.scene,5,50);
-    const [ freeComment, setFreeComment ,freeCommentError ] = useValidation(Review.freeComment,0,50);
+    const [ shortComment,  // 짧은 평 
+            setShortComment, 
+            shortCommentError 
+        ] = useValidation(Review.shortComment,5,20);
 
-    const initialUpdate = useRef(true);
-    const [initial, setInitial]=useState(true);
+    const [ character,  // 기억에 남는 캐릭터 
+            setCharacter, 
+            characterError 
+        ] = useValidation(Review.character,5,50);
+
+    const [ line,  // 기억에 남는 대사 
+            setLine, 
+            lineError 
+        ] = useValidation(Review.line,5,50);
+
+    const [ scene,  // 기억에 남는 장면 
+            setScene, 
+            sceneError 
+        ] = useValidation(Review.scene,5,50);
+        
+    const [ freeComment, // 자유 커멘트 
+            setFreeComment,
+            freeCommentError 
+        ] = useValidation(Review.freeComment,0,50);
+
+    const initialUpdate = useRef(true);// 최초 렌더링인지 구분하기 윟마 
+    const [initial, setInitial]=useState(true); // 최초 렌더링인지 구분하기 윟마 
     
-    // 수정 상태 시 원래 저장된 레이팅 
+    // 수정 상태 시 원래 저장된 레이팅으로 상태 설정
     const good = Review.rating==='GOOD' ? true : false;
     const soso = Review.rating==='SOSO' ? true : false;
     const bad = Review.rating==='BAD' ? true : false; 
+
     const [goodSelect,setGoodSelect,
            sosoSelect,setSoSoSelect,
            badSelect,setBadSelect]
@@ -60,12 +85,12 @@ const TextEditor=({Review , ButtonType}:Props)=>{
 
     useEffect(()=>{ // 리뷰 생성 후 alert 보여준 후 리다이렉트 
         if(addMyReviewDone){
-            dispatch({type:OPEN_ALERT,data:"리뷰가 등록되었습니다."});
-            const  timer = setTimeout(()=> Router.replace(`/singleReview/${myReviews[0].id}`),5000);
+            dispatch({type:OPEN_ALERT,data:"리뷰가 등록되었습니다."}); // open alert 
+            const  timer = setTimeout(()=> Router.replace(`/singleReview/${myReviews[0].id}`),5000); // 리다이렉트
             return ()=>clearTimeout(timer);
         }
         else if(addMyReviewError){ // 에러 발생 시 에러 메시지 띄워줌 
-            dispatch({type:OPEN_ALERT,data:"리뷰가 등록되었습니다."});
+            dispatch({type:OPEN_ALERT,data:addMyReviewError});
         }
     },[addMyReviewDone,addMyReviewError]);
 
@@ -81,11 +106,10 @@ const TextEditor=({Review , ButtonType}:Props)=>{
     },[updateMyReviewDone,updateMyReviewError]);
 
     const onCreate=useCallback(()=>{ // 리뷰 저장
-        let rating='BAD';
+        let rating='BAD'; // 레이팅 설정 
         if(goodSelect){
             rating='GOOD';
-        }
-        else if(sosoSelect){
+        } else if(sosoSelect){
             rating='SOSO'
         }
         dispatch({
@@ -106,8 +130,7 @@ const TextEditor=({Review , ButtonType}:Props)=>{
         let rating='BAD';
         if(goodSelect){
             rating='GOOD';
-        }
-        else if(sosoSelect){
+        } else if(sosoSelect){
             rating='SOSO'
         }
         dispatch({
@@ -136,7 +159,6 @@ const TextEditor=({Review , ButtonType}:Props)=>{
     shortComment===Review.shortComment && freeComment===Review.freeComment && 
     character===Review.character && line===Review.line && scene===Review.scene ; 
     const SubmitButton= ButtonType==='create' ?
-    
     <Button
     color={"purple"}
     onClick={onCreate}

@@ -1,14 +1,15 @@
 import React , { useCallback } from 'react';
 import Router from 'next/router';
 import { useDispatch , useSelector } from 'react-redux';
-import useInput from '../../../hooks/useInput';
-import styled from 'styled-components';
-import Icon from '../../../atoms/Icons';
 import { LOAD_RELATED_SEARCH_REQUEST } from '../../../actions/movie';
 import { faSearch, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { debounce } from 'lodash';
+import useInput from '../../../hooks/useInput';
+import styled from 'styled-components';
+import Icon from '../../../atoms/Icons';
 import SearchResult from '../SearchResult';
 
+// 영화 검색창 
 const SearchMovie=()=>{
 
     const dispatch = useDispatch();
@@ -20,13 +21,16 @@ const SearchMovie=()=>{
         Router.push(`/movieResult/${SearchInput}`);
     },[SearchInput]);
 
-    const onChnageInput=useCallback((e)=>{
+    // 검색창 Input change 시에, 0.9초동안 change가 더 없을시 연관검색어 가져옴
+    // 검색어가 1글자인 경우는 연관검색어 안띄워줌 
+    const onChnageInput=useCallback((e)=>{ 
         setSearchInput(e);
         if(e.target.value.length>1){
             sendRequest(e.target.value);
         }
     },[]);
 
+    // 디바운싱으로 연관검색어 가져오는 메서드 
     const sendRequest = debounce((value)=>{
         dispatch({ 
             type:LOAD_RELATED_SEARCH_REQUEST,

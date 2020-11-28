@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import Link from 'next/link';
 import styled from 'styled-components';
 
+// 메뉴아이콘 네비게이션 
 const Navigation=()=>{
     const loginDone=useSelector((state)=>state.user.loginDone);
 

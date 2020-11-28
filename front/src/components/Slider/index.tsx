@@ -21,9 +21,11 @@ interface Props {
     editMode?:boolean;
 }
 const Slider=({movieLists,editMode=false} : Props)=>{
+    // 최초 슬라이드 개수 
+    const initialSlide = Math.ceil(movieLists.length/5);
     const dispatch = useDispatch();
-    const [ TOTAL_SLIDES, setTotalSlides ] = useState(2);
-    const [ currentSlide, setCurrentSlide ] = useState(0);
+    const [ TOTAL_SLIDES, setTotalSlides ] = useState(initialSlide);
+    const [ currentSlide, setCurrentSlide ] = useState(0); // 현재 슬라이드 페이지 
     const slideRef = useRef(null);
     
     useEffect(()=>{
@@ -35,7 +37,6 @@ const Slider=({movieLists,editMode=false} : Props)=>{
                 setTotalSlides(Math.ceil(movieLists.length/5));
             }
         };
-        onResize(); // 최초 TOTAL_SLIDES 정하기 
         window.addEventListener('resize', onResize); // 화면 크기 바뀔 때 TOTAL_SLIDES 변경 
         return ()=>{
             window.removeEventListener('resize',onResize);

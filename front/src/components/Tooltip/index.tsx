@@ -1,30 +1,29 @@
 import React from 'react';
 import styled from 'styled-components';
 
-// buttons type 
+// buttons types
 interface buttons {
     title:string;
     onClick:(e: React.MouseEvent) => void;
 };
 
-// onClose 함수
-// buttonList (array of objects)
 
 interface Props {
     onClose?:(e: React.MouseEvent) => void;
     buttonList?:Array<buttons>
 }
 
+// 툴팁
 const Tooltip=({onClose, buttonList}:Props)=>{
     return(
     <>
-    <Overaly onClick={onClose}/>
-    <Container>
-    {buttonList.map((v,i)=>
-    <ItemContainer key={v.title+i} onClick={v.onClick}>
-        <Item>{v.title}</Item>
-    </ItemContainer>) }
-    </Container>
+        <Overaly onClick={onClose}/>
+        <Container>
+        {buttonList.map((v,i)=>
+        <ItemContainer key={v.title+i} onClick={v.onClick}>
+            <Item>{v.title}</Item>
+        </ItemContainer>) }
+        </Container>
     </>
     );
 };
@@ -44,7 +43,7 @@ const Container = styled.div`
     position:absolute;
     right:30px;
     top:15px;
-    width:150px;
+    width:180px;
 
     font-size:1.2rem;
     background-color:#cc00cc;

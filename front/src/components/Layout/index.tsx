@@ -1,12 +1,12 @@
-import React ,{ useCallback , useEffect , useRef } from 'react';
+import React ,{ useCallback , useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { CLOSE_ALERT } from '../../actions/alert';
+import { faChevronLeft, faBars } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
 import Router from 'next/router'
 import Alert from '../../components/Alert';
 import Icons from '../../atoms/Icons';
 import styled from 'styled-components';
-import { CLOSE_ALERT } from '../../actions/alert';
-import { faChevronLeft, faBars } from '@fortawesome/free-solid-svg-icons';
 import Logout from '../User/Logout';
 
 interface Props {
@@ -24,12 +24,13 @@ const Layout=({ PageName="" , children} : Props)=>{
     },[]);
 
     useEffect(()=>{
-        if(showAlert){
+        if(showAlert){ // Alert 띄워주는 요청이 들어오면 5초 후에 닫아준다.
             const timer = setTimeout(()=>dispatch({type:CLOSE_ALERT}),5000);
             return()=>clearTimeout(timer);
         }
     },[showAlert]);
 
+    // 페이지 네임이 메뉴인경우에는 로그아웃 버튼을 띄워주고 그 외에 경우에는 메뉴 아이콘을 띄워준다. 
     const MainButton = PageName ==='메뉴' && loginDone ? <Logout/> : 
     <Link href="/menu"><a><Icons icon={faBars} color="lightPurple"/></a></Link> ;
     

@@ -1,35 +1,35 @@
 import React , { useCallback } from 'react';
 import Router from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
-import useToggle from '../../../hooks/useToggle';
-import styled from 'styled-components';
 import { SAVE_MOVIE } from '../../../actions/movie';
 import { ADD_FAVORITE_MOVIE_REQUEST } from '../../../actions/user';
 import { MovieList } from '../../../model/MovieList';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import useToggle from '../../../hooks/useToggle';
+import styled from 'styled-components';
 import Icon from '../../../atoms/Icons';
 import Tooltip from '../../Tooltip';
 
 interface Props {
     Movie?:MovieList;
-    Search?:boolean
+    Search?:boolean; // 현재 SearchResult인지 아닌지 구분 
 }
 
-// 검색창 검색시 해당 영화 리스트 가져오기
+// 영화 정보 띄워주는 MovieCard
 const MovieCard=({Movie, Search=false}:Props)=>{
     const dispatch = useDispatch();
     const [ showTooltip, setShowTooltip ]= useToggle(); // 툴팁 토글 
     const loginDone = useSelector((state)=>state.user.loginDone);
 
-    const onWriteReview=useCallback(()=>{  // 리뷰 작성할 영화 선택 
-        dispatch({
+    const onWriteReview=useCallback(()=>{  // 리뷰 작성할 영화 선택-> 리뷰 작성페이지로 리당렉트 
+        dispatch({ // 리뷰 작성할 영화 저장해주기 
             type:SAVE_MOVIE,
             data:Movie,
         });
         Router.push(`/writeReview`); // redirect
     },[]);
 
-    const onAddFavorite=useCallback(()=>{
+    const onAddFavorite=useCallback(()=>{ // 인생영화로 등록
         dispatch({
             type:ADD_FAVORITE_MOVIE_REQUEST,
             data:Movie,
@@ -37,6 +37,7 @@ const MovieCard=({Movie, Search=false}:Props)=>{
         setShowTooltip(); // 툴팁 닫기 
     },[showTooltip]);
 
+    // 툴팁에 들어갈 Buttonlist 
     const ButtonList =[ { title:'인생영화 등록', onClick:onAddFavorite}, {title:'리뷰 작성', onClick:onWriteReview} ];
     
     return(

@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { MyInfo } from '../../../model/MyInfo';
 import { OPEN_ALERT } from '../../../actions/alert';
 import { UPDATE_NICKNAME_REQUEST , UPDATE_PROFILE_PIC_REQUEST } from '../../../actions/user';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import useValidation from '../../../hooks/useValidation';
 import Button from '../../../atoms/Buttons';
 import Icon from '../../../atoms/Icons';
@@ -10,7 +11,6 @@ import Logout from '../Logout';
 import Avatar from '../../Avatar';
 import Slot from '../../Slot';
 import styled from 'styled-components';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
     myInfo?:MyInfo
@@ -20,25 +20,31 @@ interface Props {
 const Info=({myInfo} : Props)=>{
     const dispatch = useDispatch();
     const imageInput = useRef(null);
-    const [nickname, setNickname, nicknameError] = useValidation(myInfo.nickname,2,6);
+    const [ nickname,  // 닉네임 
+            setNickname, 
+            nicknameError
+        ] = useValidation(myInfo.nickname,2,6);
 
-    const onUploadImage = useCallback(()=>{
+    // 이미지 업로드 버튼 클릭시 
+    const onUploadImage = useCallback(()=>{ 
         imageInput.current.click();
     },[imageInput.current]);
 
+    // 이미지 업로드시
     const onChangeImage = useCallback((e)=>{
         const imageFormData = new FormData();
         imageFormData.append('image',e.target.files[0]);
-        dispatch({type:UPDATE_PROFILE_PIC_REQUEST, data:imageFormData});
+        dispatch({type:UPDATE_PROFILE_PIC_REQUEST, data:imageFormData}); // 아바타 변경 
     },[]);
 
-    const onChangeNickname = useCallback((e)=>{
+    // 닉네임 변경 
+    const onChangeNickname = useCallback((e)=>{ 
         e.preventDefault();
         dispatch({
             type:UPDATE_NICKNAME_REQUEST,
             data:{nickname:nickname},
         })
-        dispatch({type:OPEN_ALERT, data:"닉네임이 변경되었습니다."});
+        dispatch({type:OPEN_ALERT, data:"닉네임이 변경되었습니다."}); // 확인 alert 
     },[nickname]);
 
     return(

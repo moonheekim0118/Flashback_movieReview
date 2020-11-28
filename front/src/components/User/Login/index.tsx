@@ -12,8 +12,8 @@ const Login=()=>{
     const dispatch = useDispatch();
 
     const loginError = useSelector((state)=>state.user.loginError);
-    const [email, setEmail]=useInput("");
-    const [password, setPassword]=useInput("");
+    const [email, setEmail]=useInput(""); // 이메일 
+    const [password, setPassword]=useInput(""); // 패스워드 
     
     useEffect(()=>{ // 로그인 에러 alert 
         if(loginError){
@@ -21,6 +21,7 @@ const Login=()=>{
         }    
     },[loginError]);
 
+    // submit 
     const onSubmit = useCallback((e)=>{
         e.preventDefault();
         dispatch({

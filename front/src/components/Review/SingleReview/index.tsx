@@ -1,12 +1,13 @@
 import React , { useCallback }from 'react';
 import Router from 'next/router';
 import { useSelector } from 'react-redux';
-import styled from 'styled-components';
 import { ReviewList } from '../../../model/ReviewList';
+import styled from 'styled-components';
 import Badge from '../Badge';
 import MovieCard from '../../Movie/MovieCard';
 import Avatar from '../../Avatar';
 import Button from '../../../atoms/Buttons';
+
 interface Props {
     Review?:ReviewList
 }
@@ -14,10 +15,10 @@ interface Props {
 const SingleReview=({Review}:Props)=>{
     const myInfo = useSelector((state)=>state.user.myInfo); // 내 정보와 리뷰 작성자가 같은 경우만 수정 가능하도록 구현
 
+    // 수정버튼 클릭시 수정 페이지로 넘어감 
     const onClickButton = useCallback(()=>{
-        Router.push(`/updateReview/${Review.id}`); // 수정하는 곳 
+        Router.push(`/updateReview/${Review.id}`); 
     },[Review]);
-
 
     return(
         <Container>
@@ -30,31 +31,31 @@ const SingleReview=({Review}:Props)=>{
             </ButtonContainer>
             <MovieCard Movie={Review.Movie}/>
             <ReviewContainer>
-            <TitleContainer>
-                <Title>{Review.shortComment}</Title>
-                <MiddleContainer>
-                    <Author> 
-                        <Avatar/>
-                             <Nickname>{Review.User.nickname} 작성</Nickname>
-                        </Author>
-                    <Badge badgeName={Review.rating} selected={true}/>
-                </MiddleContainer>
-            </TitleContainer>
-            <ContentsContainer>
-                <SubTitle>기억에 남는 인물</SubTitle>
-                <p>{Review.character}</p>
-            </ContentsContainer>
-            <ContentsContainer>
-                <SubTitle>기억에 남는 대사</SubTitle>
-                <p>{Review.line}</p>
-            </ContentsContainer>
-            <ContentsContainer>
-                <SubTitle>기억에 남는 장면</SubTitle>
-                <p>{Review.scene}</p>
-            </ContentsContainer>
-            <ContentsContainer>
-                <p>{Review.freeComment}</p>
-            </ContentsContainer>
+                <TitleContainer>
+                    <Title>{Review.shortComment}</Title>
+                    <MiddleContainer>
+                        <Author> 
+                            <Avatar/>
+                                <Nickname>{Review.User.nickname} 작성</Nickname>
+                            </Author>
+                        <Badge badgeName={Review.rating} selected={true}/>
+                    </MiddleContainer>
+                </TitleContainer>
+                <ContentsContainer>
+                    <SubTitle>기억에 남는 인물</SubTitle>
+                    <p>{Review.character}</p>
+                </ContentsContainer>
+                <ContentsContainer>
+                    <SubTitle>기억에 남는 대사</SubTitle>
+                    <p>{Review.line}</p>
+                </ContentsContainer>
+                <ContentsContainer>
+                    <SubTitle>기억에 남는 장면</SubTitle>
+                    <p>{Review.scene}</p>
+                </ContentsContainer>
+                <ContentsContainer>
+                    <p>{Review.freeComment}</p>
+                </ContentsContainer>
             </ReviewContainer>
         </Container>
     );

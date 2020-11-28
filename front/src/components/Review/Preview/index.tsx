@@ -1,45 +1,53 @@
-import React , { useEffect, useState, useCallback } from 'react';
-import { useDispatch , useSelector } from 'react-redux';
+import React , { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import Router from 'next/router';
 import styled from 'styled-components';
 import Badge from '../Badge';
 import Icon from '../../../atoms/Icons';
 import ConfirmAlert from '../../ConfirmAlert';
 import useAlert from '../../../hooks/useAlert';
-import { OPEN_ALERT } from '../../../actions/alert';
 import { REMOVE_MY_REVIEW_REQUEST } from '../../../actions/review';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { ReviewList } from '../../../model/ReviewList';
-import { Container,MoviePoster,MovieDescription } from '../../Movie/MovieCard';
+import { Container, 
+         MoviePoster,
+         MovieDescription 
+} from '../../Movie/MovieCard';
 
 interface Props {
-    Review?:ReviewList;
+    Review?:ReviewList; 
 }
 
+// 영화 리뷰 미리보기 컴포넌트 
 const Preview=({Review}:Props)=>{
     const dispatch = useDispatch();
-    const [ showConfirmAlert, openConfirmAlert, closeConfirmAlert ] = useAlert();
-    const { removeMyReviewDone, removeMyReviewError } = useSelector((state)=>state.review);
+    const [ showConfirmAlert, 
+            openConfirmAlert, 
+            closeConfirmAlert 
+        ] = useAlert();
     
+    // 프리뷰 클릭시 해당 리뷰보기 창으로 리다이렉트 
     const onMove = useCallback(()=>{
         Router.push(`/singleReview/${Review.id}`);
     },[]);
 
-    
+    //리뷰 삭제 아이콘 클릭시, confirmAlert 띄워줌 
     const openRemoveAlert = useCallback((e)=>{ // alert 띄워주기 
         e.stopPropagation();
         openConfirmAlert();
     },[]);
 
+    // confirmAlert 닫아줌 
     const closeRemoveAlert = useCallback((e)=>{ // alert 닫아주기 
         e.stopPropagation();
         closeConfirmAlert();
     },[]);
 
+    // 리뷰 삭제 
     const onClickRemove = useCallback((e)=>{ // 리뷰 삭제 
         e.stopPropagation(); 
         dispatch({type:REMOVE_MY_REVIEW_REQUEST, data:Review.id});
-        closeConfirmAlert();
+        closeConfirmAlert(); // confirmAlert 닫아줌 
     },[]);
 
     return(

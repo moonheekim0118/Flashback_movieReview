@@ -6,6 +6,7 @@ import styled from 'styled-components';
 // 알림창 
 const Alert=()=>{
     const { message, showAlert } = useSelector((state)=>state.alert);
+    // showAlert 상태일때만 띄워준다. 
     if(showAlert){
         return(
             <Container>

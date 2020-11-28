@@ -1,8 +1,8 @@
 import React , { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { LOGOUT_REQUEST } from '../../../actions/user';
-import Icon from '../../../atoms/Icons';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import Icon from '../../../atoms/Icons';
 
 const Logout=()=>{
     const dispatch = useDispatch();

@@ -11,18 +11,18 @@ interface Props {
 const ThemeSwtich=({onCheck , checked }:Props)=>{
     return(
         <Container>
-        <Switch
-        onChange={onCheck}
-        checked={checked}
-        id="switch"
-        height={24}
-        width={48}
-        offColor={'#d9dfe2'}
-        offHandleColor={'#fff'}
-        onColor={'#999'}
-        onHandleColor={'#282c35'}
-        />
-    </Container>
+            <Switch
+            onChange={onCheck}
+            checked={checked}
+            id="switch"
+            height={24}
+            width={48}
+            offColor={'#d9dfe2'}
+            offHandleColor={'#fff'}
+            onColor={'#999'}
+            onHandleColor={'#282c35'}
+            />
+        </Container>
     );
 }
 

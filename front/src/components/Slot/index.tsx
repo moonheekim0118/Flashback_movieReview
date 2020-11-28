@@ -5,7 +5,7 @@ interface Props {
     reviewsCount?:number
 }
 
-const LEVEL=[
+const LEVEL=[ // 리뷰 작성 개수에 따른 레벨 
     "영화 머글",
     "영화 입문자",
     "영화 볼 줄 아시는 분",
@@ -13,23 +13,19 @@ const LEVEL=[
     "영화의 신"
 ];
 
-// 닉네임 수정 
-const Info=({reviewsCount} : Props)=>{
+// 슬롯 컴포넌트 
+const slot=({reviewsCount} : Props)=>{
 
     let myLevel;
     if(reviewsCount < 20){
         myLevel=LEVEL[0];
-    }
-    else if(reviewsCount < 40){
+    } else if(reviewsCount < 40){
         myLevel=LEVEL[1];
-    }
-    else if(reviewsCount < 70){
+    } else if(reviewsCount < 70){
         myLevel=LEVEL[2];
-    }
-    else if(reviewsCount < 100){
+    } else if(reviewsCount < 100){
         myLevel=LEVEL[3];
-    }
-    else {
+    } else {
         myLevel=LEVEL[4];
     }
 
@@ -164,5 +160,5 @@ const MyLevel = styled.div`
 
 
 
-export default Info;
+export default slot;
 

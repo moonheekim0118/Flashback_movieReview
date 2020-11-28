@@ -1,27 +1,30 @@
 import React from 'react';
 import styled from 'styled-components';
 import Icon from '../../../atoms/Icons';
-import { faThumbsUp, faThumbsDown, faMehRollingEyes } from '@fortawesome/free-solid-svg-icons';
+import { faThumbsUp, 
+         faThumbsDown, 
+         faMehRollingEyes 
+} from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
     badgeName?:string;
-    selected?:boolean | (() => void);
-    onClick?: boolean | (() => void);
+    selected?:boolean | (() => void); // 현재 선택되었는지
+    onClick?: boolean | (() => void); 
 }
 
-const IconName = {
+const IconName = { // 레이팅에 따른 아이콘 
     'GOOD':faThumbsUp,
     'SOSO':faMehRollingEyes,
     'BAD':faThumbsDown,
 }
 
-const Status={
+const Status={ // 레이팅에 따른 글자 
     'GOOD':'좋아요!',
     'SOSO':'보통이에요',
     'BAD':'별로에요',
 }
 
-
+// 영화 레이팅 뱃지 컴포넌트 
 const Badge=({ badgeName, selected , onClick=null }: Props)=>{
 
     return(

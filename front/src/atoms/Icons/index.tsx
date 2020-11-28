@@ -1,16 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
-import { 
-    FontAwesomeIcon,
-    FontAwesomeIconProps
+import { FontAwesomeIcon,
+        FontAwesomeIconProps
 } from '@fortawesome/react-fontawesome';
 import { colorCode } from '../../util/color';
 
 interface Props {
-    size?:number;
-    icon?:FontAwesomeIconProps['icon'];
+    size?:number; // 사이즈 
+    icon?:FontAwesomeIconProps['icon']; //아이콘 
     className?:string;
-    color?:string;
+    color?:string; // 색상 
     onClick?: (e: React.MouseEvent) => void;
 }
 
