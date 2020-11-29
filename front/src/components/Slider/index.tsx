@@ -20,6 +20,7 @@ interface Props {
     movieLists?:Array<MovieList>;
     editMode?:boolean;
 }
+
 const Slider=({movieLists,editMode=false} : Props)=>{
     // 최초 슬라이드 개수 
     const initialSlide = Math.ceil(movieLists.length/5);

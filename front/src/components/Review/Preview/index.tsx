@@ -21,6 +21,7 @@ interface Props {
 // 영화 리뷰 미리보기 컴포넌트 
 const Preview=({Review}:Props)=>{
     const dispatch = useDispatch();
+    
     const [ showConfirmAlert, 
             openConfirmAlert, 
             closeConfirmAlert 
@@ -52,7 +53,11 @@ const Preview=({Review}:Props)=>{
 
     return(
         <Container onClick={onMove}>
-            {showConfirmAlert && <ConfirmAlert text={"정말 삭제하시겠습니까?"} clickYes={onClickRemove} clickNo={closeRemoveAlert}/>}
+            {showConfirmAlert && 
+            <ConfirmAlert 
+            text={"정말 삭제하시겠습니까?"} 
+            clickYes={onClickRemove} 
+            clickNo={closeRemoveAlert}/>}
             <MoviePoster src={Review.Movie.image}/>
             <MovieDescription>
                 <Comment>{Review.shortComment}</Comment>

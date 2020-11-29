@@ -21,16 +21,21 @@ ErrorMessage
 const SignUp=()=>{
     const dispatch = useDispatch();
     const signUpError = useSelector((state)=>state.user.signUpError);
+   
     const [email, setEmail]=useInput("");
+   
     const [nickname,  // 닉네임 
            setNickname, 
            nicknameLengthError
           ]=useValidation("",2,6);
+
     const [password, // 비밀번호  
            setPassword, 
            passwordLengthError
           ]=useValidation("",6,15);
+
     const [checkpassword,setCheckpassword]=useState(""); // 확인용 비밀번호  
+
     const [passwordError, setPasswordError]=useState(false); // 비밀번호 불일치 에러  
 
     // 회원가입 에러 alert
@@ -40,6 +45,7 @@ const SignUp=()=>{
          }
     },[signUpError]);
 
+    // submit 
     const onSubmit = useCallback((e)=>{
          e.preventDefault();
          dispatch({

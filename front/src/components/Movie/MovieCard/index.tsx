@@ -18,6 +18,7 @@ interface Props {
 // 영화 정보 띄워주는 MovieCard
 const MovieCard=({Movie, Search=false}:Props)=>{
     const dispatch = useDispatch();
+    
     const [ showTooltip, setShowTooltip ]= useToggle(); // 툴팁 토글 
     const loginDone = useSelector((state)=>state.user.loginDone);
 
@@ -38,7 +39,11 @@ const MovieCard=({Movie, Search=false}:Props)=>{
     },[showTooltip]);
 
     // 툴팁에 들어갈 Buttonlist 
-    const ButtonList =[ { title:'인생영화 등록', onClick:onAddFavorite}, {title:'리뷰 작성', onClick:onWriteReview} ];
+    const ButtonList =
+    [ 
+        { title:'인생영화 등록', onClick:onAddFavorite}, 
+        {title:'리뷰 작성', onClick:onWriteReview} 
+    ];
     
     return(
         <Container>
@@ -48,7 +53,7 @@ const MovieCard=({Movie, Search=false}:Props)=>{
                 <p>{Movie.director} 감독</p>
                 <p>{Movie.pubDate} 제작</p>
             </MovieDescription>
-            {loginDone && Search &&
+            {Search && loginDone &&
             <Selector>
                 <Icon
                 size={45}
@@ -56,7 +61,7 @@ const MovieCard=({Movie, Search=false}:Props)=>{
                 onClick={setShowTooltip}
                 />
             </Selector>}
-            {loginDone && Search && showTooltip && <Tooltip onClose={setShowTooltip} buttonList={ButtonList}/> } 
+            {Search && loginDone && showTooltip && <Tooltip onClose={setShowTooltip} buttonList={ButtonList}/> } 
         </Container>
     );
 }

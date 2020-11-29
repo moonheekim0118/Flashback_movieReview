@@ -11,6 +11,7 @@ interface Props {
 // 확인 알림창
 const ConfirmAlert=({text, clickYes, clickNo}:Props)=>{
     const root= document.getElementById('alert-root');
+    
     return(
        ReactDOM.createPortal((
         <>

@@ -15,8 +15,8 @@ const LEVEL=[ // 리뷰 작성 개수에 따른 레벨
 
 // 슬롯 컴포넌트 
 const slot=({reviewsCount} : Props)=>{
-
     let myLevel;
+    
     if(reviewsCount < 20){
         myLevel=LEVEL[0];
     } else if(reviewsCount < 40){
@@ -36,7 +36,7 @@ const slot=({reviewsCount} : Props)=>{
                 <Second>{LEVEL[1]}</Second>
                 <Third>{LEVEL[2]}</Third>
                 <Fourth>{LEVEL[3]}</Fourth>
-                <Fith>{LEVEL[4]}</Fith>
+                <Fifth>{LEVEL[4]}</Fifth>
                 
                 <MyLevel>{myLevel}</MyLevel>
             </Slot>
@@ -135,7 +135,7 @@ const Fourth = styled.div`
     animation:${Animation} 0.5s 2s forwards linear alternate;
 `;
 
-const Fith = styled.div`
+const Fifth = styled.div`
     position:absolute;
     top:50%;
     left:15%;

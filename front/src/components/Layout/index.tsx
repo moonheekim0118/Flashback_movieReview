@@ -11,7 +11,7 @@ import Logout from '../User/Logout';
 
 interface Props {
     PageName?:string;
-    children?:any;
+    children?:React.ReactNode;
 }
 
 const Layout=({ PageName="" , children} : Props)=>{
@@ -36,16 +36,21 @@ const Layout=({ PageName="" , children} : Props)=>{
     
     return(
         <App>
-        <Alert/>
-        {PageName &&         
-        <Header>
-            <div><Icons icon={faChevronLeft} className={"fa-chevron-left"} onClick={onPushBack}/></div>
-            <PageInfo>
-                <PageDescription>{PageName}</PageDescription>
-                {MainButton}
-            </PageInfo>
-        </Header>}
-        {children}
+            <Alert/>
+            {PageName &&         
+            <Header>
+                <div>
+                    <Icons 
+                    icon={faChevronLeft}
+                    className={"fa-chevron-left"} 
+                    onClick={onPushBack}/>
+                </div>
+                <PageInfo>
+                    <PageDescription>{PageName}</PageDescription>
+                    {MainButton}
+                </PageInfo>
+            </Header>}
+            {children}
         </App>
     );
 }

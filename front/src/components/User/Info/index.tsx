@@ -20,6 +20,7 @@ interface Props {
 const Info=({myInfo} : Props)=>{
     const dispatch = useDispatch();
     const imageInput = useRef(null);
+
     const [ nickname,  // 닉네임 
             setNickname, 
             nicknameError

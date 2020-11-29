@@ -11,7 +11,6 @@ import SearchResult from '../SearchResult';
 
 // 영화 검색창 
 const SearchMovie=()=>{
-
     const dispatch = useDispatch();
     
     const [SearchInput, setSearchInput]=useInput('');

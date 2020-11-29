@@ -25,6 +25,11 @@ interface Props {
 
 const TextEditor=({Review , ButtonType}:Props)=>{
     const dispatch = useDispatch();
+
+    // 아이콘 
+    const PassedIcon=<Icon icon={faCheck} color={'green'}/>
+    const ErrorIcon=<Icon icon={faTimes} color={'red'}/>
+
     const [ shortComment,  // 짧은 평 
             setShortComment, 
             shortCommentError 
@@ -50,8 +55,8 @@ const TextEditor=({Review , ButtonType}:Props)=>{
             freeCommentError 
         ] = useValidation(Review.freeComment,0,50);
 
-    const initialUpdate = useRef(true);// 최초 렌더링인지 구분하기 윟마 
-    const [initial, setInitial]=useState(true); // 최초 렌더링인지 구분하기 윟마 
+    const initialUpdate = useRef(true);// 최초 렌더링인지 구분하기 위함 
+    const [initial, setInitial]=useState(true); // 최초 렌더링인지 구분하기 위함 
     
     // 수정 상태 시 원래 저장된 레이팅으로 상태 설정
     const good = Review.rating==='GOOD' ? true : false;
@@ -62,9 +67,6 @@ const TextEditor=({Review , ButtonType}:Props)=>{
            sosoSelect,setSoSoSelect,
            badSelect,setBadSelect]
          = useToggle(good, soso, bad);
-
-    const PassedIcon=<Icon icon={faCheck} color={'green'}/>
-    const ErrorIcon=<Icon icon={faTimes} color={'red'}/>
 
     const { myReviews ,
             addMyReviewDone, 

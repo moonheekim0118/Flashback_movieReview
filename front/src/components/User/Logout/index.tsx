@@ -7,6 +7,7 @@ import Icon from '../../../atoms/Icons';
 const Logout=()=>{
     const dispatch = useDispatch();
 
+    // 로그아웃 
     const onClick=useCallback(()=>{
         dispatch({ type:LOGOUT_REQUEST })
     },[]);

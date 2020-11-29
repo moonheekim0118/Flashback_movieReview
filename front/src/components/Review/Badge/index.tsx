@@ -26,9 +26,8 @@ const Status={ // 레이팅에 따른 글자
 
 // 영화 레이팅 뱃지 컴포넌트 
 const Badge=({ badgeName, selected , onClick=null }: Props)=>{
-
     return(
-        <Container color={selected? 'selected' : ''} onClick={onClick}>
+        <Container selected={selected} onClick={onClick}>
             <Icon
             icon={IconName[badgeName]}
             className={badgeName}
@@ -38,7 +37,7 @@ const Badge=({ badgeName, selected , onClick=null }: Props)=>{
     );
 }
 
-const Container = styled.div<{ color:string }>`
+const Container = styled.div<{ selected:boolean }>`
     display:flex;
     justify-content:space-evenly;
     align-items:center;
@@ -51,12 +50,12 @@ const Container = styled.div<{ color:string }>`
 
     background-color:transparent;
     
-    color:${(props)=>props.color==='selected' ? '#cc00cc' : '#e0e0d1'};
+    color:${(props)=>props.selected ? '#cc00cc' : '#e0e0d1'};
     transition: 0.2s background-color ease-in-out;
     cursor:pointer;
 
     &:hover{
-        background-color:${(props)=>props.color==='selected' ? '' : 'rgba(224, 224, 209,0.3)'};
+        background-color:${(props)=>props.selected  ? '' : 'rgba(224, 224, 209,0.3)'};
         color:#cc00cc;
     }
 `;
