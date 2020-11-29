@@ -12,11 +12,11 @@ import Tooltip from '../../Tooltip';
 
 interface Props {
     Movie:MovieList;
-    Search:boolean; // 현재 SearchResult인지 아닌지 구분 
+    Search?:boolean; // 현재 SearchResult인지 아닌지 구분 
 }
 
 // 영화 정보 띄워주는 MovieCard
-const MovieCard=({Movie, Search}:Props)=>{
+const MovieCard=({Movie, Search=false}:Props)=>{
     const dispatch = useDispatch();
     
     const [ showTooltip, setShowTooltip ]= useToggle(); // 툴팁 토글 
@@ -66,11 +66,6 @@ const MovieCard=({Movie, Search}:Props)=>{
         </Container>
     );
 }
-
-MovieCard.defaultProps={
-    Search:false
-}
-
 
 export const Container = styled.div`
     display:flex;
