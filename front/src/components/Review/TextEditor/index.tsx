@@ -4,7 +4,7 @@ import React , {
        useState , 
        useEffect 
 } from 'react';
-import useToggle from '../../../hooks/useSelecting';
+import useSelectiong from '../../../hooks/useSelecting';
 import Router from 'next/router';
 import { useDispatch , useSelector } from 'react-redux';
 import MovieCard from '../../Movie/MovieCard';
@@ -19,7 +19,7 @@ import { OPEN_ALERT } from '../../../actions/alert';
 import { ReviewList } from '../../../model/ReviewList';
 
 interface Props {
-    Review?:ReviewList;
+    Review:ReviewList;
     ButtonType:string;
 }
 
@@ -27,8 +27,8 @@ const TextEditor=({Review , ButtonType}:Props)=>{
     const dispatch = useDispatch();
 
     // 아이콘 
-    const PassedIcon=<Icon icon={faCheck} color={'green'}/>
-    const ErrorIcon=<Icon icon={faTimes} color={'red'}/>
+    const PassedIcon=<Icon icon={faCheck} className="faCheck" color={'green'}/>
+    const ErrorIcon=<Icon icon={faTimes} className="faTimes" color={'red'}/>
 
     const [ shortComment,  // 짧은 평 
             setShortComment, 
@@ -66,7 +66,7 @@ const TextEditor=({Review , ButtonType}:Props)=>{
     const [goodSelect,setGoodSelect,
            sosoSelect,setSoSoSelect,
            badSelect,setBadSelect]
-         = useToggle(good, soso, bad);
+         = useSelectiong(good,soso,bad);
 
     const { myReviews ,
             addMyReviewDone, 
@@ -74,6 +74,7 @@ const TextEditor=({Review , ButtonType}:Props)=>{
             updateMyReviewDone, 
             updateMyReviewError } 
             = useSelector((state)=>state.review);
+
 
     useEffect(()=>{ // 초기 상태라면 validation 에러 띄워주지 않음 
         if(initialUpdate.current){
@@ -85,6 +86,7 @@ const TextEditor=({Review , ButtonType}:Props)=>{
         }
     },[initialUpdate.current]);
 
+    
     useEffect(()=>{ // 리뷰 생성 후 alert 보여준 후 리다이렉트 
         if(addMyReviewDone){
             dispatch({type:OPEN_ALERT,data:"리뷰가 등록되었습니다."}); // open alert 
@@ -96,6 +98,7 @@ const TextEditor=({Review , ButtonType}:Props)=>{
         }
     },[addMyReviewDone,addMyReviewError]);
 
+
     useEffect(()=>{ // 리뷰 수정 후 alert 보여준 후 리다이렉트
         if(updateMyReviewDone){
             dispatch({type:OPEN_ALERT,data:"리뷰가 수정되었습니다."});
@@ -106,6 +109,7 @@ const TextEditor=({Review , ButtonType}:Props)=>{
             dispatch({type:OPEN_ALERT,data:updateMyReviewError});
         }
     },[updateMyReviewDone,updateMyReviewError]);
+
 
     const onCreate=useCallback(()=>{ // 리뷰 저장
         let rating='BAD'; // 레이팅 설정 
@@ -127,6 +131,7 @@ const TextEditor=({Review , ButtonType}:Props)=>{
             }
         });
     },[goodSelect,sosoSelect,badSelect,shortComment,character,line,scene,freeComment]);
+
 
     const onUpdate=useCallback(()=>{ // 리뷰 수정 
         let rating='BAD';
@@ -151,6 +156,7 @@ const TextEditor=({Review , ButtonType}:Props)=>{
         })
     },[goodSelect,sosoSelect,badSelect,shortComment,character,line,scene,freeComment]);
 
+
     // 버튼 disabeld 공통 조건 
     const disabledRequirements= 
     shortCommentError||characterError||lineError||sceneError||freeCommentError||shortComment.length===0||
@@ -162,15 +168,15 @@ const TextEditor=({Review , ButtonType}:Props)=>{
     character===Review.character && line===Review.line && scene===Review.scene ; 
     const SubmitButton= ButtonType==='create' ?
     <Button
-    color={"purple"}
+    color="purple"
     onClick={onCreate}
-    title={"저장하기"}
+    title="저장하기"
     disabled={disabledRequirements }
     /> : 
     <Button
-    color={"purple"}
+    color="purple"
     onClick={onUpdate}
-    title={"수정하기"}
+    title="수정하기"
     disabled={disabledRequirements || updateDisabledRequirements}
     /> ;
 
@@ -178,9 +184,9 @@ const TextEditor=({Review , ButtonType}:Props)=>{
         <Container>
             <MovieCard Movie={Review.Movie}/>
             <BadgeContainer>
-                <Badge badgeName={"GOOD"} selected={goodSelect} onClick={setGoodSelect}/>
-                <Badge badgeName={"SOSO"} selected={sosoSelect} onClick={setSoSoSelect}/>
-                <Badge badgeName={"BAD"} selected={badSelect} onClick={setBadSelect} />
+                <Badge badgeName="GOOD" selected={goodSelect} onClick={setGoodSelect}/>
+                <Badge badgeName="SOSO" selected={sosoSelect} onClick={setSoSoSelect}/>
+                <Badge badgeName="BAD" selected={badSelect} onClick={setBadSelect} />
             </BadgeContainer>
             <TextContainer>
                 <Question htmlFor="shortComment">

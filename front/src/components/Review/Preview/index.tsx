@@ -1,4 +1,4 @@
-import React , { useCallback } from 'react';
+import React , { FunctionComponent, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import Router from 'next/router';
 import styled from 'styled-components';
@@ -15,11 +15,11 @@ import { Container,
 } from '../../Movie/MovieCard';
 
 interface Props {
-    Review?:ReviewList; 
+    Review:ReviewList; 
 }
 
 // 영화 리뷰 미리보기 컴포넌트 
-const Preview=({Review}:Props)=>{
+const Preview =({Review}:Props)=>{
     const dispatch = useDispatch();
     
     const [ showConfirmAlert, 
@@ -55,7 +55,7 @@ const Preview=({Review}:Props)=>{
         <Container onClick={onMove}>
             {showConfirmAlert && 
             <ConfirmAlert 
-            text={"정말 삭제하시겠습니까?"} 
+            text="정말 삭제하시겠습니까?"
             clickYes={onClickRemove} 
             clickNo={closeRemoveAlert}/>}
             <MoviePoster src={Review.Movie.image}/>
@@ -63,7 +63,7 @@ const Preview=({Review}:Props)=>{
                 <Comment>{Review.shortComment}</Comment>
                 <Badge badgeName={Review.rating} selected={true}/>
             </MovieDescription>
-            <Icon icon={faTrash} className={"faTrash"} onClick={openRemoveAlert}/>
+            <Icon icon={faTrash} className="faTrash" onClick={openRemoveAlert}/>
         </Container>
     );
 }

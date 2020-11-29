@@ -17,11 +17,11 @@ import styled from 'styled-components';
 
 
 interface Props {
-    movieLists?:Array<MovieList>;
+    movieLists:Array<MovieList>;
     editMode?:boolean;
 }
 
-const Slider=({movieLists,editMode=false} : Props)=>{
+const Slider=({movieLists,editMode} : Props)=>{
     // 최초 슬라이드 개수 
     const initialSlide = Math.ceil(movieLists.length/5);
     const dispatch = useDispatch();
@@ -85,6 +85,7 @@ const Slider=({movieLists,editMode=false} : Props)=>{
                     {editMode &&
                     <CloseButton>
                         <Icon icon={faTimes}
+                        className="faTimes"
                         onClick={removeMovie.bind(this,v.id)}
                         color="red"
                         size={30}
@@ -94,6 +95,7 @@ const Slider=({movieLists,editMode=false} : Props)=>{
             </SliderContainer>
             <MoveButton direction="left">
                 <Icon icon={faChevronCircleLeft}
+                className="faChevronCircleLeft"
                 onClick={prevSlide}   
                 size={50}     
                 color="lightPurple"
@@ -101,6 +103,7 @@ const Slider=({movieLists,editMode=false} : Props)=>{
             </MoveButton>
             <MoveButton direction="right">
                 <Icon icon={faChevronCircleRight}
+                className="faChevronCircleRight"
                 onClick={nextSlide}
                 size={50}
                 color="lightPurple"
@@ -108,6 +111,10 @@ const Slider=({movieLists,editMode=false} : Props)=>{
             </MoveButton>
         </Container>
     );
+}
+
+Slider.defaultProps={
+    editMode:false,
 }
 
 const Container = styled.div`

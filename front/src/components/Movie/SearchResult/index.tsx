@@ -3,7 +3,7 @@ import Router from 'next/router';
 import styled from 'styled-components';
 
 interface Props {
-    movieName?:string;
+    movieName:string;
 }
 
 // 영화 검색시 연관검색어 결과물 보여주는 컴포넌트  

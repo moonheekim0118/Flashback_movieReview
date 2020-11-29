@@ -1,16 +1,10 @@
 import { useState, useCallback} from 'react';
 
-interface Props {
-    FirstInitialValue?:boolean;
-    SecondInitialValue?:boolean;
-    ThirdInitialValue?:boolean;
-}
-
 // 버튼 3개 토글을 담당
-const useSelecting=({FirstInitialValue=false, SecondInitialValue=false, ThirdInitialValue=false}:Props)=>{
-    const [FirstValue, FirstSetter]=useState(FirstInitialValue);
-    const [SecondValue, SecondSetter]=useState(SecondInitialValue);
-    const [ThirdValue, ThirdSetter]=useState(ThirdInitialValue);
+const useSelecting=(FirstInitialValue=false, SecondInitialValue=false, ThirdInitialValue=false)=>{
+    const [FirstValue, FirstSetter]=useState<boolean>(FirstInitialValue);
+    const [SecondValue, SecondSetter]=useState<boolean>(SecondInitialValue);
+    const [ThirdValue, ThirdSetter]=useState<boolean>(ThirdInitialValue);
     
     const FirstHandler=useCallback(()=>{
         FirstSetter(!FirstValue);
@@ -30,7 +24,9 @@ const useSelecting=({FirstInitialValue=false, SecondInitialValue=false, ThirdIni
         ThirdSetter(!ThirdValue);
     },[ThirdValue]);
 
-    return [FirstValue,FirstHandler, SecondValue, SecondHandler, ThirdValue, ThirdHanlder] as const;
+    return [ FirstValue, FirstHandler,
+             SecondValue, SecondHandler, 
+             ThirdValue, ThirdHanlder ] as const;
 }
 
 export default useSelecting;

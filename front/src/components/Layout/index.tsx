@@ -11,10 +11,10 @@ import Logout from '../User/Logout';
 
 interface Props {
     PageName?:string;
-    children?:React.ReactNode;
+    children:React.ReactNode;
 }
 
-const Layout=({ PageName="" , children} : Props)=>{
+const Layout=({ PageName , children} : Props)=>{
     const dispatch = useDispatch();
     const { showAlert } = useSelector((state)=>state.alert);
     const loginDone = useSelector(state=>state.user.loginDone);
@@ -32,7 +32,7 @@ const Layout=({ PageName="" , children} : Props)=>{
 
     // 페이지 네임이 메뉴인경우에는 로그아웃 버튼을 띄워주고 그 외에 경우에는 메뉴 아이콘을 띄워준다. 
     const MainButton = PageName ==='메뉴' && loginDone ? <Logout/> : 
-    <Link href="/menu"><a><Icons icon={faBars} color="lightPurple"/></a></Link> ;
+    <Link href="/menu"><a><Icons icon={faBars} className="faBars" color="lightPurple"/></a></Link> ;
     
     return(
         <App>
@@ -42,7 +42,7 @@ const Layout=({ PageName="" , children} : Props)=>{
                 <div>
                     <Icons 
                     icon={faChevronLeft}
-                    className={"fa-chevron-left"} 
+                    className="faChevronLeft"
                     onClick={onPushBack}/>
                 </div>
                 <PageInfo>
@@ -53,6 +53,10 @@ const Layout=({ PageName="" , children} : Props)=>{
             {children}
         </App>
     );
+}
+
+Layout.defaultProps={
+    PageName:""
 }
 
 const App = styled.div`

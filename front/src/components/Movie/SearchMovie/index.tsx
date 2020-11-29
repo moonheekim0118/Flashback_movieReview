@@ -49,12 +49,12 @@ const SearchMovie=()=>{
                 <Icon
                 size={30}
                 icon={faSearch}
-                className={"faSearch"}
+                className="faSearch"
                 onClick={onClickSearch}
                 />
                 </SearchIcon>
             </SearchContainer>
-            {loadRelatedSearchLoading  && <Icon icon={faSpinner} className={"faSpinner"}/>}
+            {loadRelatedSearchLoading  && <Icon icon={faSpinner} className="faSpinner"/>}
             <SearchResultContainer>
                 {loadRelatedSearchDone && SearchInput.length>0 &&
                 searchLists.map((val)=>

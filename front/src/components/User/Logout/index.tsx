@@ -16,8 +16,8 @@ const Logout=()=>{
         <Icon
         icon={faSignOutAlt}
         onClick={onClick}
-        color={"lightPurple"}
-        className={"faSignOutAlt"}
+        color="lightPurple"
+        className="faSignOutAlt"
         />
     );
 }

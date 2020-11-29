@@ -1,12 +1,8 @@
 import { useState, useCallback } from 'react'
 
-interface Props {
-  initialValue?:boolean;
-}
-
 // Alert open과 close를 담당 
-const useAlert = ({initialValue = false}:Props) => {
-  const [show, setter] = useState(initialValue);
+const useAlert = (initialValue = false) => {
+  const [show, setter] = useState<boolean>(initialValue);
 
   const open = useCallback(() => {
      setter(true)

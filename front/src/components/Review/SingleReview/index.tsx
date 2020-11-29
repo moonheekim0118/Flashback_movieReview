@@ -9,7 +9,7 @@ import Avatar from '../../Avatar';
 import Button from '../../../atoms/Buttons';
 
 interface Props {
-    Review?:ReviewList
+    Review:ReviewList
 }
 
 const SingleReview=({Review}:Props)=>{
@@ -25,7 +25,7 @@ const SingleReview=({Review}:Props)=>{
             <ButtonContainer>
                 { myInfo && myInfo.id === Review.User.id &&
                 <Button 
-                title={"수정하기"}
+                title="수정하기"
                 onClick={onClickButton}
                 />}
             </ButtonContainer>

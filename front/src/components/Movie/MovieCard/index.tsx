@@ -11,12 +11,12 @@ import Icon from '../../../atoms/Icons';
 import Tooltip from '../../Tooltip';
 
 interface Props {
-    Movie?:MovieList;
-    Search?:boolean; // 현재 SearchResult인지 아닌지 구분 
+    Movie:MovieList;
+    Search:boolean; // 현재 SearchResult인지 아닌지 구분 
 }
 
 // 영화 정보 띄워주는 MovieCard
-const MovieCard=({Movie, Search=false}:Props)=>{
+const MovieCard=({Movie, Search}:Props)=>{
     const dispatch = useDispatch();
     
     const [ showTooltip, setShowTooltip ]= useToggle(); // 툴팁 토글 
@@ -58,12 +58,17 @@ const MovieCard=({Movie, Search=false}:Props)=>{
                 <Icon
                 size={45}
                 icon={faPlusCircle}
+                className="faPlusCircle"
                 onClick={setShowTooltip}
                 />
             </Selector>}
             {Search && loginDone && showTooltip && <Tooltip onClose={setShowTooltip} buttonList={ButtonList}/> } 
         </Container>
     );
+}
+
+MovieCard.defaultProps={
+    Search:false
 }
 
 

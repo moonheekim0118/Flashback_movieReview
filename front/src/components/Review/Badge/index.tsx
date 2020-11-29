@@ -7,9 +7,9 @@ import { faThumbsUp,
 } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
-    badgeName?:string;
-    selected?:boolean | (() => void); // 현재 선택되었는지
-    onClick?: boolean | (() => void); 
+    badgeName:string;
+    selected:boolean; // 현재 선택되었는지
+    onClick?: () => void; 
 }
 
 const IconName = { // 레이팅에 따른 아이콘 
@@ -25,7 +25,7 @@ const Status={ // 레이팅에 따른 글자
 }
 
 // 영화 레이팅 뱃지 컴포넌트 
-const Badge=({ badgeName, selected , onClick=null }: Props)=>{
+const Badge=({ badgeName, selected , onClick }: Props)=>{
     return(
         <Container selected={selected} onClick={onClick}>
             <Icon
@@ -35,6 +35,10 @@ const Badge=({ badgeName, selected , onClick=null }: Props)=>{
             {Status[badgeName]}
         </Container>
     );
+}
+
+Badge.defaultProps={
+    onClick:null,
 }
 
 const Container = styled.div<{ selected:boolean }>`

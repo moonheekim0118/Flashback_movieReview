@@ -56,9 +56,9 @@ const Login=()=>{
             fill={true}
             shadow={true}
             disabled={email.length===0 || password.length===0}
-            color={"purple"} 
+            color="purple"
             onClick={onSubmit}
-            title={"로그인"}
+            title="로그인"
            />
             <br/>
        </Container>

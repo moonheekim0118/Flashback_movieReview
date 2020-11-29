@@ -107,9 +107,9 @@ const SignUp=()=>{
             fill={true}
             shadow={true}
             disabled={nicknameLengthError || passwordLengthError || passwordError }
-            color={"purple"} 
+            color="purple" 
             onClick={onSubmit}
-            title={"회원가입"}
+            title="회원가입"
            />
        </Container>
     );

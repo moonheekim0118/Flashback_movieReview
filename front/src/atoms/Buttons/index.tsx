@@ -7,11 +7,11 @@ interface Props{
     shadow?:boolean; // 버튼 has shadow or not 
     disabled?:boolean; // 버튼 is disabled or not
     color?:string; // 버튼's color
-    onClick?: (e: React.MouseEvent) => void;
-    title?:string;
+    onClick:(e: any) => void;
+    title:string;
 }
 
-const button=({ fill=false, shadow=false, disabled=false, color="lightPurple", onClick=null, title } : Props)=>{
+const button=({ fill, shadow, disabled, color, onClick, title } : Props)=>{
     return(
         <Button 
         fill={fill.toString()} 
@@ -23,6 +23,13 @@ const button=({ fill=false, shadow=false, disabled=false, color="lightPurple", o
         </Button>
     );
 }
+
+button.defaultProps = {
+    fill: false,
+    shadow:false,
+    disabled:false,
+    color:'lightPurple',
+};
 
 const Button = styled.button<{ fill:string , color:string}>
 `

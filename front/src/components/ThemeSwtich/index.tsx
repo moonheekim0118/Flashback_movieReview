@@ -3,8 +3,8 @@ import Switch from "react-switch";
 import styled from 'styled-components';
 
 interface Props {
-    checked?: boolean;
-    onCheck?: () =>void;
+    checked: boolean;
+    onCheck: () =>void;
 }
 
 // swtich mode
@@ -17,10 +17,10 @@ const ThemeSwtich=({onCheck , checked }:Props)=>{
             id="switch"
             height={24}
             width={48}
-            offColor={'#d9dfe2'}
-            offHandleColor={'#fff'}
-            onColor={'#999'}
-            onHandleColor={'#282c35'}
+            offColor="#d9dfe2"
+            offHandleColor="#fff"
+            onColor="#999"
+            onHandleColor="#282c35"
             />
         </Container>
     );

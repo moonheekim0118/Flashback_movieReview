@@ -2,7 +2,7 @@ import React from 'react';
 import styled , { keyframes } from 'styled-components';
 
 interface Props {
-    reviewsCount?:number
+    reviewsCount:number
 }
 
 const LEVEL=[ // 리뷰 작성 개수에 따른 레벨 

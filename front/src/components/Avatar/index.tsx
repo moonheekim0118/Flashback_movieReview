@@ -8,7 +8,7 @@ interface Props {
 }
 
 // 유저 아바타, 사이즈 조정 가능 profilePic이 있으면 profilePic으로, 없으면 닉네임으로 아바타 띄워준다.
-const Avatar=({size=50}:Props)=>{
+const Avatar=({size}:Props)=>{
     const myInfo = useSelector((state)=>state.user.myInfo);
 
     return(
@@ -18,6 +18,10 @@ const Avatar=({size=50}:Props)=>{
             <Nickname size={size}>{myInfo.nickname[0]}</Nickname>}
         </Container>
     );
+}
+
+Avatar.defaultProps={
+    size:50
 }
 
 const Container = styled.div<{ size:number }>`

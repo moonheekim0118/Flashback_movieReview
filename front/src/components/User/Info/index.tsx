@@ -13,7 +13,7 @@ import Slot from '../../Slot';
 import styled from 'styled-components';
 
 interface Props {
-    myInfo?:MyInfo
+    myInfo:MyInfo
 }
 
 // 닉네임 수정 
@@ -54,7 +54,7 @@ const Info=({myInfo} : Props)=>{
                 <input type="file" multiple name="image" hidden ref={imageInput} onChange={onChangeImage}/>
                 <Overlay/>
                 <EditIcon onClick={onUploadImage}>
-                    <Icon icon={faPlus} color={"white"} />
+                    <Icon icon={faPlus} className="faPlus" color="white" />
                  </EditIcon>
                 <Avatar size={100}/>
             </AvatarContainer>
@@ -69,7 +69,7 @@ const Info=({myInfo} : Props)=>{
                 </InputContainer>
                 <ButtonContainer>
                     <Button
-                    title={"수정"}
+                    title="수정"
                     onClick={onChangeNickname}
                     disabled={nicknameError || nickname===myInfo.nickname}
                     />

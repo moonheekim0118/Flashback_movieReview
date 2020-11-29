@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 
 interface Props {
-    text?:string; // 알림창 메시지 
-    clickYes:(e: React.MouseEvent) => void; // 알림창에서 yes를 눌렀을 때 
-    clickNo:(e: React.MouseEvent) => void; // 알림차에서 No를 눌렀을 때 
+    text:string; // 알림창 메시지 
+    clickYes:(e: any) => void; // 알림창에서 yes를 눌렀을 때 
+    clickNo:(e: any) => void; // 알림차에서 No를 눌렀을 때 
 }
 
 // 확인 알림창
@@ -19,8 +19,8 @@ const ConfirmAlert=({text, clickYes, clickNo}:Props)=>{
         <Container>
             <TextContainer>{text}</TextContainer>
             <ButtonContainer>
-                <Button title={"remove"} onClick={clickYes}>삭제</Button>
-                <Button title={"cancle"} onClick={clickNo}>취소</Button>
+                <Button title="remove" onClick={clickYes}>삭제</Button>
+                <Button title="cancle" onClick={clickNo}>취소</Button>
             </ButtonContainer>
         </Container>
         </>

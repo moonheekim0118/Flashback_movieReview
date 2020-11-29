@@ -7,13 +7,13 @@ import { colorCode } from '../../util/color';
 
 interface Props {
     size?:number; // 사이즈 
-    icon?:FontAwesomeIconProps['icon']; //아이콘 
-    className?:string;
+    icon:FontAwesomeIconProps['icon']; //아이콘 
+    className:string;
     color?:string; // 색상 
-    onClick?: (e: React.MouseEvent) => void;
+    onClick?:(e: any) => void;
 }
 
-const Icon=({ size = 24 , icon, className, color="purple", onClick=null}: Props)=>{
+const Icon=({ size , icon, className, color, onClick }: Props)=>{
     return(
        <StyledIcon
         iconsize={size}
@@ -23,6 +23,12 @@ const Icon=({ size = 24 , icon, className, color="purple", onClick=null}: Props)
         onClick={onClick}
        />
     );
+}
+
+Icon.defaultProps={
+    size:24,
+    color:'purple',
+    onClick:null,
 }
 
 const StyledIcon = styled<{ iconsize: number , color:string}>(FontAwesomeIcon)`

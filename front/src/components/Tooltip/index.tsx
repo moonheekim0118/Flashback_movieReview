@@ -9,8 +9,8 @@ interface buttons {
 
 
 interface Props {
-    onClose?:(e: React.MouseEvent) => void;
-    buttonList?:Array<buttons>
+    onClose:(e: React.MouseEvent) => void;
+    buttonList:Array<buttons>
 }
 
 // 툴팁
