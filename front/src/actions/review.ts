@@ -6,9 +6,6 @@ export const LOAD_MY_REVIEWS_REQUEST="LOAD_MY_REVIEWS_REQUEST";
 export const LOAD_MY_REVIEWS_SUCCESS="LOAD_MY_REVIEWS_SUCCESS";
 export const LOAD_MY_REVIEWS_FAIL="LOAD_MY_REVIEWS_FAIL";
 
-// init reviews
-export const INIT_REVIEWS="INIT_REVIEWS";
-
 // load single Review
 export const LOAD_SINGLE_REVIEW_REQUEST="LOAD_SINGLE_REVIEW_REQUEST";
 export const LOAD_SINGLE_REVIEW_SUCCESS="LOAD_SINGLE_REVIEW_SUCCESS";
@@ -38,7 +35,6 @@ export type Action =
 { type:'LOAD_MY_REVIEWS_REQUEST'} | 
 { type:'LOAD_MY_REVIEWS_SUCCESS', data:ReviewListArray} | 
 { type:'LOAD_MY_REVIEWS_FAIL', error:string} | 
-{ type:'INIT_REVIEWS'} | 
 { type:'LOAD_SINGLE_REVIEW_REQUEST', data:string} |
 { type:'LOAD_SINGLE_REVIEW_SUCCESS', data:ReviewList} |
 { type:'LOAD_SINGLE_REVIEW_FAIL', error:string} |
