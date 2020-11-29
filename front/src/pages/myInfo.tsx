@@ -51,11 +51,13 @@ const User=()=>{
                 <Mode>
                     {editMode ? 
                     <Icon icon={faEye}
+                    className="faEye"
                     color="lightPurple"
                     size={30}
                     onClick={setEditMode}
                     /> : 
                     <Icon icon={faCog}
+                    className="faCog"
                     color="lightPurple"
                     size={30}
                     onClick={setEditMode}

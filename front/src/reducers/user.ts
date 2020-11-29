@@ -42,7 +42,7 @@ export const initialState={
     favoriteMovies:[], // 현재 로그인된 사용자의 인생영화 리스트  
 };
 
-const reducer =  (state=initialState, action)=>{
+const reducer =  (state=initialState, action:type.Action)=>{
     return produce(state,draft=>{
         switch(action.type){
             // 로그인 

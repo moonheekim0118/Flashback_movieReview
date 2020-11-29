@@ -6,7 +6,7 @@ export const initialState={
     message:""
 }; 
 
-const reducer =  (state=initialState, action)=>{
+const reducer =  (state=initialState, action:type.Action)=>{
     return produce(state,draft=>{
         switch(action.type){
             case type.OPEN_ALERT:

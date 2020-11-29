@@ -28,7 +28,7 @@ export const initialState={
     singleReview:null,
 };
 
-const reducer =  (state=initialState, action)=>{
+const reducer =  (state=initialState, action:type.Action)=>{
     return produce(state,draft=>{
         switch(action.type){
             // 로딩 

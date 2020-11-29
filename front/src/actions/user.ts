@@ -1,3 +1,6 @@
+import { MyInfo } from '../model/MyInfo';
+import { MovieList } from '../model/MovieList';
+
 // login actions 
 export const LOGIN_REQUEST="LOGIN_REQUEST";
 export const LOGIN_SUCCESS="LOGIN_SUCCESS"
@@ -46,3 +49,37 @@ export const LOAD_FAVORITE_MOVIE_FAIL="LOAD_FAVORITE_MOVIE_FAIL";
 export const REMOVE_FAVORITE_MOVIE_REQUEST="REMOVE_FAVORITE_MOVIE_REQUEST";
 export const REMOVE_FAVORITE_MOVIE_SUCCESS="REMOVE_FAVORITE_MOVIE_SUCCESS";
 export const REMOVE_FAVORITE_MOVIE_FAIL="REMOVE_FAVORITE_MOVIE_FAIL";
+
+type loginRequestData = { email : string , password: string};
+type signUpRequestData = { email : string, nickname:string, password: string}
+type MovieListArray = Array<MovieList>;
+
+export type Action = 
+{ type:'LOGIN_REQUEST' , data:loginRequestData} | 
+{ type:'LOGIN_SUCCESS', data:MyInfo} | 
+{ type:'LOGIN_FAIL', error:string} | 
+{ type:'LOGOUT_REQUEST'} | 
+{ type:'LOGOUT_SUCCESS'} |
+{ type:'LOGOUT_FAIL', error:string} |
+{ type:'SIGNUP_REQUEST', data:signUpRequestData} |
+{ type:'SIGNUP_SUCCESS'} |
+{ type:'SIGNUP_FAIL', error:string} |
+{ type:'LOAD_MY_INFO_REQUEST'} |
+{ type:'LOAD_MY_INFO_SUCCESS', data:MyInfo} |
+{ type:'LOAD_MY_INFO_FAIL',error:string} |
+{ type:'UPDATE_NICKNAME_REQUEST', data:{ nickname: string}} |
+{ type:'UPDATE_NICKNAME_SUCCESS', data:string} |
+{ type:'UPDATE_NICKNAME_FAIL', error:string} |
+{ type:'UPDATE_PROFILE_PIC_REQUEST', data:FormData} |
+{ type:'UPDATE_PROFILE_PIC_SUCCESS', data:string} |
+{ type:'UPDATE_PROFILE_PIC_FAIL', error:string} |
+{ type:'ADD_FAVORITE_MOVIE_REQUEST', data:MovieList} |
+{ type:'ADD_FAVORITE_MOVIE_SUCCESS', data:MovieList } |
+{ type:'ADD_FAVORITE_MOVIE_FAIL', error:string} |
+{ type:'LOAD_FAVORITE_MOVIE_REQUEST'} |
+{ type:'LOAD_FAVORITE_MOVIE_SUCCESS', data:MovieListArray} |
+{ type:'LOAD_FAVORITE_MOVIE_FAIL', error:string} |
+{ type:'REMOVE_FAVORITE_MOVIE_REQUEST', data:string} |
+{ type:'REMOVE_FAVORITE_MOVIE_SUCCESS', data:string} |
+{ type:'REMOVE_FAVORITE_MOVIE_FAIL', error:string}
+;
