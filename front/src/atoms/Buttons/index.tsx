@@ -46,9 +46,13 @@ const Button = styled.button<{ fill:string , color:string}>
 
     box-shadow:${(props)=>props.shadow==="true"? '0px 0px 11px -1px rgba(0,0,0,0.75)' :''};
     cursor:pointer;
+
+    transition: 0.2s background-color ease-in-out;
     
     &:disabled{
         cursor: not-allowed;
+        background-color:#e6b3e6;
+        color:#fff;
     }
 `;
 
