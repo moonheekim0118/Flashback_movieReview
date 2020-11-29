@@ -1,6 +1,11 @@
 import { useState, useCallback} from 'react';
 
-const useInput= (initialValue = null)=>{
+interface Props {
+    initialValue?:string;
+}
+
+// Input 
+const useInput= ({initialValue = ""}:Props)=>{
     const [value, setter]=useState(initialValue);
     const handler=useCallback((e) => {
         setter(e.target.value);
