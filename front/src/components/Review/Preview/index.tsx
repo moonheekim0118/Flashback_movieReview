@@ -1,4 +1,4 @@
-import React , { FunctionComponent, useCallback } from 'react';
+import React , { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import Router from 'next/router';
 import styled from 'styled-components';

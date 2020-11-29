@@ -34,9 +34,9 @@ const SignUp=()=>{
            passwordLengthError
           ]=useValidation("",6,15);
 
-    const [checkpassword,setCheckpassword]=useState(""); // 확인용 비밀번호  
+    const [checkpassword,setCheckpassword]=useState<string>(""); // 확인용 비밀번호  
 
-    const [passwordError, setPasswordError]=useState(false); // 비밀번호 불일치 에러  
+    const [passwordError, setPasswordError]=useState<boolean>(false); // 비밀번호 불일치 에러  
 
     // 회원가입 에러 alert
     useEffect(()=>{ 

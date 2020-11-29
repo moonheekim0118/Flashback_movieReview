@@ -55,8 +55,8 @@ const TextEditor=({Review , ButtonType}:Props)=>{
             freeCommentError 
         ] = useValidation(Review.freeComment,0,50);
 
-    const initialUpdate = useRef(true);// 최초 렌더링인지 구분하기 위함 
-    const [initial, setInitial]=useState(true); // 최초 렌더링인지 구분하기 위함 
+    const initialUpdate = useRef<boolean>(true);// 최초 렌더링인지 구분하기 위함 
+    const [initial, setInitial]=useState<boolean>(true); // 최초 렌더링인지 구분하기 위함 
     
     // 수정 상태 시 원래 저장된 레이팅으로 상태 설정
     const good = Review.rating==='GOOD' ? true : false;

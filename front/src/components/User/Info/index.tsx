@@ -19,7 +19,7 @@ interface Props {
 // 닉네임 수정 
 const Info=({myInfo} : Props)=>{
     const dispatch = useDispatch();
-    const imageInput = useRef(null);
+    const imageInput = useRef<any>(null);
 
     const [ nickname,  // 닉네임 
             setNickname, 

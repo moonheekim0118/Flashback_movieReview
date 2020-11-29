@@ -14,6 +14,7 @@ import { MovieList } from '../../model/MovieList';
 import { REMOVE_FAVORITE_MOVIE_REQUEST } from '../../actions/user';
 import Icon from '../../atoms/Icons';
 import styled from 'styled-components';
+import { Style } from 'util';
 
 
 interface Props {
@@ -25,9 +26,9 @@ const Slider=({movieLists,editMode} : Props)=>{
     // 최초 슬라이드 개수 
     const initialSlide = Math.ceil(movieLists.length/5);
     const dispatch = useDispatch();
-    const [ TOTAL_SLIDES, setTotalSlides ] = useState(initialSlide);
-    const [ currentSlide, setCurrentSlide ] = useState(0); // 현재 슬라이드 페이지 
-    const slideRef = useRef(null);
+    const [ TOTAL_SLIDES, setTotalSlides ] = useState<number>(initialSlide);
+    const [ currentSlide, setCurrentSlide ] = useState<number>(0); // 현재 슬라이드 페이지 
+    const slideRef = useRef<any>(null);
     
     useEffect(()=>{
         const onResize=()=>{

@@ -7,7 +7,7 @@ interface Props{
     shadow?:boolean; // 버튼 has shadow or not 
     disabled?:boolean; // 버튼 is disabled or not
     color?:string; // 버튼's color
-    onClick:(e: any) => void;
+    onClick?:(e: any) => void;
     title:string;
 }
 
@@ -19,7 +19,7 @@ const button=({ fill, shadow, disabled, color, onClick, title } : Props)=>{
         color={color} 
         onClick={onClick}
         disabled={disabled}>
-            {title}
+        {title}
         </Button>
     );
 }
@@ -29,6 +29,7 @@ button.defaultProps = {
     shadow:false,
     disabled:false,
     color:'lightPurple',
+    onClick:null,
 };
 
 const Button = styled.button<{ fill:string , color:string}>
