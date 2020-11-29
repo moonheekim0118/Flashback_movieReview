@@ -48,7 +48,7 @@ const getTheme =(checked)=>{
                 <Head>
                     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap" />
                     <meta charSet="utf-8"/>
-                    <title>영리</title>
+                    <title>플래쉬백</title>
                 </Head>
                 <div id="alert-root"/>
                 <Component/>

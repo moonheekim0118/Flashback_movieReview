@@ -14,7 +14,7 @@ interface Props {
     children:React.ReactNode;
 }
 
-const Layout=({ PageName , children} : Props)=>{
+const Layout=({ PageName , children } : Props)=>{
     const dispatch = useDispatch();
     const { showAlert } = useSelector((state)=>state.alert);
     const loginDone = useSelector(state=>state.user.loginDone);

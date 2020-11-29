@@ -15,9 +15,9 @@ const index=()=>{
     return(
         <Layout>
             <TitleContainer>
-                <Text>영리하게</Text>
+                <Text>간단하게</Text>
                 <Text>영화리뷰</Text>
-                <Text>영──리</Text>
+                <Text>플래쉬백</Text>
                 <Circle/>
             </TitleContainer>
             <ButtonContainer>
