@@ -13,6 +13,7 @@ import wrapper from '../../store/configureStore';
 const singleReview=()=>{
 
     const singleReview = useSelector(state=>state.review.singleReview);
+    const myInfo = useSelector(state=>state.user.myInfo);
 
     if(!singleReview) return (
         <Layout PageName="리뷰">
@@ -22,7 +23,7 @@ const singleReview=()=>{
 
     return(
         <Layout PageName={"리뷰"}>
-            <SingleReviewComponent Review={singleReview}/>
+            <SingleReviewComponent Review={singleReview} myInfo={myInfo}/>
         </Layout>
     );
 }

@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<MovieCard/> should match correctly 1`] = `"<div class=\\"MovieCard__Container-sc-1v9tm0k-0 hPqAwq\\"><img src=\\"test\\" class=\\"MovieCard__MoviePoster-sc-1v9tm0k-1 hGSCZO\\"><div class=\\"MovieCard__MovieDescription-sc-1v9tm0k-2 jyXyWd\\"><p class=\\"MovieCard__MovieTitle-sc-1v9tm0k-3 fByxID\\">test</p><p>test 감독</p><p>test 제작</p></div></div>"`;

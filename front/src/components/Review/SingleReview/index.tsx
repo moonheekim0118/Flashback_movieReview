@@ -1,6 +1,5 @@
 import React , { useCallback }from 'react';
 import Router from 'next/router';
-import { useSelector } from 'react-redux';
 import { ReviewList } from '../../../model/ReviewList';
 import styled from 'styled-components';
 import Badge from '../Badge';
@@ -9,11 +8,11 @@ import Avatar from '../../Avatar';
 import Button from '../../../atoms/Buttons';
 
 interface Props {
-    Review:ReviewList
+    Review:ReviewList,
+    myInfo:any,
 }
 
-const SingleReview=({Review}:Props)=>{
-    const myInfo = useSelector((state)=>state.user.myInfo); // 내 정보와 리뷰 작성자가 같은 경우만 수정 가능하도록 구현
+const SingleReview=({Review,myInfo}:Props)=>{
 
     // 수정버튼 클릭시 수정 페이지로 넘어감 
     const onClickButton = useCallback(()=>{

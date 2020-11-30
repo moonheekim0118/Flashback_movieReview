@@ -11,7 +11,7 @@ import Logout from '../User/Logout';
 
 interface Props {
     PageName?:string;
-    children:React.ReactNode;
+    children?:React.ReactNode;
 }
 
 const Layout=({ PageName="" , children } : Props)=>{
