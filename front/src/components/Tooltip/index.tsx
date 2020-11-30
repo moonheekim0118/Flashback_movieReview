@@ -17,10 +17,10 @@ interface Props {
 const Tooltip=({onClose, buttonList}:Props)=>{
     return(
     <>
-        <Overaly onClick={onClose} id="overaly"/>
+        <Overaly onClick={onClose} className="overaly"/>
         <Container>
         {buttonList.map((v,i)=>
-        <ItemContainer key={v.title+i} id="item" onClick={v.onClick}>
+        <ItemContainer key={v.title+i} className="item" onClick={v.onClick}>
             <Item>{v.title}</Item>
         </ItemContainer>) }
         </Container>

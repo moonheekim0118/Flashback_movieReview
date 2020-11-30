@@ -21,21 +21,21 @@ describe('<Tooltip/>', () => {
    });
 
    it('should have two items', ()=>{ // item이 mockProps 개수대로 들어가있는지 확인 
-      expect(container.find('#item').hostNodes()).toHaveLength(mockProps.length);
+      expect(container.find('.item').hostNodes()).toHaveLength(mockProps.length);
    });
 
    it('should call onClose if Overaly is clicked',()=>{ // onClose 버튼 시뮬레이션 
-    container.find('#overaly').hostNodes().simulate('click');
+    container.find('.overaly').hostNodes().simulate('click');
     expect(mockFn3).toHaveBeenCalled();
     });
 
    it('should call first onClick if first Item container is clicked', ()=>{ // 첫번째 onClick 버튼 
-    container.find('#item').first().simulate('click');
+    container.find('.item').first().simulate('click');
     expect(mockFn1).toHaveBeenCalled();
    });
 
    it('should call second onClick if second Item container is clicked', ()=>{ // 두번째 onClick 버튼 
-    container.find('#item').last().simulate('click');
+    container.find('.item').last().simulate('click');
     expect(mockFn2).toHaveBeenCalled();
    });
 
