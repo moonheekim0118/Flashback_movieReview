@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Tooltip/> matches snapshot 1`] = `"<div id=\\"overaly\\" class=\\"Tooltip__Overaly-sc-1s0dps1-0 gUipaz\\"></div><div class=\\"Tooltip__Container-sc-1s0dps1-1 dUDDKK\\"><div id=\\"item\\" class=\\"Tooltip__ItemContainer-sc-1s0dps1-2 lmXqez\\"><div class=\\"Tooltip__Item-sc-1s0dps1-3 fTYYPM\\">test1</div></div><div id=\\"item\\" class=\\"Tooltip__ItemContainer-sc-1s0dps1-2 lmXqez\\"><div class=\\"Tooltip__Item-sc-1s0dps1-3 fTYYPM\\">test2</div></div></div>"`;

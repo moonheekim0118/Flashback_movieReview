@@ -5,5 +5,6 @@ module.exports = {
     },
 	testEnvironment: "node",
 	testMatch: ["**/__tests__/**/*.ts?(x)", "**/?(*.)+(test).ts?(x)"],
-	transformIgnorePatterns: ["/node_modules/"],
+  transformIgnorePatterns: ["/node_modules/"],
+  setupFilesAfterEnv: ["<rootDir>/src/__test__/setupTests.ts"]
 };

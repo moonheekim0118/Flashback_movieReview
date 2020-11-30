@@ -19,8 +19,8 @@ const ConfirmAlert=({text, clickYes, clickNo}:Props)=>{
         <Container>
             <TextContainer>{text}</TextContainer>
             <ButtonContainer>
-                <Button title="remove" onClick={clickYes}>삭제</Button>
-                <Button title="cancle" onClick={clickNo}>취소</Button>
+                <Button title="remove" id="submit" onClick={clickYes}>삭제</Button>
+                <Button title="cancle" id="close" onClick={clickNo}>취소</Button>
             </ButtonContainer>
         </Container>
         </>

@@ -4,12 +4,14 @@ import Navigation from '../components/Navigation';
 import axios from 'axios';
 import { END } from 'redux-saga';
 import { LOAD_MY_INFO_REQUEST } from '../actions/user';
+import { useSelector } from 'react-redux';
 import wrapper from '../store/configureStore';
 
 const Menu=()=>{
+    const loginDone=useSelector((state)=>state.user.loginDone);
     return(
         <Layout PageName="메뉴">
-            <Navigation/>
+            <Navigation loginDone={loginDone}/>
         </Layout>
     );
 }
