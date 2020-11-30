@@ -4,12 +4,12 @@ import styled from 'styled-components';
 // buttons types
 interface buttons {
     title:string;
-    onClick:(e: React.MouseEvent) => void;
+    onClick:(e: any) => void;
 };
 
 
 interface Props {
-    onClose:(e: React.MouseEvent) => void;
+    onClose:(e: any) => void;
     buttonList:Array<buttons>
 }
 
@@ -17,10 +17,10 @@ interface Props {
 const Tooltip=({onClose, buttonList}:Props)=>{
     return(
     <>
-        <Overaly onClick={onClose}/>
+        <Overaly onClick={onClose} className="overaly"/>
         <Container>
         {buttonList.map((v,i)=>
-        <ItemContainer key={v.title+i} onClick={v.onClick}>
+        <ItemContainer key={v.title+i} className="item" onClick={v.onClick}>
             <Item>{v.title}</Item>
         </ItemContainer>) }
         </Container>
@@ -29,12 +29,12 @@ const Tooltip=({onClose, buttonList}:Props)=>{
 };
 
 const Overaly = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index:500;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index:500;
 `
 
 const Container = styled.div`

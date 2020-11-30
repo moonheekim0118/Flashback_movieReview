@@ -1,18 +1,24 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import Link from 'next/link';
 import styled from 'styled-components';
 
+interface Props{
+    loginDone:boolean
+}
+
 // 메뉴아이콘 네비게이션 
-const Navigation=()=>{
-    const loginDone=useSelector((state)=>state.user.loginDone);
+const Navigation=({loginDone=false}:Props)=>{
 
     return(
         <Container>
-            {loginDone ? <Link href="/myInfo"><ATag><Menu>내 정보</Menu></ATag></Link> : 
-            <Link href="/login"><ATag><Menu>로그인</Menu></ATag></Link> }
-            {loginDone ? <Link href="/myReviews"><ATag><Menu>내가 쓴 리뷰</Menu></ATag></Link> :
-            <Link href="/signUp"><ATag><Menu>회원가입</Menu></ATag></Link>}
+            {loginDone ? 
+            <Link href="/myInfo"><ATag><Menu>내 정보</Menu></ATag></Link> : 
+            <Link href="/login"><ATag><Menu>로그인</Menu></ATag></Link> 
+            }
+            {loginDone ? 
+            <Link href="/myReviews"><ATag><Menu>내가 쓴 리뷰</Menu></ATag></Link> :
+            <Link href="/signUp"><ATag><Menu>회원가입</Menu></ATag></Link>
+            }
             <Link href="/searchMovie"><ATag><Menu>영화 검색</Menu></ATag></Link>
         </Container>
     );

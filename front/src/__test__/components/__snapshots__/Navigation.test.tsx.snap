@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Navigation/> matches snapshot 1`] = `"<div class=\\"Navigation__Container-sc-1bfe4eb-0 jYrGPx\\"><a class=\\"Navigation__ATag-sc-1bfe4eb-2 eaFyfR\\"><div class=\\"Navigation__Menu-sc-1bfe4eb-1 cRnsKI\\">로그인</div></a><a class=\\"Navigation__ATag-sc-1bfe4eb-2 eaFyfR\\"><div class=\\"Navigation__Menu-sc-1bfe4eb-1 cRnsKI\\">회원가입</div></a><a class=\\"Navigation__ATag-sc-1bfe4eb-2 eaFyfR\\"><div class=\\"Navigation__Menu-sc-1bfe4eb-1 cRnsKI\\">영화 검색</div></a></div>"`;

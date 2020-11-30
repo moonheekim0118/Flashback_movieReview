@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Slot/> matches snapshot 1`] = `"<div class=\\"Slot__Container-xgkhyf-0 dETzEG\\"><div class=\\"Slot-xgkhyf-1 bANFKP\\"><div class=\\"Slot__First-xgkhyf-2 dwNpqE\\">영화 머글</div><div class=\\"Slot__Second-xgkhyf-3 bGWvQN\\">영화 입문자</div><div class=\\"Slot__Third-xgkhyf-4 yiSYO\\">영화 볼 줄 아시는 분</div><div class=\\"Slot__Fourth-xgkhyf-5 cYqWBC\\">완벽한 영화 덕후</div><div class=\\"Slot__Fifth-xgkhyf-6 cFWlrd\\">영화의 신</div><div class=\\"Slot__MyLevel-xgkhyf-7 UPeMe\\">영화 입문자</div></div></div>"`;

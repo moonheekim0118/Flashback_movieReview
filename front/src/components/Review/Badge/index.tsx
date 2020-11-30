@@ -25,7 +25,7 @@ const Status={ // 레이팅에 따른 글자
 }
 
 // 영화 레이팅 뱃지 컴포넌트 
-const Badge=({ badgeName, selected , onClick }: Props)=>{
+const Badge=({ badgeName, selected , onClick=null }: Props)=>{
     return(
         <Container selected={selected} onClick={onClick}>
             <Icon
@@ -35,10 +35,6 @@ const Badge=({ badgeName, selected , onClick }: Props)=>{
             {Status[badgeName]}
         </Container>
     );
-}
-
-Badge.defaultProps={
-    onClick:null,
 }
 
 const Container = styled.div<{ selected:boolean }>`

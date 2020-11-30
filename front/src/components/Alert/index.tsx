@@ -7,14 +7,15 @@ import styled from 'styled-components';
 const Alert=()=>{
     const { message, showAlert } = useSelector((state)=>state.alert);
     // showAlert 상태일때만 띄워준다. 
-    if(showAlert){
-        return(
+
+    return(
+        <>
+            {showAlert&&
             <Container>
-            {message}
-            </Container>
-        )
-    }
-    return(<></>)
+                {message}
+            </Container>}
+        </>
+    );
 }
 
 const Container = styled.div`

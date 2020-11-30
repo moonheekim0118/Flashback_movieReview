@@ -1,16 +1,13 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
     "jsx": "preserve",
     "allowJs": true,
+    "lib": ["ES2019","dom"],
+    "module": "commonjs",
+    "target": "ES2019",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
-    "lib": [
-      "es6",
-      "dom"
-    ],
     "skipLibCheck": true,
     "strict": false,
     "forceConsistentCasingInFileNames": true,
