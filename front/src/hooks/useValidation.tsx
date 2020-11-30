@@ -1,7 +1,5 @@
 import {useState,useCallback} from 'react';
 
-
-
 // validation 담당 minimum 최소 글자 / maximum 최대 글자 
 const useValidation =(initialValue = "",minimum,maximum)=>{
     const [value, setValue]=useState<string>(initialValue);
