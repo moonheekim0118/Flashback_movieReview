@@ -1,6 +1,6 @@
 import 'jsdom-global/register'; 
 import React from "react";
-import { ReviewProp } from './Mock.data';
+import { ReviewProp } from './mock.data';
 import { useSelector } from 'react-redux';
 import { mount } from 'enzyme';
 import TextEditor from '../../components/Review/TextEditor';
