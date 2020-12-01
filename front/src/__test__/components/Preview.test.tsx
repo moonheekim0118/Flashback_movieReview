@@ -1,6 +1,6 @@
 import 'jsdom-global/register'; 
 import React from "react";
-import { ReviewProp } from '../testUtils';
+import { ReviewProp } from './Mock.data';
 import { mount } from 'enzyme';
 import Preview from '../../components/Review/Preview';
 

@@ -1,6 +1,6 @@
 import 'jsdom-global/register'; 
 import React from "react";
-import { MovieProp } from '../testUtils';
+import { MovieProp } from './Mock.data';
 import { useSelector } from 'react-redux';
 import { mount } from 'enzyme';
 import SearchMovie from '../../components/Movie/SearchMovie';

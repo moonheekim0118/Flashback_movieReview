@@ -1,6 +1,6 @@
 import 'jsdom-global/register'; 
 import React from "react";
-import { MyInfoProp } from '../testUtils';
+import { MyInfoProp } from './Mock.data';
 import { useSelector } from 'react-redux';
 import { mount } from 'enzyme';
 import Avatar from '../../components/Avatar';
