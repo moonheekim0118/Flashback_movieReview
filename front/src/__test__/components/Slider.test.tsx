@@ -1,6 +1,6 @@
 import 'jsdom-global/register'; 
 import React from "react";
-import { MovieProp } from '../testUtils';
+import { MovieProp } from './mock.data';
 import { mount } from 'enzyme';
 import Slider from '../../components/Slider';
 

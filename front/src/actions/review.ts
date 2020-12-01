@@ -47,5 +47,4 @@ export type Action =
 { type:'UPDATE_MY_REVIEW_REQUEST', data:ReviewList} |
 { type:'UPDATE_MY_REVIEW_SUCCESS', data:ReviewList} |
 { type:'UPDATE_MY_REVIEW_FAIL', error:string} |
-{ type:'SIGNUP_FAIL', error:string} 
-;
+{ type:'SIGNUP_FAIL', error:string};

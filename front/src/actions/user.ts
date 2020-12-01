@@ -81,5 +81,4 @@ export type Action =
 { type:'LOAD_FAVORITE_MOVIE_FAIL', error:string} |
 { type:'REMOVE_FAVORITE_MOVIE_REQUEST', data:string} |
 { type:'REMOVE_FAVORITE_MOVIE_SUCCESS', data:string} |
-{ type:'REMOVE_FAVORITE_MOVIE_FAIL', error:string}
-;
+{ type:'REMOVE_FAVORITE_MOVIE_FAIL', error:string} ;

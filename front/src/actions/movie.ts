@@ -16,11 +16,10 @@ export const SAVE_MOVIE="SAVE_MOVIE";
 type MovieListArray = Array<MovieList>;
 
 export type Action = 
-{ type:'LOAD_MOVIES_REQUEST'} | 
+{ type:'LOAD_MOVIES_REQUEST', data:{title:string, start:number}} | 
 { type:'LOAD_MOVIES_SUCCESS', data:MovieListArray} | 
 { type:'LOAD_MOVIES_FAIL', error:string} | 
-{ type:'LOAD_RELATED_SEARCH_REQUEST'} | 
+{ type:'LOAD_RELATED_SEARCH_REQUEST', data:string} | 
 { type:'LOAD_RELATED_SEARCH_SUCCESS', data:MovieListArray} |
 { type:'LOAD_RELATED_SEARCH_FAIL',  error:string} |
-{ type:'SAVE_MOVIE', data:MovieList}
-;
+{ type:'SAVE_MOVIE', data:MovieList};
