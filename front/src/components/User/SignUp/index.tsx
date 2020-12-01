@@ -10,12 +10,12 @@ import Button from '../../../atoms/Buttons';
 import useInput from '../../../hooks/useInput';
 import useValidation from '../../../hooks/useValidation';
 import {
-Container,
-InputContainer,
-TextInput,
-PasswordInput,
-Label,
-ErrorMessage
+     Container,
+     InputContainer,
+     TextInput,
+     PasswordInput,
+     Label,
+     ErrorMessage
 } from '../Login';
 
 const SignUp=()=>{
