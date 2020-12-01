@@ -1,10 +1,10 @@
 export const titleParser = (title) =>{
-    let newTitle = title.replace('<b>','');
-    newTitle=newTitle.replace('</b>','');
+    let newTitle = title.replace(/<b>/g,'');
+    newTitle=newTitle.replace(/[</b>]/g,'');
     return newTitle
 }
 
 export const directorParser = (director)=>{
-    director = director.replace('|','');
+    director = director.replace(/[|]/g,'');
     return director;
 }
