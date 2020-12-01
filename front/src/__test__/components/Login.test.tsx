@@ -4,7 +4,7 @@ import { ThemeProvider } from 'styled-components';
 import { lightTheme } from '../../components/Theme';
 import { useSelector } from 'react-redux';
 import { mount } from 'enzyme';
-import Layout from '../../components/Layout';
+import Login from '../../components/User/Login';
 
 jest.mock('react-redux', ()=>({
     useSelector : jest.fn(),
@@ -12,16 +12,16 @@ jest.mock('react-redux', ()=>({
 }));
 
 
-describe('<Layout/>',()=>{
+describe('<Login/>',()=>{
     let container;
     beforeEach(()=>{
-        const state = { showAlert:true, loginDone:true }; 
+        const state = { loginError:false }; 
         useSelector.mockImplementation(()=>state);
         container = mount( 
         <ThemeProvider theme={lightTheme}>
-            <Layout PageName='메뉴'/>
+            <Login/> 
         </ThemeProvider>
-         )
+        )
     })
 
     it('should match correctly', ()=>{

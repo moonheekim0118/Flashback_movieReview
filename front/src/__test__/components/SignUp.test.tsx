@@ -1,10 +1,10 @@
 import 'jsdom-global/register'; 
 import React from "react";
-import { ThemeProvider } from 'styled-components';
-import { lightTheme } from '../../components/Theme';
 import { useSelector } from 'react-redux';
 import { mount } from 'enzyme';
-import Layout from '../../components/Layout';
+import { ThemeProvider } from 'styled-components';
+import { lightTheme } from '../../components/Theme';
+import SignUp from '../../components/User/SignUp';
 
 jest.mock('react-redux', ()=>({
     useSelector : jest.fn(),
@@ -12,16 +12,16 @@ jest.mock('react-redux', ()=>({
 }));
 
 
-describe('<Layout/>',()=>{
+describe('<SignUp/>',()=>{
     let container;
     beforeEach(()=>{
-        const state = { showAlert:true, loginDone:true }; 
+        const state = { signUpError:false }; 
         useSelector.mockImplementation(()=>state);
         container = mount( 
         <ThemeProvider theme={lightTheme}>
-            <Layout PageName='메뉴'/>
+            <SignUp/>
         </ThemeProvider>
-         )
+        )
     })
 
     it('should match correctly', ()=>{
