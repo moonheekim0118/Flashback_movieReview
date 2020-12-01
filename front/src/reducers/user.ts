@@ -80,7 +80,8 @@ const reducer =  (state=initialState, action:type.Action)=>{
             case type.LOGOUT_FAIL:
                 draft.logoutLoading=false;
                 draft.logoutError=action.error;
-            
+                break;
+                
             // 회원가입
             case type.SIGNUP_REQUEST:
                 draft.signUpDone=false;
@@ -129,7 +130,9 @@ const reducer =  (state=initialState, action:type.Action)=>{
             case type.UPDATE_NICKNAME_SUCCESS:
                 draft.updateNicknameDone=true;
                 draft.updateNicknameLoading=false;
-                draft.myInfo.nickname=action.data;
+                if(draft.myInfo){
+                    draft.myInfo.nickname=action.data;
+                }
                 break;
 
             case type.UPDATE_NICKNAME_FAIL:
@@ -147,7 +150,9 @@ const reducer =  (state=initialState, action:type.Action)=>{
             case type.UPDATE_PROFILE_PIC_SUCCESS:
                 draft.updateProfilePicDone=true;
                 draft.updateProfilePicLoading=false;
-                draft.myInfo.profilePic=action.data; // 프로필 사진 변경 
+                if(draft.myInfo){
+                    draft.myInfo.profilePic=action.data; // 프로필 사진 변경 
+                }
                 break;
             
             case type.UPDATE_PROFILE_PIC_FAIL:
@@ -176,7 +181,7 @@ const reducer =  (state=initialState, action:type.Action)=>{
             // 인생영화 불러오기
             case type.LOAD_FAVORITE_MOVIE_REQUEST:
                 draft.loadFavoriteMovieDone=false;
-                draft.loadFavoriteMovieLoading=false;
+                draft.loadFavoriteMovieLoading=true;
                 draft.loadFavoriteMovieError=null;
                 break;
             
@@ -201,7 +206,9 @@ const reducer =  (state=initialState, action:type.Action)=>{
             case type.REMOVE_FAVORITE_MOVIE_SUCCESS:
                 draft.removeFavoriteMovieDone=true;
                 draft.removeFavoriteMovieLoading=false;
-                draft.favoriteMovies=draft.favoriteMovies.filter((v)=>v.id!==action.data);
+                if(draft.favoriteMovies){
+                   draft.favoriteMovies=draft.favoriteMovies.filter((v)=>v.id!==action.data);
+                }
                 break;
             
             case type.REMOVE_FAVORITE_MOVIE_FAIL:

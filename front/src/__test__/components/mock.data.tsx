@@ -3,7 +3,7 @@ export const MyInfoProp =
     id:'test',
   nickname:'test',
   Reviews:1,
-  proilePic:""
+  profilePic:""
 }  
 
 export const MovieProp =  

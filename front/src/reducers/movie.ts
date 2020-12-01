@@ -26,8 +26,8 @@ const reducer =  (state=initialState, action:type.Action)=>{
                 
             // 영화 리스트 불러오기 
             case type.LOAD_MOVIES_REQUEST:
-                draft.loadMoviesLoading=false;
-                draft.loadMoviesDone=true;
+                draft.loadMoviesLoading=true;
+                draft.loadMoviesDone=false;
                 draft.loadMoviesError=null;
                 break;
             
