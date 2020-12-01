@@ -97,7 +97,7 @@ export const MovieDescription = styled.div`
 `;
 
 const MovieTitle = styled.p`
-    width: 70%;
+    width: 75%;
     font-size:1.5rem;
     font-weight:bold;
     text-overflow: ellipsis;
