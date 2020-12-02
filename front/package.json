@@ -8,7 +8,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "build": "cross-env ANALYZE=true NODE_ENV=production next build",
-    "start": "cross-env NODE_ENV=production next start"
+    "start": "cross-env NODE_ENV=production next start -p 80"
   },
   "author": "",
   "license": "ISC",
