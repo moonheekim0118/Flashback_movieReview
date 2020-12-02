@@ -47,11 +47,11 @@ const MovieCard=({Movie, Search=false}:Props)=>{
     
     return(
         <Container>
-            <MoviePoster src={Movie.image}/>
+            <MoviePoster src={Movie.image} alt="movie poster"/>
             <MovieDescription>
                 <MovieTitle>{Movie.title}</MovieTitle>
-                <p>{Movie.director} 감독</p>
-                <p>{Movie.pubDate} 제작</p>
+                <MovieInfo>{Movie.director} 감독</MovieInfo>
+                <MovieInfo>{Movie.pubDate} 제작</MovieInfo>
             </MovieDescription>
             {Search && loginDone &&
             <Selector>
@@ -97,8 +97,19 @@ export const MovieDescription = styled.div`
 `;
 
 const MovieTitle = styled.p`
+    width: 75%;
     font-size:1.5rem;
     font-weight:bold;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+`;
+
+const MovieInfo =styled.p`
+    width: 70%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 `;
 
 const Selector = styled.div`
