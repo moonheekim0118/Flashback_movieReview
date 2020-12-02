@@ -29,14 +29,14 @@ const Slider=({movieLists,editMode=false} : Props)=>{
     const slideRef = useRef<any>(null);
     
     useEffect(()=>{
-        const onResize=()=>{
-            if(window.innerWidth<=768){
+        const onResize=()=>{ // 리사이징 
+            if(window.innerWidth<=768){ // 모바일버전  
                 setTotalSlides(Math.ceil(movieLists.length/2));
             }
             else{
                 setTotalSlides(Math.ceil(movieLists.length/5));
             }
-            setCurrentSlide(0);
+            setCurrentSlide(0); // 리사이징 할 때마다 0으로 돌아오도록 함
         };
         onResize();
         window.addEventListener('resize', onResize); // 화면 크기 바뀔 때 TOTAL_SLIDES 변경 
@@ -58,7 +58,6 @@ const Slider=({movieLists,editMode=false} : Props)=>{
         else{
             setCurrentSlide(currentSlide+1);
         }
-        console.log('움직여라'+ currentSlide);
     },[currentSlide,TOTAL_SLIDES]);
 
     const prevSlide = useCallback(() => { // 이전 슬라이드 보여주기 버튼 
