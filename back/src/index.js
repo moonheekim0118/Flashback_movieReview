@@ -10,6 +10,9 @@ const cookieParser = require('cookie-parser');
 const passport = require('passport');
 const passportConfig = require('./passport');
 const path = require('path');
+const morgan = require('morgan');
+const hpp = require('hpp');
+const helmet = require('helemt');
 const app = express();
 
 dotenv.config();
@@ -21,8 +24,16 @@ db.sequelize.sync()
 
 passportConfig(); // 패스포트 설정 
 
+if(process.env.NODE_ENV === 'production'){
+    app.use(morgan('combined'));
+    app.use(hpp());
+    app.use(helmet());
+} else{
+    app.use(morgan('dev'));
+}
+
 app.use(cors({ // cors 설정 
-    origin:'http://localhost:3000',
+    origin:['http://localhost:3000','http://52.79.45.197'],
     credentials:true,
 }));
 app.use(express.json()); // body parser
@@ -43,6 +54,6 @@ app.use('/movie',movieRouter);
 app.use('/review',reviewRouter);
 
 
-app.listen(3065,()=>{
+app.listen(80,()=>{
     console.log('서버 실행중');
 })
