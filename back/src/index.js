@@ -33,7 +33,7 @@ if(process.env.NODE_ENV === 'production'){
 }
 
 app.use(cors({ // cors 설정 
-    origin:['http://localhost:3000','http://52.79.45.197'],
+    origin:['http://localhost:3000','http://52.79.45.197','http://flashbackmovie.xyz'],
     credentials:true,
 }));
 app.use(express.json()); // body parser
