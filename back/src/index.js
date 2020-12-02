@@ -12,7 +12,7 @@ const passportConfig = require('./passport');
 const path = require('path');
 const morgan = require('morgan');
 const hpp = require('hpp');
-const helmet = require('helemt');
+const helmet = require('helmet');
 const app = express();
 
 dotenv.config();
