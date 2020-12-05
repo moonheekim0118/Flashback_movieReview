@@ -1,7 +1,7 @@
 import { useState, useCallback} from 'react';
 
 // Input 
-const useInput= (initialValue = "")=>{
+const useInput= (initialValue:string = "")=>{
     const [value, setter]=useState<string>(initialValue);
     
     const handler=useCallback((e) => {
