@@ -8,37 +8,37 @@ export interface Alert {
 }
 
 export interface Movie {
-  loadMoviesLoading;
-  loadMoviesDone;
-  hasMoreMovies;
-  loadRelatedSearchLoading;
+  loadMoviesLoading: boolean;
+  loadMoviesDone: boolean;
+  hasMoreMovies: boolean;
+  loadRelatedSearchLoading: boolean;
   loadRelatedSearchDone: boolean;
 
-  loadMoviesError;
+  loadMoviesError: string;
   loadRelatedSearchError: string;
 
   singleMovie: MovieList;
-  movieLists;
+  movieLists: Array<MovieList>;
   searchLists: Array<MovieList>;
 }
 
 export interface Review {
-  loadMyReviewsLoading;
-  loadMyReviewsDone;
-  hasMoreReviews;
-  loadSingleReviewLoading;
-  loadSingleReviewDone;
-  addMyReviewLoading;
-  addMyReviewDone;
-  removeMyReviewLoading;
-  removeMyReviewDone;
-  updateMyReviewLoading;
+  loadMyReviewsLoading: boolean;
+  loadMyReviewsDone: boolean;
+  hasMoreReviews: boolean;
+  loadSingleReviewLoading: boolean;
+  loadSingleReviewDone: boolean;
+  addMyReviewLoading: boolean;
+  addMyReviewDone: boolean;
+  removeMyReviewLoading: boolean;
+  removeMyReviewDone: boolean;
+  updateMyReviewLoading: boolean;
   updateMyReviewDone: boolean;
 
-  loadMyReviewsError;
-  loadSingleReviewError;
-  addMyReviewError;
-  removeMyReviewError;
+  loadMyReviewsError: string;
+  loadSingleReviewError: string;
+  addMyReviewError: string;
+  removeMyReviewError: string;
   updateMyReviewError: string;
 
   myReviews: Array<ReviewList>;
@@ -46,33 +46,33 @@ export interface Review {
 }
 
 export interface User {
-  loginDone;
-  loginLoading;
-  logoutDone;
-  logoutLoading;
-  signUpDone;
-  signUpLoading;
-  loadMyInfoDone;
-  loadMyInfoLoading;
-  updateNicknameDone;
-  updateNicknameLoading;
-  updateProfilePicDone;
-  updateProfilePicLoading;
-  addFavoriteMovieDone;
-  addFavoriteMovieLoading;
-  loadFavoriteMovieDone;
-  loadFavoriteMovieLoading;
-  removeFavoriteMovieDone;
+  loginDone: boolean;
+  loginLoading: boolean;
+  logoutDone: boolean;
+  logoutLoading: boolean;
+  signUpDone: boolean;
+  signUpLoading: boolean;
+  loadMyInfoDone: boolean;
+  loadMyInfoLoading: boolean;
+  updateNicknameDone: boolean;
+  updateNicknameLoading: boolean;
+  updateProfilePicDone: boolean;
+  updateProfilePicLoading: boolean;
+  addFavoriteMovieDone: boolean;
+  addFavoriteMovieLoading: boolean;
+  loadFavoriteMovieDone: boolean;
+  loadFavoriteMovieLoading: boolean;
+  removeFavoriteMovieDone: boolean;
   removeFavoriteMovieLoading: boolean;
 
-  loginError;
-  logoutError;
-  signUpError;
-  loadMyInfoError;
-  updateNicknameError;
-  updateProfilePicError;
-  addFavoriteMovieError;
-  loadFavoriteMovieError;
+  loginError: string;
+  logoutError: string;
+  signUpError: string;
+  loadMyInfoError: string;
+  updateNicknameError: string;
+  updateProfilePicError: string;
+  addFavoriteMovieError: string;
+  loadFavoriteMovieError: string;
   removeFavoriteMovieError: string;
 
   myInfo: MyInfo;
