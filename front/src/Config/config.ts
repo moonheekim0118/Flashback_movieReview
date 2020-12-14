@@ -1,1 +1,1 @@
-export const backUrl='http://api.flashbackmovie.xyz';
+export const backUrl = 'http://api.flashbackmovie.xyz';

@@ -1,18 +1,18 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback } from 'react';
 
-// Alert open과 close를 담당 
-const useAlert = (initialValue = false) => {
+// Alert open과 close를 담당
+const useAlert = (initialValue: boolean = false) => {
   const [show, setter] = useState<boolean>(initialValue);
 
   const open = useCallback(() => {
-     setter(true)
+    setter(true);
   }, []);
 
   const close = useCallback(() => {
-    setter(false)
+    setter(false);
   }, []);
 
-  return [show, open, close,setter] as const
-}
+  return [show, open, close, setter] as const;
+};
 
 export default useAlert;

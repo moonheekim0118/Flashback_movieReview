@@ -3,7 +3,7 @@
   "compilerOptions": {
     "jsx": "preserve",
     "allowJs": true,
-    "lib": ["ES2019","dom"],
+    "lib": ["ES2019", "dom"],
     "module": "commonjs",
     "target": "ES2019",
     "moduleResolution": "node",
@@ -16,12 +16,6 @@
     "resolveJsonModule": true,
     "isolatedModules": true
   },
-  "exclude": [
-    "node_modules"
-  ],
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
-  ]
+  "exclude": ["node_modules"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
 }

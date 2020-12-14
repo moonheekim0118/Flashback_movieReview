@@ -2,58 +2,58 @@ import React from 'react';
 import styled from 'styled-components';
 import { colorCode } from '../../util/color';
 
-interface Props{
-    fill?:boolean; // 버튼 크기 100% or not
-    shadow?:boolean; // 버튼 has shadow or not 
-    disabled?:boolean; // 버튼 is disabled or not
-    color?:string; // 버튼's color
-    onClick?:(e: any) => void;
-    title:string;
+interface Props {
+  fill?: boolean; // 버튼 크기 100% or not
+  shadow?: boolean; // 버튼 has shadow or not
+  disabled?: boolean; // 버튼 is disabled or not
+  color?: string; // 버튼's color
+  onClick?: (e: any) => void;
+  title: string;
 }
 
-const button=({ fill, shadow, disabled, color, onClick, title } : Props)=>{
-    return(
-        <Button 
-        fill={fill.toString()} 
-        shadow={shadow.toString()} 
-        color={color} 
-        onClick={onClick}
-        disabled={disabled}>
-        {title}
-        </Button>
-    );
-}
-
-button.defaultProps = {
-    fill: false,
-    shadow:false,
-    disabled:false,
-    color:'lightPurple',
-    onClick:null,
+const button = ({ fill, shadow, disabled, color, onClick, title }: Props) => {
+  return (
+    <Button
+      fill={fill.toString()}
+      shadow={shadow.toString()}
+      color={color}
+      onClick={onClick}
+      disabled={disabled}>
+      {title}
+    </Button>
+  );
 };
 
-const Button = styled.button<{ fill:string , color:string}>
-`
-    width:${(props)=>props.fill ==="true"? '100%':''};
-    padding: 10px 15px;
+button.defaultProps = {
+  fill: false,
+  shadow: false,
+  disabled: false,
+  color: 'lightPurple',
+  onClick: null,
+};
 
-    border:none;
-    border-radius:5px;
-    
-    font-size:1.2rem;
-    color:${(props)=>props.color === "purple" ? "#fff" : "black"};
-    background-color:${(props)=>colorCode[`${props.color}`]};
+const Button = styled.button<{ fill: string; color: string }>`
+  width: ${(props) => (props.fill === 'true' ? '100%' : '')};
+  padding: 10px 15px;
 
-    box-shadow:${(props)=>props.shadow==="true"? '0px 0px 11px -1px rgba(0,0,0,0.75)' :''};
-    cursor:pointer;
+  border: none;
+  border-radius: 5px;
 
-    transition: 0.2s background-color ease-in-out;
-    
-    &:disabled{
-        cursor: not-allowed;
-        background-color:#e6b3e6;
-        color:#fff;
-    }
+  font-size: 1.2rem;
+  color: ${(props) => (props.color === 'purple' ? '#fff' : 'black')};
+  background-color: ${(props) => colorCode[`${props.color}`]};
+
+  box-shadow: ${(props) =>
+    props.shadow === 'true' ? '0px 0px 11px -1px rgba(0,0,0,0.75)' : ''};
+  cursor: pointer;
+
+  transition: 0.2s background-color ease-in-out;
+
+  &:disabled {
+    cursor: not-allowed;
+    background-color: #e6b3e6;
+    color: #fff;
+  }
 `;
 
 export default button;
