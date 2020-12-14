@@ -12,9 +12,9 @@ import {
   PasswordInput,
   Label,
   ErrorMessage,
-} from '../Login';
+} from '../LoginForm';
 
-const SignUp = () => {
+const SignUpForm = () => {
   const dispatch = useDispatch();
   const signUpError = useSelector((state) => state.user.signUpError);
 
@@ -125,4 +125,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignUpForm;

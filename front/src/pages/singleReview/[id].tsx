@@ -9,7 +9,7 @@ import Layout from '../../components/Layout';
 import SingleReviewComponent from '../../components/Review/SingleReview';
 import wrapper from '../../store/configureStore';
 
-const singleReview = () => {
+const SingleReview = () => {
   const singleReview = useSelector((state) => state.review.singleReview);
   const myInfo = useSelector((state) => state.user.myInfo);
 
@@ -41,4 +41,4 @@ export const getServerSideProps = wrapper.getServerSideProps(
   }
 );
 
-export default singleReview;
+export default SingleReview;

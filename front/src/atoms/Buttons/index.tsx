@@ -11,28 +11,27 @@ interface Props {
   title: string;
 }
 
-const button = ({ fill, shadow, disabled, color, onClick, title }: Props) => {
+const Button = ({
+  fill = false,
+  shadow = false,
+  disabled = false,
+  color = 'lightPurple',
+  onClick = null,
+  title,
+}: Props) => {
   return (
-    <Button
+    <ButtonContainer
       fill={fill.toString()}
       shadow={shadow.toString()}
       color={color}
       onClick={onClick}
       disabled={disabled}>
       {title}
-    </Button>
+    </ButtonContainer>
   );
 };
 
-button.defaultProps = {
-  fill: false,
-  shadow: false,
-  disabled: false,
-  color: 'lightPurple',
-  onClick: null,
-};
-
-const Button = styled.button<{ fill: string; color: string }>`
+const ButtonContainer = styled.button<{ fill: string; color: string }>`
   width: ${(props) => (props.fill === 'true' ? '100%' : '')};
   padding: 10px 15px;
 
@@ -56,4 +55,4 @@ const Button = styled.button<{ fill: string; color: string }>`
   }
 `;
 
-export default button;
+export default Button;

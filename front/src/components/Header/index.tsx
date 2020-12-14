@@ -10,7 +10,7 @@ interface Props {
   loginDone: boolean;
 }
 
-const header = ({ PageName, loginDone }: Props) => {
+const Header = ({ PageName, loginDone }: Props) => {
   const onPushBack = useCallback(() => {
     Router.back();
   }, []);
@@ -20,7 +20,7 @@ const header = ({ PageName, loginDone }: Props) => {
   }, []);
 
   return (
-    <Header>
+    <HeaderContainer>
       <div>
         <Icons
           icon={faChevronLeft}
@@ -41,11 +41,11 @@ const header = ({ PageName, loginDone }: Props) => {
           />
         )}
       </PageInfo>
-    </Header>
+    </HeaderContainer>
   );
 };
 
-const Header = styled.header`
+const HeaderContainer = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -81,4 +81,4 @@ const PageDescription = styled.div`
   margin-right: 20px;
 `;
 
-export default header;
+export default Header;
