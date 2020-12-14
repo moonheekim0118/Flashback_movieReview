@@ -1,7 +1,7 @@
 import React , { useEffect,useCallback } from 'react';
 import { useDispatch , useSelector } from 'react-redux';
-import { LOGIN_REQUEST } from '../../../actions/user';
-import { OPEN_ALERT } from '../../../actions/alert';
+import { loginAction } from '../../../actions/user';
+import { openAlertAction } from '../../../actions/alert';
 import styled from 'styled-components';
 import Button from '../../../atoms/Buttons';
 import useInput from '../../../hooks/useInput';
@@ -15,17 +15,14 @@ const Login=()=>{
     
     useEffect(()=>{ // 로그인 에러 alert 
         if(loginError){
-            dispatch({type:OPEN_ALERT, data:loginError});
+            dispatch(openAlertAction(loginError));
         }    
     },[loginError]);
 
     // submit 
     const onSubmit = useCallback((e)=>{
         e.preventDefault();
-        dispatch({
-            type:LOGIN_REQUEST,
-            data:{ email, password }
-        });
+        dispatch(loginAction({ email, password }));
     },[email,password]);
 
     return(

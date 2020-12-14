@@ -5,7 +5,7 @@ import Router from 'next/router';
 import axios from 'axios';
 import { END } from 'redux-saga';
 import { useSelector } from 'react-redux';
-import { LOAD_MY_INFO_REQUEST } from '../actions/user';
+import { loadMyInfoAction } from '../actions/user';
 import wrapper from '../store/configureStore';
 
 
@@ -32,7 +32,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context)=>{
     if(context.req && cookie){
         axios.defaults.headers.Cookie=cookie;
     }
-    context.store.dispatch({type:LOAD_MY_INFO_REQUEST});
+    context.store.dispatch(loadMyInfoAction());
     context.store.dispatch(END);
     await context. store['sagaTask'].toPromise();
 });

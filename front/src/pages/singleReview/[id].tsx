@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { LOAD_MY_INFO_REQUEST } from '../../actions/user';
-import { LOAD_SINGLE_REVIEW_REQUEST } from '../../actions/review';
+import { loadMyInfoAction } from '../../actions/user';
+import { loadSingleReviewAction } from '../../actions/review';
 import { END } from 'redux-saga';
 import { Message } from '../../components/GlobalStyle';
 import axios from 'axios';
@@ -35,10 +35,8 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context)=>{
     if(context.req && cookie){
         axios.defaults.headers.Cookie=cookie;
     }
-    context.store.dispatch({type:LOAD_MY_INFO_REQUEST});
-    context.store.dispatch({
-        type:LOAD_SINGLE_REVIEW_REQUEST,
-        data:context.params.id,});
+    context.store.dispatch(loadMyInfoAction());
+    context.store.dispatch(loadSingleReviewAction(context.params.id));
     context.store.dispatch(END);
     await context. store['sagaTask'].toPromise();
 });

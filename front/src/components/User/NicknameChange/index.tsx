@@ -1,7 +1,7 @@
 import React , {  useCallback  } from 'react';
 import { useDispatch } from 'react-redux';
-import { OPEN_ALERT } from '../../../actions/alert';
-import { UPDATE_NICKNAME_REQUEST } from '../../../actions/user';
+import { openAlertAction } from '../../../actions/alert';
+import { updateNicknameAction } from '../../../actions/user';
 import useValidation from '../../../hooks/useValidation';
 import Button from '../../../atoms/Buttons';
 import styled from 'styled-components';
@@ -20,11 +20,8 @@ const NicknameChange =({exNickname}:Props)=>{
 
     const onChangeNickname = useCallback((e)=>{ 
         e.preventDefault();
-        dispatch({
-            type:UPDATE_NICKNAME_REQUEST,
-            data:{nickname:nickname},
-        })
-        dispatch({type:OPEN_ALERT, data:"닉네임이 변경되었습니다."}); // 확인 alert 
+        dispatch(updateNicknameAction({nickname:nickname}))
+        dispatch(openAlertAction("닉네임이 변경되었습니다.")); // 확인 alert 
     },[nickname]);
 
     return(
@@ -35,7 +32,8 @@ const NicknameChange =({exNickname}:Props)=>{
             value={nickname}
             onChange={setNickname}
             />
-            {nicknameError && <ErrorMessage>닉네임은 2글자 이상 6글자 이하여야 합니다.</ErrorMessage> }
+            {nicknameError && 
+            <ErrorMessage>닉네임은 2글자 이상 6글자 이하여야 합니다.</ErrorMessage> }
         </InputContainer>
         <ButtonContainer>
             <Button

@@ -4,8 +4,8 @@ import React , {
        useState 
 } from 'react';
 import { useDispatch , useSelector } from 'react-redux';
-import { SIGNUP_REQUEST } from '../../../actions/user';
-import { OPEN_ALERT } from '../../../actions/alert';
+import { signUpAction } from '../../../actions/user';
+import { openAlertAction } from '../../../actions/alert';
 import Button from '../../../atoms/Buttons';
 import useInput from '../../../hooks/useInput';
 import useValidation from '../../../hooks/useValidation';
@@ -41,17 +41,14 @@ const SignUp=()=>{
     // 회원가입 에러 alert
     useEffect(()=>{ 
          if(signUpError){
-              dispatch({type:OPEN_ALERT,data:signUpError});
+              dispatch(openAlertAction(signUpError));
          }
     },[signUpError]);
 
     // submit 
     const onSubmit = useCallback((e)=>{
          e.preventDefault();
-         dispatch({
-              type:SIGNUP_REQUEST,
-              data: {email, nickname, password}
-         });
+         dispatch(signUpAction({email, nickname, password}));
          
     },[email,nickname,password,checkpassword]);
 
@@ -71,7 +68,8 @@ const SignUp=()=>{
                 value={nickname}
                 onChange={setNickname}
                 />     
-                {nicknameLengthError && <ErrorMessage>닉네임은 2글자 이상 6글자 이하여야 합니다.</ErrorMessage>}
+                {nicknameLengthError && 
+                <ErrorMessage>닉네임은 2글자 이상 6글자 이하여야 합니다.</ErrorMessage>}
            </InputContainer>  
            <InputContainer>
                 <Label htmlFor="user-email">이메일</Label>
@@ -90,7 +88,8 @@ const SignUp=()=>{
                 value={password}
                 onChange={setPassword}
                 />    
-               {passwordLengthError && <ErrorMessage>비밀번호는 6글자 이상 15글자 이하여야 합니다.</ErrorMessage>}
+               {passwordLengthError && 
+               <ErrorMessage>비밀번호는 6글자 이상 15글자 이하여야 합니다.</ErrorMessage>}
            </InputContainer>  
            <InputContainer>
                 <Label htmlFor="user-checkpassword">비밀번호 확인</Label>
@@ -100,7 +99,8 @@ const SignUp=()=>{
                 value={checkpassword}
                 onChange={onChangeCheckPassword}
                 />     
-                {passwordError && <ErrorMessage>비밀번호가 일치하지 않습니다.</ErrorMessage>}
+                {passwordError && 
+                <ErrorMessage>비밀번호가 일치하지 않습니다.</ErrorMessage>}
            </InputContainer> 
            <br/>
            <Button

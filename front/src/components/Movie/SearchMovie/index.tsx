@@ -1,7 +1,7 @@
 import React , { useCallback } from 'react';
 import Router from 'next/router';
 import { useDispatch , useSelector } from 'react-redux';
-import { LOAD_RELATED_SEARCH_REQUEST } from '../../../actions/movie';
+import { LoadRelatedSearchAction } from '../../../actions/movie';
 import { faSearch, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { debounce } from 'lodash';
 import useInput from '../../../hooks/useInput';
@@ -14,7 +14,10 @@ const SearchMovie=()=>{
     const dispatch = useDispatch();
     
     const [SearchInput, setSearchInput]=useInput('');
-    const { loadRelatedSearchLoading , loadRelatedSearchDone, searchLists } = useSelector(state=>state.movie);
+    const { loadRelatedSearchLoading,
+            loadRelatedSearchDone, 
+            searchLists 
+        } = useSelector(state=>state.movie);
 
     const onClickSearch=useCallback(()=>{
         Router.push(`/movieResult/${SearchInput}`);
@@ -31,10 +34,7 @@ const SearchMovie=()=>{
 
     // 디바운싱으로 연관검색어 가져오는 메서드 
     const sendRequest = debounce((value)=>{
-        dispatch({ 
-            type:LOAD_RELATED_SEARCH_REQUEST,
-            data:value
-        })
+        dispatch(LoadRelatedSearchAction(value))
     },900);
 
     return(

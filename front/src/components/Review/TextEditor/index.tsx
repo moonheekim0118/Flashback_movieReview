@@ -4,6 +4,9 @@ import React , {
        useState , 
        useEffect 
 } from 'react';
+import { addMyReviewAction, 
+         updateMyReviewAction
+} from '../../../actions/review';
 import useSelectiong from '../../../hooks/useSelecting';
 import Router from 'next/router';
 import { useDispatch , useSelector } from 'react-redux';
@@ -14,8 +17,7 @@ import styled from 'styled-components';
 import useValidation from '../../../hooks/useValidation';
 import Badge from '../Badge';
 import { faCheck , faTimes } from '@fortawesome/free-solid-svg-icons';
-import { ADD_MY_REVIEW_REQUEST, UPDATE_MY_REVIEW_REQUEST,} from '../../../actions/review';
-import { OPEN_ALERT } from '../../../actions/alert';
+import { openAlertAction } from '../../../actions/alert';
 import { ReviewList } from '../../../model/ReviewList';
 
 interface Props {
@@ -59,9 +61,9 @@ const TextEditor=({Review , ButtonType}:Props)=>{
     const [initial, setInitial]=useState<boolean>(true); // 최초 렌더링인지 구분하기 위함 
     
     // 수정 상태 시 원래 저장된 레이팅으로 상태 설정
-    const good = Review.rating==='GOOD' ? true : false;
-    const soso = Review.rating==='SOSO' ? true : false;
-    const bad = Review.rating==='BAD' ? true : false; 
+    const good = Review.rating==='GOOD';
+    const soso = Review.rating==='SOSO';
+    const bad = Review.rating==='BAD'; 
 
     const [goodSelect,setGoodSelect,
            sosoSelect,setSoSoSelect,
@@ -89,24 +91,26 @@ const TextEditor=({Review , ButtonType}:Props)=>{
     
     useEffect(()=>{ // 리뷰 생성 후 alert 보여준 후 리다이렉트 
         if(addMyReviewDone){
-            dispatch({type:OPEN_ALERT,data:"리뷰가 등록되었습니다."}); // open alert 
-            const  timer = setTimeout(()=> Router.replace(`/singleReview/${myReviews[0].id}`),5000); // 리다이렉트
+            dispatch(openAlertAction("리뷰가 등록되었습니다.")); // open alert 
+            const  timer = setTimeout(()=> 
+            Router.replace(`/singleReview/${myReviews[0].id}`),5000); // 리다이렉트
+        
             return ()=>clearTimeout(timer);
         }
         else if(addMyReviewError){ // 에러 발생 시 에러 메시지 띄워줌 
-            dispatch({type:OPEN_ALERT,data:addMyReviewError});
+            dispatch(openAlertAction(addMyReviewError));
         }
     },[addMyReviewDone,addMyReviewError]);
 
 
     useEffect(()=>{ // 리뷰 수정 후 alert 보여준 후 리다이렉트
         if(updateMyReviewDone){
-            dispatch({type:OPEN_ALERT,data:"리뷰가 수정되었습니다."});
+            dispatch(openAlertAction("리뷰가 수정되었습니다."));
             const timer = setTimeout(()=>Router.replace(`/singleReview/${Review.id}`),5000);
             return ()=>clearTimeout(timer);
         }
         else if(updateMyReviewError){ // 에러 발생시 에러 메시지 띄워줌 
-            dispatch({type:OPEN_ALERT,data:updateMyReviewError});
+            dispatch(openAlertAction(updateMyReviewError));
         }
     },[updateMyReviewDone,updateMyReviewError]);
 
@@ -118,18 +122,17 @@ const TextEditor=({Review , ButtonType}:Props)=>{
         } else if(sosoSelect){
             rating='SOSO'
         }
-        dispatch({
-            type:ADD_MY_REVIEW_REQUEST,
-            data:{
-                Movie:Review.Movie,
-                rating:rating,
-                shortComment:shortComment,
-                character:character,
-                line:line,
-                scene:scene,
-                freeComment:freeComment,
+        dispatch(addMyReviewAction(
+            {
+            Movie:Review.Movie,
+            rating:rating,
+            shortComment:shortComment,
+            character:character,
+            line:line,
+            scene:scene,
+            freeComment:freeComment,
             }
-        });
+        ));
     },[goodSelect,sosoSelect,badSelect,shortComment,character,line,scene,freeComment]);
 
 
@@ -140,9 +143,8 @@ const TextEditor=({Review , ButtonType}:Props)=>{
         } else if(sosoSelect){
             rating='SOSO'
         }
-        dispatch({
-            type:UPDATE_MY_REVIEW_REQUEST,
-            data:{
+        dispatch(updateMyReviewAction(
+            {
                 id:Review.id,
                 User:Review.User,
                 Movie:Review.Movie,
@@ -153,19 +155,21 @@ const TextEditor=({Review , ButtonType}:Props)=>{
                 scene:scene,
                 freeComment:freeComment,
             }
-        })
+        ))
     },[goodSelect,sosoSelect,badSelect,shortComment,character,line,scene,freeComment]);
 
 
     // 버튼 disabeld 공통 조건 
     const disabledRequirements= 
-    shortCommentError||characterError||lineError||sceneError||freeCommentError||shortComment.length===0||
-    character.length===0||line.length===0|| scene.length===0; 
+    shortCommentError||characterError||lineError
+    ||sceneError||freeCommentError||shortComment.length===0
+    ||character.length===0||line.length===0|| scene.length===0; 
 
     // 업데이트 버튼 disabeld 조건 
     const updateDisabledRequirements=
     shortComment===Review.shortComment && freeComment===Review.freeComment && 
-    character===Review.character && line===Review.line && scene===Review.scene ; 
+    character===Review.character && line===Review.line && scene===Review.scene; 
+
     const SubmitButton= ButtonType==='create' ?
     <Button
     color="purple"

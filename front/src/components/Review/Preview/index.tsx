@@ -6,7 +6,7 @@ import Badge from '../Badge';
 import Icon from '../../../atoms/Icons';
 import ConfirmAlert from '../../ConfirmAlert';
 import useAlert from '../../../hooks/useAlert';
-import { REMOVE_MY_REVIEW_REQUEST } from '../../../actions/review';
+import { removeMyReviewAction } from '../../../actions/review';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { ReviewList } from '../../../model/ReviewList';
 import { Container, 
@@ -47,7 +47,7 @@ const Preview =({Review}:Props)=>{
     // 리뷰 삭제 
     const onClickRemove = useCallback((e)=>{ // 리뷰 삭제 
         e.stopPropagation(); 
-        dispatch({type:REMOVE_MY_REVIEW_REQUEST, data:Review.id});
+        dispatch(removeMyReviewAction(Review.id));
         closeConfirmAlert(); // confirmAlert 닫아줌 
     },[]);
 

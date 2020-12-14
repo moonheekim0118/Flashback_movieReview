@@ -11,7 +11,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux'; 
 import { MovieList } from '../../model/MovieList';
-import { REMOVE_FAVORITE_MOVIE_REQUEST } from '../../actions/user';
+import { removeFavoriteMovieAction } from '../../actions/user';
 import Icon from '../../atoms/Icons';
 import styled from 'styled-components';
 
@@ -70,10 +70,7 @@ const Slider=({movieLists,editMode=false} : Props)=>{
     },[currentSlide,TOTAL_SLIDES]);
 
     const removeMovie = useCallback((id)=>{ // 특정 영화 삭제 
-        dispatch({
-            type:REMOVE_FAVORITE_MOVIE_REQUEST,
-            data:id,
-        });
+        dispatch(removeFavoriteMovieAction(id));
     },[]);
 
     return(

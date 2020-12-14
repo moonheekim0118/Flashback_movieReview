@@ -1,7 +1,7 @@
 import React , { useRef, useCallback  } from 'react';
 import { useDispatch } from 'react-redux';
 import { MyInfo } from '../../../model/MyInfo';
-import { UPDATE_PROFILE_PIC_REQUEST } from '../../../actions/user';
+import { updateProfilePicAction } from '../../../actions/user';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import Icon from '../../../atoms/Icons';
 import NicknameChange from '../NicknameChange';
@@ -28,13 +28,14 @@ const Info=({myInfo} : Props)=>{
     const onChangeImage = useCallback((e)=>{
         const imageFormData = new FormData();
         imageFormData.append('image',e.target.files[0]);
-        dispatch({type:UPDATE_PROFILE_PIC_REQUEST, data:imageFormData}); // 아바타 변경 
+        dispatch(updateProfilePicAction(imageFormData)); // 아바타 변경 
     },[]);
 
     return(
         <Container>
             <AvatarContainer>
-                <input type="file" multiple name="image" hidden ref={imageInput} onChange={onChangeImage}/>
+                <input type="file" multiple name="image" 
+                hidden ref={imageInput} onChange={onChangeImage}/>
                 <Overlay/>
                 <EditIcon onClick={onUploadImage}>
                     <Icon icon={faPlus} className="faPlus" color="white" />

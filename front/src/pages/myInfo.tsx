@@ -7,8 +7,10 @@ import Icon from '../atoms/Icons';
 import useToggle from '../hooks/useToggle';
 import { faCog, faEye } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
-import { OPEN_ALERT } from '../actions/alert';
-import { LOAD_MY_INFO_REQUEST, LOAD_FAVORITE_MOVIE_REQUEST } from '../actions/user';
+import { openAlertAction } from '../actions/alert';
+import { loadMyInfoAction, 
+         loadFavoriteMovieAction } 
+        from '../actions/user';
 import { useDispatch,useSelector } from 'react-redux'
 import { Message } from '../components/GlobalStyle';
 import { END } from 'redux-saga';
@@ -32,7 +34,7 @@ const User=()=>{
     
     useEffect(()=>{ // 인생영화 삭제 or 에러 시 Alert 띄워주기 
         if(removeFavoriteMovieDone){
-            dispatch({type:OPEN_ALERT, data:'삭제되었습니다'});
+            dispatch(openAlertAction('삭제되었습니다'));
         } 
     },[removeFavoriteMovieDone]);
 
@@ -75,8 +77,8 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context)=>{
     if(context.req && cookie){
         axios.defaults.headers.Cookie=cookie;
     }
-    context.store.dispatch({type:LOAD_MY_INFO_REQUEST});
-    context.store.dispatch({type:LOAD_FAVORITE_MOVIE_REQUEST});
+    context.store.dispatch(loadMyInfoAction());
+    context.store.dispatch(loadFavoriteMovieAction());
     context.store.dispatch(END);
     await context. store['sagaTask'].toPromise();
 });

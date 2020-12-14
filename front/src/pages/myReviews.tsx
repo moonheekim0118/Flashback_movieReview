@@ -2,8 +2,8 @@ import React , { useEffect } from 'react';
 import Router from 'next/router';
 import Layout from '../components/Layout';
 import { useSelector , useDispatch } from 'react-redux';
-import { OPEN_ALERT } from '../actions/alert';
-import { LOAD_MY_REVIEWS_REQUEST } from '../actions/review';
+import { openAlertAction } from '../actions/alert';
+import { loadMyReviewsAction } from '../actions/review';
 import { LOAD_MY_INFO_REQUEST } from '../actions/user';
 import { END } from 'redux-saga';
 import { Message } from '../components/GlobalStyle';
@@ -28,7 +28,7 @@ const MyReviews=()=>{
             Router.replace('/login');
         }
         else{
-            dispatch({type:LOAD_MY_REVIEWS_REQUEST, data:0});
+            dispatch(loadMyReviewsAction(0));
         }
     },[]);
 
@@ -38,10 +38,7 @@ const MyReviews=()=>{
             if(window.pageYOffset + document.documentElement.clientHeight+10>=document.documentElement.scrollHeight){
                 if(hasMoreReviews && !loadMyReviewsLoading){
                     const lastId = myReviews[myReviews.length-1].id; // 다음 스타트 지점 id
-                    dispatch({
-                        type:LOAD_MY_REVIEWS_REQUEST,
-                        data:lastId
-                    })
+                    dispatch(loadMyReviewsAction(lastId))
                 }
             }
         }
@@ -53,10 +50,10 @@ const MyReviews=()=>{
 
     useEffect(()=>{ // 삭제 후 alert 
         if(removeMyReviewDone){  // 삭제 완료시 alert 
-            dispatch({type:OPEN_ALERT, data:'리뷰가 삭제되었습니다.'});
+            dispatch(openAlertAction('리뷰가 삭제되었습니다.'));
         }
         else if(removeMyReviewError){ // 삭제 시 문제 발생 alert 
-            dispatch({type:OPEN_ALERT, data:removeMyReviewError});
+            dispatch(openAlertAction(removeMyReviewError));
         }
     },[removeMyReviewDone,removeMyReviewError]);
 

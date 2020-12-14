@@ -1,6 +1,7 @@
 import React , { useCallback }from 'react';
 import Router from 'next/router';
 import { ReviewList } from '../../../model/ReviewList';
+import { MyInfo } from '../../../model/MyInfo'; 
 import styled from 'styled-components';
 import Badge from '../Badge';
 import MovieCard from '../../Movie/MovieCard';
@@ -9,7 +10,7 @@ import Button from '../../../atoms/Buttons';
 
 interface Props {
     Review:ReviewList,
-    myInfo:any,
+    myInfo:MyInfo,
 }
 
 const SingleReview=({Review,myInfo}:Props)=>{

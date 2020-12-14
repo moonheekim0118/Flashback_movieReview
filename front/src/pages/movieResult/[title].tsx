@@ -2,9 +2,9 @@ import React , { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Layout from '../../components/Layout';
 import { useDispatch,useSelector } from 'react-redux';
-import { LOAD_MY_INFO_REQUEST } from '../../actions/user';
-import { LOAD_MOVIES_REQUEST } from '../../actions/movie';
-import { OPEN_ALERT } from '../../actions/alert';
+import { loadMyInfoAction } from '../../actions/user';
+import { LoadMovieAction } from '../../actions/movie';
+import { openAlertAction } from '../../actions/alert';
 import { Message } from '../../components/GlobalStyle';
 import MovieCard from '../../components/Movie/MovieCard';
 import axios from 'axios';
@@ -24,10 +24,7 @@ const movieResult=()=>{
             if(window.pageYOffset + document.documentElement.clientHeight+10>=document.documentElement.scrollHeight){
                 if(hasMoreMovies && !loadMoviesLoading){
                     const start = movieLists.length+1; // 다음 스타트 지점
-                    dispatch({
-                        type:LOAD_MOVIES_REQUEST,
-                        data:{title:title, start:start}
-                    })
+                    dispatch(LoadMovieAction({title:title, start:start}))
                 }
             }
         }
@@ -40,10 +37,10 @@ const movieResult=()=>{
     // 인생영화 추가 후 alert 
     useEffect(()=>{
         if(addFavoriteMovieDone){ // 정상적으로 추가 
-            dispatch({type:OPEN_ALERT, data:'인생영화로 추가되었습니다.'});
+            dispatch(openAlertAction('인생영화로 추가되었습니다.'));
         }
         else if(addFavoriteMovieError){ // 에러 
-            dispatch({type:OPEN_ALERT, data:addFavoriteMovieError});
+            dispatch(openAlertAction(addFavoriteMovieError));
         }
     },[addFavoriteMovieDone,addFavoriteMovieError]);
 
@@ -63,11 +60,8 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context)=>{
     if(context.req && cookie){
         axios.defaults.headers.Cookie=cookie;
     }
-    context.store.dispatch({type:LOAD_MY_INFO_REQUEST});
-    context.store.dispatch({
-        type:LOAD_MOVIES_REQUEST,
-        data:{title:context.params.title,start:1}
-    })
+    context.store.dispatch(loadMyInfoAction());
+    context.store.dispatch(LoadMovieAction({title:context.params.title,start:1}));
     context.store.dispatch(END);
     await context.store['sagaTask'].toPromise();
 });

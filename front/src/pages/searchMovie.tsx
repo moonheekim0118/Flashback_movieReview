@@ -1,7 +1,7 @@
 import React from 'react';
 import Layout from '../components/Layout';
 import SearchMovie from '../components/Movie/SearchMovie';
-import { LOAD_MY_INFO_REQUEST } from '../actions/user';
+import { loadFavoriteMovieAction } from '../actions/user';
 import { END } from 'redux-saga';
 import axios from 'axios';
 import wrapper from '../store/configureStore';
@@ -21,7 +21,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context)=>{
     if(context.req && cookie){
         axios.defaults.headers.Cookie=cookie;
     }
-    context.store.dispatch({type:LOAD_MY_INFO_REQUEST});
+    context.store.dispatch(loadFavoriteMovieAction());
     context.store.dispatch(END);
     await context. store['sagaTask'].toPromise();
 });
