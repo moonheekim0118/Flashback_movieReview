@@ -1,4 +1,4 @@
-import React , { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Layout from '../components/Layout';
 import LoginForm from '../components/User/Login';
 import Router from 'next/router';
@@ -8,33 +8,33 @@ import { useSelector } from 'react-redux';
 import { loadMyInfoAction } from '../actions/user';
 import wrapper from '../store/configureStore';
 
+const Login = () => {
+  const loginDone = useSelector((state) => state.user.loginDone);
 
-const Login=()=>{
+  useEffect(() => {
+    if (loginDone) {
+      Router.replace('/');
+    }
+  }, [loginDone]);
 
-    const loginDone = useSelector(state=>state.user.loginDone);
-    
-    useEffect(()=>{
-        if(loginDone){
-            Router.replace('/');
-        }
-    },[loginDone]);
+  return (
+    <Layout PageName="로그인">
+      <LoginForm />
+    </Layout>
+  );
+};
 
-    return(
-        <Layout PageName="로그인">
-            <LoginForm/>
-        </Layout>
-    );
-}
-
-export const getServerSideProps = wrapper.getServerSideProps(async (context)=>{
-    const cookie=context.req ? context.req.headers.cookie : '';
-    axios.defaults.headers.Cookie='';
-    if(context.req && cookie){
-        axios.defaults.headers.Cookie=cookie;
+export const getServerSideProps = wrapper.getServerSideProps(
+  async (context) => {
+    const cookie = context.req ? context.req.headers.cookie : '';
+    axios.defaults.headers.Cookie = '';
+    if (context.req && cookie) {
+      axios.defaults.headers.Cookie = cookie;
     }
     context.store.dispatch(loadMyInfoAction());
     context.store.dispatch(END);
-    await context. store['sagaTask'].toPromise();
-});
+    await context.store['sagaTask'].toPromise();
+  }
+);
 
 export default Login;

@@ -19,8 +19,8 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 export const Message = styled.div`
-text-align:center;
-margin-top:50px;
+  text-align: center;
+  margin-top: 50px;
 `;
 
 export default GlobalStyle;

@@ -1,3 +1,3 @@
 export default interface Error {
-    error:string
-};
+  error: string;
+}

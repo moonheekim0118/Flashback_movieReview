@@ -2,53 +2,72 @@ import React from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
 
-interface Props{
-    loginDone:boolean
+interface Props {
+  loginDone: boolean;
 }
 
-// 메뉴아이콘 네비게이션 
-const Navigation=({loginDone=false}:Props)=>{
-
-    return(
-        <Container>
-            {loginDone ? 
-            <Link href="/myInfo"><ATag><Menu>내 정보</Menu></ATag></Link> : 
-            <Link href="/login"><ATag><Menu>로그인</Menu></ATag></Link> 
-            }
-            {loginDone ? 
-            <Link href="/myReviews"><ATag><Menu>내가 쓴 리뷰</Menu></ATag></Link> :
-            <Link href="/signUp"><ATag><Menu>회원가입</Menu></ATag></Link>
-            }
-            <Link href="/searchMovie"><ATag><Menu>영화 검색</Menu></ATag></Link>
-        </Container>
-    );
-}
+// 메뉴아이콘 네비게이션
+const Navigation = ({ loginDone = false }: Props) => {
+  return (
+    <Container>
+      {loginDone ? (
+        <Link href="/myInfo">
+          <ATag>
+            <Menu>내 정보</Menu>
+          </ATag>
+        </Link>
+      ) : (
+        <Link href="/login">
+          <ATag>
+            <Menu>로그인</Menu>
+          </ATag>
+        </Link>
+      )}
+      {loginDone ? (
+        <Link href="/myReviews">
+          <ATag>
+            <Menu>내가 쓴 리뷰</Menu>
+          </ATag>
+        </Link>
+      ) : (
+        <Link href="/signUp">
+          <ATag>
+            <Menu>회원가입</Menu>
+          </ATag>
+        </Link>
+      )}
+      <Link href="/searchMovie">
+        <ATag>
+          <Menu>영화 검색</Menu>
+        </ATag>
+      </Link>
+    </Container>
+  );
+};
 
 const Container = styled.div`
-    display:flex;
-    flex-direction:column;
-    text-align:center;
-    padding:20px 0px;
-    background-color:inherit;
-
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 20px 0px;
+  background-color: inherit;
 `;
 
 const Menu = styled.div`
-    padding:20px;
-    border-bottom:1px solid #e0e0d1;
-    font-size:1.5rem;
+  padding: 20px;
+  border-bottom: 1px solid #e0e0d1;
+  font-size: 1.5rem;
 
-    transition: 0.2s background-color ease-in-out;
-    cursor:pointer;
+  transition: 0.2s background-color ease-in-out;
+  cursor: pointer;
 
-    &:hover{
-        background-color:#e0e0d1;
-        color:black;
-    }
-    
+  &:hover {
+    background-color: #e0e0d1;
+    color: black;
+  }
 `;
 
 const ATag = styled.a`
-    text-decoration:none;
+  text-decoration: none;
 `;
 export default Navigation;
