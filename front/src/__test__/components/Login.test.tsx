@@ -4,7 +4,7 @@ import { ThemeProvider } from 'styled-components';
 import { lightTheme } from '../../components/Theme';
 import { useSelector } from 'react-redux';
 import { mount } from 'enzyme';
-import Login from '../../components/User/Login';
+import Login from '../../components/User/LoginForm';
 
 jest.mock('react-redux', () => ({
   useSelector: jest.fn(),

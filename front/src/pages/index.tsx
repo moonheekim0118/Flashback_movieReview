@@ -9,7 +9,7 @@ import { loadMyInfoAction } from '../actions/user';
 import { useSelector } from 'react-redux';
 import wrapper from '../store/configureStore';
 
-const index = () => {
+const Index = () => {
   const loginDone = useSelector((state) => state.user.loginDone);
 
   return (
@@ -107,4 +107,4 @@ const Circle = styled.div`
   }
 `;
 
-export default index;
+export default Index;

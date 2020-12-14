@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import Button from '../../../atoms/Buttons';
 import useInput from '../../../hooks/useInput';
 
-const Login = () => {
+const LoginForm = () => {
   const dispatch = useDispatch();
   const loginError = useSelector((state) => state.user.loginError);
   const [email, setEmail] = useInput(''); // 이메일
@@ -107,4 +107,4 @@ export const ErrorMessage = styled.span`
   font-size: 1rem;
 `;
 
-export default Login;
+export default LoginForm;

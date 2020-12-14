@@ -6,7 +6,7 @@ import { END } from 'redux-saga';
 import axios from 'axios';
 import wrapper from '../store/configureStore';
 
-const searchMovie = () => {
+const SearchMovies = () => {
   return (
     <Layout PageName={'영화 검색'}>
       <SearchMovie />
@@ -27,4 +27,4 @@ export const getServerSideProps = wrapper.getServerSideProps(
   }
 );
 
-export default searchMovie;
+export default SearchMovies;

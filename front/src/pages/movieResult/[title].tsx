@@ -11,7 +11,7 @@ import axios from 'axios';
 import { END } from 'redux-saga';
 import wrapper from '../../store/configureStore';
 
-const movieResult = () => {
+const MovieResult = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const { title } = router.query;
@@ -81,4 +81,4 @@ export const getServerSideProps = wrapper.getServerSideProps(
   }
 );
 
-export default movieResult;
+export default MovieResult;

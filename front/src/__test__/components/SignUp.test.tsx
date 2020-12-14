@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { mount } from 'enzyme';
 import { ThemeProvider } from 'styled-components';
 import { lightTheme } from '../../components/Theme';
-import SignUp from '../../components/User/SignUp';
+import SignUp from '../../components/User/SignUpForm';
 
 jest.mock('react-redux', () => ({
   useSelector: jest.fn(),

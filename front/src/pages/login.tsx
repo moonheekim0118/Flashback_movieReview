@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Layout from '../components/Layout';
-import LoginForm from '../components/User/Login';
+import LoginForm from '../components/User/LoginForm';
 import Router from 'next/router';
 import axios from 'axios';
 import { END } from 'redux-saga';

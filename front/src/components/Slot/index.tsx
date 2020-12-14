@@ -15,7 +15,7 @@ const LEVEL = [
 ];
 
 // 슬롯 컴포넌트
-const slot = ({ reviewsCount }: Props) => {
+const Slot = ({ reviewsCount }: Props) => {
   let myLevel;
 
   if (reviewsCount < 20) {
@@ -32,7 +32,7 @@ const slot = ({ reviewsCount }: Props) => {
 
   return (
     <Container>
-      <Slot>
+      <SlotContainer>
         <First>{LEVEL[0]}</First>
         <Second>{LEVEL[1]}</Second>
         <Third>{LEVEL[2]}</Third>
@@ -40,7 +40,7 @@ const slot = ({ reviewsCount }: Props) => {
         <Fifth>{LEVEL[4]}</Fifth>
 
         <MyLevel>{myLevel}</MyLevel>
-      </Slot>
+      </SlotContainer>
     </Container>
   );
 };
@@ -83,7 +83,7 @@ const LastAnimation = keyframes`
     }
 `;
 
-const Slot = styled.div`
+const SlotContainer = styled.div`
   width: 75%;
   font-size: 2.5rem;
   position: relative;
@@ -156,4 +156,4 @@ const MyLevel = styled.div`
   animation: ${LastAnimation} 0.5s 3s forwards linear alternate;
 `;
 
-export default slot;
+export default Slot;

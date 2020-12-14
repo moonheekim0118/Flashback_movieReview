@@ -15,7 +15,7 @@ import { END } from 'redux-saga';
 import axios from 'axios';
 import wrapper from '../store/configureStore';
 
-const User = () => {
+const MyInfo = () => {
   const dispatch = useDispatch();
   const {
     myInfo,
@@ -101,4 +101,4 @@ const Mode = styled.div`
   cursor: pointer;
 `;
 
-export default User;
+export default MyInfo;

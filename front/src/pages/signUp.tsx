@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Layout from '../components/Layout';
-import SignUpForm from '../components/User/SignUp';
+import SignUpForm from '../components/User/SignUpForm';
 import Router from 'next/router';
 import { useSelector } from 'react-redux';
 import { loadFavoriteMovieAction } from '../actions/user';
