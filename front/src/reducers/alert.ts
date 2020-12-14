@@ -1,12 +1,13 @@
 import * as type from '../actions/alert';
+import { Alert } from '../model/State';
 import { produce } from 'immer';
 
-export const initialState={
+export const initialState:Alert={
     showAlert:false,
     message:""
 }; 
 
-const reducer =  (state=initialState, action:type.Action)=>{
+const reducer =  (state:Alert=initialState, action:type.Action):Alert=>{
     return produce(state,draft=>{
         switch(action.type){
             case type.OPEN_ALERT:

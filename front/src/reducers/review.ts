@@ -1,7 +1,8 @@
 import * as type from '../actions/review';
+import { Review } from '../model/State';
 import { produce } from 'immer';
 
-export const initialState={
+export const initialState:Review={
 
     loadMyReviewsLoading:false, // 리뷰 불러오기 
     loadMyReviewsDone:false,
@@ -28,7 +29,7 @@ export const initialState={
     singleReview:null,
 };
 
-const reducer =  (state=initialState, action:type.Action)=>{
+const reducer =  (state:Review=initialState, action:type.Action):Review=>{
     return produce(state,draft=>{
         switch(action.type){
             // 로딩 

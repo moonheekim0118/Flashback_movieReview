@@ -1,8 +1,9 @@
 import * as type from '../actions/movie';
 import { titleParser,directorParser } from '../util/movieParser';
+import { Movie } from '../model/State';
 import { produce } from 'immer';
 
-export const initialState={
+export const initialState:Movie={
     // 영화리스트 가져오기 
     loadMoviesLoading:false,
     loadMoviesDone:false,
@@ -20,10 +21,9 @@ export const initialState={
 };
 
 
-const reducer =  (state=initialState, action:type.Action)=>{
+const reducer =  (state:Movie=initialState, action:type.Action):Movie=>{
     return produce(state,draft=>{
         switch(action.type){
-                
             // 영화 리스트 불러오기 
             case type.LOAD_MOVIES_REQUEST:
                 draft.loadMoviesLoading=true;
