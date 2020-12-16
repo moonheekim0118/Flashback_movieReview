@@ -7,6 +7,7 @@ import { loadMyReviewsAction } from '../actions/review';
 import { LOAD_MY_INFO_REQUEST } from '../actions/user';
 import { END } from 'redux-saga';
 import { Message } from '../components/GlobalStyle';
+import { ScrollHandler } from '../util/onScroll';
 import axios from 'axios';
 import Preview from '../components/Review/Preview';
 import wrapper from '../store/configureStore';
@@ -33,19 +34,17 @@ const MyReviews = () => {
 
   useEffect(() => {
     // 인피니트 스크롤링
-    function onScroll() {
-      if (
-        window.pageYOffset + document.documentElement.clientHeight + 10 >=
-        document.documentElement.scrollHeight
-      ) {
-        if (hasMoreReviews && !loadMyReviewsLoading) {
-          const lastId = myReviews[myReviews.length - 1].id; // 다음 스타트 지점 id
-          dispatch(loadMyReviewsAction(lastId));
-        }
-      }
-    }
+    const lastId = myReviews[myReviews.length - 1]?.id;
+    // onScroll 함수 적용
+    const onScroll = ScrollHandler(
+      dispatch.bind(this, loadMyReviewsAction(lastId)),
+      hasMoreReviews,
+      loadMyReviewsLoading
+    );
+    // 이벤트 리스너 등록
     window.addEventListener('scroll', onScroll);
     return () => {
+      // 이벤트 리스너 해제
       window.removeEventListener('scroll', onScroll);
     };
   }, [loadMyReviewsLoading, hasMoreReviews, myReviews]);
