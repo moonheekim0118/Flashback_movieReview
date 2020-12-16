@@ -1,7 +1,7 @@
 interface ScrollHandler {
   (dispatch: () => void, condition1: boolean, condition2: boolean): (
     this: Window,
-    ev: Event
+    e: Event
   ) => any;
 }
 
@@ -10,7 +10,7 @@ export const scrollHandler: ScrollHandler = (
   condition1,
   condition2
 ) => {
-  return function (this, ev) {
+  return function (this, e) {
     if (
       window.pageYOffset + document.documentElement.clientHeight + 10 >=
       document.documentElement.scrollHeight

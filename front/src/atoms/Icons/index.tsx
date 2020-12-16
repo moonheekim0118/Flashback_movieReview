@@ -11,7 +11,7 @@ interface Props {
   icon: FontAwesomeIconProps['icon']; //아이콘
   className: string;
   color?: string; // 색상
-  onClick?: (e: any) => void;
+  onClick?: (e?: Event) => void;
 }
 
 const Icon = ({ size, icon, className, color, onClick }: Props) => {

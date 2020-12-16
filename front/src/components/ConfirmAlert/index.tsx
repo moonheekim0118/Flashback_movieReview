@@ -4,8 +4,8 @@ import styled from 'styled-components';
 
 interface Props {
   text: string; // 알림창 메시지
-  clickYes: (e: any) => void; // 알림창에서 yes를 눌렀을 때
-  clickNo: (e: any) => void; // 알림차에서 No를 눌렀을 때
+  clickYes: (e: Event) => void; // 알림창에서 yes를 눌렀을 때
+  clickNo: (e: Event) => void; // 알림차에서 No를 눌렀을 때
 }
 
 // 확인 알림창

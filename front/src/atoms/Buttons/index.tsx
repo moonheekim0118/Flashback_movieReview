@@ -7,7 +7,7 @@ interface Props {
   shadow?: boolean; // 버튼 has shadow or not
   disabled?: boolean; // 버튼 is disabled or not
   color?: string; // 버튼's color
-  onClick?: (e: any) => void;
+  onClick?: (e?: Event) => void;
   title: string;
 }
 
