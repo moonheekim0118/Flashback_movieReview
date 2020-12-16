@@ -20,11 +20,10 @@ const WriteReview = () => {
   );
   let base; // 불러온 정보 저장할 곳
 
+  // 새로고침 시 영화 정보가 사라지므로, 경고창을 띄운다.
   useEffect(() => {
-    // 새로고침 시 영화 정보가 사라지므로, 경고창을 띄운다.
-    function leaveAlert(event) {
-      // 새로고침 누를 시 뜨는 경고
-      event.returnValue = `변경사항이 저장되지 않습니다.`;
+    function leaveAlert(event: Event) {
+      event.returnValue = false;
     }
     window.addEventListener('beforeunload', leaveAlert); //새로고침 이벤트
 
