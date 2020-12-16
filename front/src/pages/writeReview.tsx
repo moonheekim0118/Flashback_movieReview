@@ -47,7 +47,7 @@ const WriteReview = () => {
     );
   } else {
     base = {
-      id: myInfo.id,
+      id: '',
       Movie: singleMovie,
       User: { id: myInfo.id, nickname: myInfo.nickname },
       shortComment: '',
