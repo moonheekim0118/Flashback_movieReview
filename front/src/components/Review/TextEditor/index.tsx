@@ -34,12 +34,6 @@ const getRating = (good: boolean, soso: boolean): string => {
 const TextEditor = ({ Review, ButtonType }: Props) => {
   const dispatch = useDispatch();
 
-  // 아이콘
-  const PassedIcon = (
-    <Icon icon={faCheck} className="faCheck" color={'green'} />
-  );
-  const ErrorIcon = <Icon icon={faTimes} className="faTimes" color={'red'} />;
-
   const [
     shortComment, // 짧은 평
     setShortComment,
@@ -73,11 +67,6 @@ const TextEditor = ({ Review, ButtonType }: Props) => {
   const initialUpdate = useRef<boolean>(true); // 최초 렌더링인지 구분하기 위함
   const [initial, setInitial] = useState<boolean>(true); // 최초 렌더링인지 구분하기 위함
 
-  // 수정 상태 시 원래 저장된 레이팅으로 상태 설정
-  const good = Review.rating === 'GOOD';
-  const soso = Review.rating === 'SOSO';
-  const bad = Review.rating === 'BAD';
-
   const [
     goodSelect,
     setGoodSelect,
@@ -85,7 +74,11 @@ const TextEditor = ({ Review, ButtonType }: Props) => {
     setSoSoSelect,
     badSelect,
     setBadSelect,
-  ] = useSelectiong(good, soso, bad);
+  ] = useSelectiong(
+    Review.rating === 'GOOD',
+    Review.rating === 'SOSO',
+    Review.rating === 'BAD'
+  );
 
   const {
     myReviews,
@@ -113,7 +106,6 @@ const TextEditor = ({ Review, ButtonType }: Props) => {
         () => Router.replace(`/singleReview/${myReviews[0].id}`),
         5000
       ); // 리다이렉트
-
       return () => clearTimeout(timer);
     } else if (addMyReviewError) {
       // 에러 발생 시 에러 메시지 띄워줌
@@ -206,22 +198,11 @@ const TextEditor = ({ Review, ButtonType }: Props) => {
     line === Review.line &&
     scene === Review.scene;
 
-  const SubmitButton =
-    ButtonType === 'create' ? (
-      <Button
-        color="purple"
-        onClick={onCreate}
-        title="저장하기"
-        disabled={disabledRequirements}
-      />
-    ) : (
-      <Button
-        color="purple"
-        onClick={onUpdate}
-        title="수정하기"
-        disabled={disabledRequirements || updateDisabledRequirements}
-      />
-    );
+  // validation pass아이콘과 error 아이콘 지정
+  const PassedIcon = (
+    <Icon icon={faCheck} className="faCheck" color={'green'} />
+  );
+  const ErrorIcon = <Icon icon={faTimes} className="faTimes" color={'red'} />;
 
   return (
     <Container>
@@ -268,7 +249,23 @@ const TextEditor = ({ Review, ButtonType }: Props) => {
           name="freeComment"
         />
       </TextContainer>
-      <ButtonWrapper>{SubmitButton}</ButtonWrapper>
+      <ButtonWrapper>
+        {ButtonType === 'create' ? (
+          <Button
+            color="purple"
+            onClick={onCreate}
+            title="저장하기"
+            disabled={disabledRequirements}
+          />
+        ) : (
+          <Button
+            color="purple"
+            onClick={onUpdate}
+            title="수정하기"
+            disabled={disabledRequirements || updateDisabledRequirements}
+          />
+        )}
+      </ButtonWrapper>
     </Container>
   );
 };
