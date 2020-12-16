@@ -21,6 +21,16 @@ interface Props {
   ButtonType: string;
 }
 
+// rating 넘겨주는 함수
+const getRating = (good: boolean, soso: boolean): string => {
+  if (good) {
+    return 'GOOD';
+  } else if (soso) {
+    return 'SOSO';
+  }
+  return 'BAD';
+};
+
 const TextEditor = ({ Review, ButtonType }: Props) => {
   const dispatch = useDispatch();
 
@@ -128,16 +138,10 @@ const TextEditor = ({ Review, ButtonType }: Props) => {
 
   const onCreate = useCallback(() => {
     // 리뷰 저장
-    let rating = 'BAD'; // 레이팅 설정
-    if (goodSelect) {
-      rating = 'GOOD';
-    } else if (sosoSelect) {
-      rating = 'SOSO';
-    }
     dispatch(
       addMyReviewAction({
         Movie: Review.Movie,
-        rating: rating,
+        rating: getRating(goodSelect, sosoSelect),
         shortComment: shortComment,
         character: character,
         line: line,
@@ -158,18 +162,12 @@ const TextEditor = ({ Review, ButtonType }: Props) => {
 
   const onUpdate = useCallback(() => {
     // 리뷰 수정
-    let rating = 'BAD';
-    if (goodSelect) {
-      rating = 'GOOD';
-    } else if (sosoSelect) {
-      rating = 'SOSO';
-    }
     dispatch(
       updateMyReviewAction({
         id: Review.id,
         User: Review.User,
         Movie: Review.Movie,
-        rating: rating,
+        rating: getRating(goodSelect, sosoSelect),
         shortComment: shortComment,
         line: line,
         character: character,
