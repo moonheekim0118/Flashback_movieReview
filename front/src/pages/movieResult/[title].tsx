@@ -7,7 +7,7 @@ import { LoadMovieAction } from '../../actions/movie';
 import { openAlertAction } from '../../actions/alert';
 import { Message } from '../../components/GlobalStyle';
 import { END } from 'redux-saga';
-import { ScrollHandler } from '../../util/onScroll';
+import { scrollHandler } from '../../util/scrollHandler';
 import MovieCard from '../../components/Movie/MovieCard';
 import axios from 'axios';
 import wrapper from '../../store/configureStore';
@@ -27,7 +27,7 @@ const MovieResult = () => {
     // 인피니트 스크롤링
     const start = movieLists.length + 1; // 다음 스타트 지점
     // onScroll 함수 적용
-    const onScroll = ScrollHandler(
+    const onScroll = scrollHandler(
       dispatch.bind(null, LoadMovieAction({ title: title, start: start })),
       hasMoreMovies,
       loadMoviesLoading

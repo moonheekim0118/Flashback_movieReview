@@ -7,7 +7,7 @@ import { loadMyReviewsAction } from '../actions/review';
 import { LOAD_MY_INFO_REQUEST } from '../actions/user';
 import { END } from 'redux-saga';
 import { Message } from '../components/GlobalStyle';
-import { ScrollHandler } from '../util/onScroll';
+import { scrollHandler } from '../util/scrollHandler';
 import axios from 'axios';
 import Preview from '../components/Review/Preview';
 import wrapper from '../store/configureStore';
@@ -36,7 +36,7 @@ const MyReviews = () => {
     // 인피니트 스크롤링
     const lastId = myReviews[myReviews.length - 1]?.id;
     // onScroll 함수 적용
-    const onScroll = ScrollHandler(
+    const onScroll = scrollHandler(
       dispatch.bind(this, loadMyReviewsAction(lastId)),
       hasMoreReviews,
       loadMyReviewsLoading

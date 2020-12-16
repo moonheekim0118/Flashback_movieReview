@@ -5,7 +5,7 @@ interface ScrollHandler {
   ) => any;
 }
 
-export const ScrollHandler: ScrollHandler = (
+export const scrollHandler: ScrollHandler = (
   dispatch,
   condition1,
   condition2
