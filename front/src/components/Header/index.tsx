@@ -20,7 +20,7 @@ const Header = ({ PageName, loginDone }: Props) => {
   }, []);
 
   return (
-    <HeaderContainer>
+    <Container>
       <div>
         <Icons
           icon={faChevronLeft}
@@ -41,11 +41,11 @@ const Header = ({ PageName, loginDone }: Props) => {
           />
         )}
       </PageInfo>
-    </HeaderContainer>
+    </Container>
   );
 };
 
-const HeaderContainer = styled.header`
+const Container = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;

@@ -6,9 +6,10 @@ import { loadMyInfoAction } from '../../actions/user';
 import { LoadMovieAction } from '../../actions/movie';
 import { openAlertAction } from '../../actions/alert';
 import { Message } from '../../components/GlobalStyle';
+import { END } from 'redux-saga';
+import { scrollHandler } from '../../util/scrollHandler';
 import MovieCard from '../../components/Movie/MovieCard';
 import axios from 'axios';
-import { END } from 'redux-saga';
 import wrapper from '../../store/configureStore';
 
 const MovieResult = () => {
@@ -24,19 +25,17 @@ const MovieResult = () => {
 
   useEffect(() => {
     // 인피니트 스크롤링
-    function onScroll() {
-      if (
-        window.pageYOffset + document.documentElement.clientHeight + 10 >=
-        document.documentElement.scrollHeight
-      ) {
-        if (hasMoreMovies && !loadMoviesLoading) {
-          const start = movieLists.length + 1; // 다음 스타트 지점
-          dispatch(LoadMovieAction({ title: title, start: start }));
-        }
-      }
-    }
+    const start = movieLists.length + 1; // 다음 스타트 지점
+    // onScroll 함수 적용
+    const onScroll = scrollHandler(
+      dispatch.bind(null, LoadMovieAction({ title: title, start: start })),
+      hasMoreMovies,
+      loadMoviesLoading
+    );
+    // 이벤트 리스너 등록
     window.addEventListener('scroll', onScroll);
     return () => {
+      // 이벤트 리스너 해제
       window.removeEventListener('scroll', onScroll);
     };
   }, [hasMoreMovies, loadMoviesLoading, movieLists]);

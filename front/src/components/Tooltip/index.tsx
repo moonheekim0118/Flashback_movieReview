@@ -4,11 +4,11 @@ import styled from 'styled-components';
 // buttons types
 interface buttons {
   title: string;
-  onClick: (e: any) => void;
+  onClick: (e?: Event) => void;
 }
 
 interface Props {
-  onClose: (e: any) => void;
+  onClose: (e?: Event) => void;
   buttonList: Array<buttons>;
 }
 
