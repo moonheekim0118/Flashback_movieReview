@@ -5,8 +5,8 @@ interface Props {
   reviewsCount: number;
 }
 
+// 리뷰 작성 개수에 따른 레벨
 const LEVEL = [
-  // 리뷰 작성 개수에 따른 레벨
   '영화 머글',
   '영화 입문자',
   '영화 볼 줄 아시는 분',
@@ -14,31 +14,29 @@ const LEVEL = [
   '영화의 신',
 ];
 
+const getLevel = (reviewsCount: number): string => {
+  if (reviewsCount < 20) {
+    return LEVEL[0];
+  } else if (reviewsCount < 40) {
+    return LEVEL[1];
+  } else if (reviewsCount < 70) {
+    return LEVEL[2];
+  } else if (reviewsCount < 100) {
+    return LEVEL[3];
+  }
+  return LEVEL[4];
+};
+
 // 슬롯 컴포넌트
 const Slot = ({ reviewsCount }: Props) => {
-  let myLevel;
-
-  if (reviewsCount < 20) {
-    myLevel = LEVEL[0];
-  } else if (reviewsCount < 40) {
-    myLevel = LEVEL[1];
-  } else if (reviewsCount < 70) {
-    myLevel = LEVEL[2];
-  } else if (reviewsCount < 100) {
-    myLevel = LEVEL[3];
-  } else {
-    myLevel = LEVEL[4];
-  }
+  let myLevel = getLevel(reviewsCount);
 
   return (
     <Container>
       <SlotContainer>
-        <First>{LEVEL[0]}</First>
-        <Second>{LEVEL[1]}</Second>
-        <Third>{LEVEL[2]}</Third>
-        <Fourth>{LEVEL[3]}</Fourth>
-        <Fifth>{LEVEL[4]}</Fifth>
-
+        {LEVEL.map((v, i) => (
+          <LevelList key={i}>{v}</LevelList>
+        ))}
         <MyLevel>{myLevel}</MyLevel>
       </SlotContainer>
     </Container>
@@ -90,18 +88,7 @@ const SlotContainer = styled.div`
   padding-top: 25px;
 `;
 
-const First = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 15%;
-  transform: translateXY(-50%, -15%);
-  width: 100%;
-
-  opacity: 0;
-  animation: ${Animation} 0.5s 0.5s forwards linear alternate;
-`;
-
-const Second = styled.div`
+const LevelList = styled.div`
   position: absolute;
   top: 50%;
   left: 15%;
@@ -109,40 +96,25 @@ const Second = styled.div`
   opacity: 0;
   width: 100%;
 
-  animation: ${Animation} 0.5s 1s forwards linear alternate;
-`;
+  &:nth-child(1) {
+    animation: ${Animation} 0.5s 0.5s forwards linear alternate;
+  }
 
-const Third = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 15%;
-  transform: translateXY(-50%, -15%);
-  opacity: 0;
-  width: 100%;
+  &:nth-child(2) {
+    animation: ${Animation} 0.5s 1s forwards linear alternate;
+  }
 
-  animation: ${Animation} 0.5s 1.5s forwards linear alternate;
-`;
+  &:nth-child(3) {
+    animation: ${Animation} 0.5s 1.5s forwards linear alternate;
+  }
 
-const Fourth = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 15%;
-  transform: translateXY(-50%, -15%);
-  opacity: 0;
-  width: 100%;
+  &:nth-child(4) {
+    animation: ${Animation} 0.5s 2s forwards linear alternate;
+  }
 
-  animation: ${Animation} 0.5s 2s forwards linear alternate;
-`;
-
-const Fifth = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 15%;
-  transform: translateXY(-50%, -15%);
-  opacity: 0;
-  width: 100%;
-
-  animation: ${Animation} 0.5s 2.5s forwards linear alternate;
+  &:nth-child(5) {
+    animation: ${Animation} 0.5s 2.5s forwards linear alternate;
+  }
 `;
 
 const MyLevel = styled.div`
