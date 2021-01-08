@@ -9,6 +9,7 @@ import useAlert from '../../../hooks/useAlert';
 import { removeMyReviewAction } from '../../../actions/review';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { ReviewList } from '../../../model/ReviewList';
+import { Ratings } from '../../../model/Ratings';
 import {
   Container,
   MoviePoster,
@@ -64,7 +65,7 @@ const Preview = ({ Review }: Props) => {
       <MoviePoster src={Review.Movie.image} />
       <MovieDescription>
         <Comment>{Review.shortComment}</Comment>
-        <Badge badgeName={Review.rating} selected={true} />
+        <Badge badgeName={Ratings[Review.rating]} selected={true} />
       </MovieDescription>
       <Icon icon={faTrash} className="faTrash" onClick={openRemoveAlert} />
     </Container>

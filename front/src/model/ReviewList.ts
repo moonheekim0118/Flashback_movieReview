@@ -1,11 +1,12 @@
 import { MovieList } from './MovieList';
 import { AuthorInfo } from './MyInfo';
+import { Ratings } from './Ratings';
 
 export interface ReviewList {
   id: string;
   User: AuthorInfo;
   Movie: MovieList;
-  rating: string;
+  rating: Ratings;
   shortComment: string;
   character: string;
   line: string;

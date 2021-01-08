@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import Router from 'next/router';
 import { ReviewList } from '../../../model/ReviewList';
+import { Ratings } from '../../../model/Ratings';
 import { MyInfo } from '../../../model/MyInfo';
 import styled from 'styled-components';
 import Badge from '../Badge';
@@ -35,7 +36,7 @@ const SingleReview = ({ Review, myInfo }: Props) => {
               <Avatar />
               <Nickname>{Review.User.nickname} 작성</Nickname>
             </Author>
-            <Badge badgeName={Review.rating} selected={true} />
+            <Badge badgeName={Ratings[Review.rating]} selected={true} />
           </MiddleContainer>
         </TitleContainer>
         <ContentsContainer>
