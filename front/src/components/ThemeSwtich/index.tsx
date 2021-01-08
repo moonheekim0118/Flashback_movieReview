@@ -26,7 +26,7 @@ const ThemeSwtich = ({ onCheck, checked }: Props) => {
   );
 };
 
-const Container = styled.div`
+const Container = styled.aside`
   position: fixed;
   top: 2%;
   left: 30%;

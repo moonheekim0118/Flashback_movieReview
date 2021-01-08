@@ -45,7 +45,7 @@ const Navigation = ({ loginDone = false }: Props) => {
   );
 };
 
-const Container = styled.div`
+const Container = styled.nav`
   display: flex;
   flex-direction: column;
   text-align: center;

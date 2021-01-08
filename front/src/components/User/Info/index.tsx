@@ -63,7 +63,7 @@ const Info = ({ myInfo }: Props) => {
   );
 };
 
-const Container = styled.div`
+const Container = styled.section`
   width: 80%;
   margin: auto;
   padding-top: 50px;
@@ -76,7 +76,7 @@ const Container = styled.div`
   color: inherit;
 `;
 
-const AvatarContainer = styled.div`
+const AvatarContainer = styled.article`
   margin: 20px auto;
   z-index: 500;
   position: relative;
@@ -120,7 +120,7 @@ const Title = styled.div`
   margin-bottom: 20px;
 `;
 
-const ReviewCountContainer = styled.div`
+const ReviewCountContainer = styled.article`
   margin-top: 100px;
 `;
 

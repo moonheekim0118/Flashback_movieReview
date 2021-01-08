@@ -117,7 +117,7 @@ const Slider = ({ movieLists, editMode = false }: Props) => {
   );
 };
 
-const Container = styled.div`
+const Container = styled.article`
   width: 100%;
   overflow: hidden;
   position: relative;

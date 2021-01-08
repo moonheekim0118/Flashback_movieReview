@@ -32,7 +32,7 @@ const Layout = ({ PageName = '', children = null }: Props) => {
   );
 };
 
-const App = styled.div`
+const App = styled.main`
   min-height: 100vh;
   width: 767px;
   margin: auto;

@@ -283,7 +283,7 @@ const TextEditor = ({ Review, ButtonType }: Props) => {
   );
 };
 
-const Container = styled.div`
+const Container = styled.section`
   width: 80%;
   margin: auto;
   background-color: inherit;
@@ -293,7 +293,7 @@ const Question = styled.label`
   font-weight: bold;
 `;
 
-const TextContainer = styled.div`
+const TextContainer = styled.article`
   margin-top: 20px;
 `;
 
@@ -316,11 +316,11 @@ const TextInput = styled.input.attrs({ type: 'text' })`
   }
 `;
 
-const ButtonWrapper = styled.div`
+const ButtonWrapper = styled.article`
   text-align: center;
 `;
 
-const BadgeContainer = styled.div`
+const BadgeContainer = styled.article`
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;

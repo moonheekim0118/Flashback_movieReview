@@ -59,7 +59,7 @@ const SingleReview = ({ Review, myInfo }: Props) => {
   );
 };
 
-const Container = styled.div`
+const Container = styled.article`
   width: 80%;
   margin: auto;
   position: relative;
