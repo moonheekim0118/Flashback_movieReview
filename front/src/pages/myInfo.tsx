@@ -91,10 +91,10 @@ export const getServerSideProps = wrapper.getServerSideProps(
   }
 );
 
-const FavoriteMovieContainer = styled.div`
+const FavoriteMovieContainer = styled.section`
   position: relative;
 `;
-const Mode = styled.div`
+const Mode = styled.article`
   position: absolute;
   right: 30px;
   top: -10px;

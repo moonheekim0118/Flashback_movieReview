@@ -65,7 +65,7 @@ const MovieCard = ({ Movie, Search = false }: Props) => {
   );
 };
 
-export const Container = styled.div`
+export const Container = styled.article`
   display: flex;
   align-items: center;
   width: 100%;

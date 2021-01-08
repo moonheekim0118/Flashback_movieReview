@@ -69,7 +69,7 @@ const SearchMovie = () => {
   );
 };
 
-const Container = styled.div`
+const Container = styled.section`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -80,7 +80,7 @@ const Container = styled.div`
   font-color: inherit;
 `;
 
-const SearchContainer = styled.div`
+const SearchContainer = styled.article`
   width: 80%;
   position: relative;
   margin-bottom: 15px;
@@ -124,7 +124,7 @@ const SearchIcon = styled.div`
   }
 `;
 
-const SearchResultContainer = styled.div`
+const SearchResultContainer = styled.article`
   width: 80%;
   border-radius: 5px;
 `;

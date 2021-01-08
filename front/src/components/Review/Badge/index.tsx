@@ -6,33 +6,26 @@ import {
   faThumbsDown,
   faMehRollingEyes,
 } from '@fortawesome/free-solid-svg-icons';
+import { Ratings } from '../../../model/Ratings';
 
 interface Props {
-  badgeName: string;
+  badgeName: Ratings;
   selected: boolean; // 현재 선택되었는지
   onClick?: () => void;
 }
 
-const IconName = {
-  // 레이팅에 따른 아이콘
-  GOOD: faThumbsUp,
-  SOSO: faMehRollingEyes,
-  BAD: faThumbsDown,
-};
-
-const Status = {
-  // 레이팅에 따른 글자
-  GOOD: '좋아요!',
-  SOSO: '보통이에요',
-  BAD: '별로에요',
+const BadgeStatus = {
+  [Ratings.GOOD]: { icon: faThumbsUp, name: '좋아요!' },
+  [Ratings.SOSO]: { icon: faMehRollingEyes, name: '보통이에요' },
+  [Ratings.BAD]: { icon: faThumbsDown, name: '별로에요' },
 };
 
 // 영화 레이팅 뱃지 컴포넌트
 const Badge = ({ badgeName, selected, onClick = null }: Props) => {
   return (
     <Container selected={selected} onClick={onClick}>
-      <Icon icon={IconName[badgeName]} className={badgeName} />
-      {Status[badgeName]}
+      <Icon icon={BadgeStatus[badgeName].icon} className={badgeName} />
+      {BadgeStatus[badgeName].name}
     </Container>
   );
 };

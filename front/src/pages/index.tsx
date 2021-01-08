@@ -63,7 +63,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
   }
 );
 
-const TitleContainer = styled.div`
+const TitleContainer = styled.section`
   position: absolute;
   top: 30%;
   left: 20%;
@@ -72,7 +72,7 @@ const TitleContainer = styled.div`
   flex-direction: column;
 `;
 
-const ButtonContainer = styled.div`
+const ButtonContainer = styled.section`
     position:absolute;
     left:50%;
     transform:translateX(-50%);

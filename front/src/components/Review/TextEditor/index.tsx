@@ -15,6 +15,7 @@ import Badge from '../Badge';
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { openAlertAction } from '../../../actions/alert';
 import { ReviewList } from '../../../model/ReviewList';
+import { Ratings } from '../../../model/Ratings';
 
 interface Props {
   Review: ReviewList;
@@ -22,13 +23,13 @@ interface Props {
 }
 
 // rating 넘겨주는 함수
-const getRating = (good: boolean, soso: boolean): string => {
+const getRating = (good: boolean, soso: boolean): Ratings => {
   if (good) {
-    return 'GOOD';
+    return Ratings.GOOD;
   } else if (soso) {
-    return 'SOSO';
+    return Ratings.SOSO;
   }
-  return 'BAD';
+  return Ratings.BAD;
 };
 
 const TextEditor = ({ Review, ButtonType }: Props) => {
@@ -75,9 +76,9 @@ const TextEditor = ({ Review, ButtonType }: Props) => {
     badSelect,
     setBadSelect,
   ] = useSelectiong(
-    Review.rating === 'GOOD',
-    Review.rating === 'SOSO',
-    Review.rating === 'BAD'
+    Review.rating === Ratings.GOOD,
+    Review.rating === Ratings.SOSO,
+    Review.rating === Ratings.BAD
   );
 
   const {
@@ -208,9 +209,21 @@ const TextEditor = ({ Review, ButtonType }: Props) => {
     <Container>
       <MovieCard Movie={Review.Movie} />
       <BadgeContainer>
-        <Badge badgeName="GOOD" selected={goodSelect} onClick={setGoodSelect} />
-        <Badge badgeName="SOSO" selected={sosoSelect} onClick={setSoSoSelect} />
-        <Badge badgeName="BAD" selected={badSelect} onClick={setBadSelect} />
+        <Badge
+          badgeName={Ratings.GOOD}
+          selected={goodSelect}
+          onClick={setGoodSelect}
+        />
+        <Badge
+          badgeName={Ratings.SOSO}
+          selected={sosoSelect}
+          onClick={setSoSoSelect}
+        />
+        <Badge
+          badgeName={Ratings.BAD}
+          selected={badSelect}
+          onClick={setBadSelect}
+        />
       </BadgeContainer>
       <TextContainer>
         <Question htmlFor="shortComment">한 줄평</Question>
@@ -270,7 +283,7 @@ const TextEditor = ({ Review, ButtonType }: Props) => {
   );
 };
 
-const Container = styled.div`
+const Container = styled.section`
   width: 80%;
   margin: auto;
   background-color: inherit;
@@ -280,7 +293,7 @@ const Question = styled.label`
   font-weight: bold;
 `;
 
-const TextContainer = styled.div`
+const TextContainer = styled.article`
   margin-top: 20px;
 `;
 
@@ -303,11 +316,11 @@ const TextInput = styled.input.attrs({ type: 'text' })`
   }
 `;
 
-const ButtonWrapper = styled.div`
+const ButtonWrapper = styled.article`
   text-align: center;
 `;
 
-const BadgeContainer = styled.div`
+const BadgeContainer = styled.article`
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
