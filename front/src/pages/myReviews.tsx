@@ -8,6 +8,7 @@ import { LOAD_MY_INFO_REQUEST } from '../actions/user';
 import { END } from 'redux-saga';
 import { Message } from '../components/GlobalStyle';
 import { scrollHandler } from '../util/scrollHandler';
+import useSetscroll from '../hooks/useSetscroll';
 import axios from 'axios';
 import Preview from '../components/Review/Preview';
 import wrapper from '../store/configureStore';
@@ -31,6 +32,8 @@ const MyReviews = () => {
       dispatch(loadMyReviewsAction(0));
     }
   }, []);
+
+  useSetscroll('myReviews-Scroll');
 
   useEffect(() => {
     // 인피니트 스크롤링
