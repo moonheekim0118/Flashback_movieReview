@@ -4,10 +4,11 @@ import Layout from '../components/Layout';
 import { useSelector, useDispatch } from 'react-redux';
 import { openAlertAction } from '../actions/alert';
 import { loadMyReviewsAction } from '../actions/review';
-import { LOAD_MY_INFO_REQUEST } from '../actions/user';
+import { loadMyInfoAction } from '../actions/user';
 import { END } from 'redux-saga';
 import { Message } from '../components/GlobalStyle';
 import { scrollHandler } from '../util/scrollHandler';
+import useSetscroll from '../hooks/useSetscroll';
 import axios from 'axios';
 import Preview from '../components/Review/Preview';
 import wrapper from '../store/configureStore';
@@ -31,6 +32,8 @@ const MyReviews = () => {
       dispatch(loadMyReviewsAction(0));
     }
   }, []);
+
+  useSetscroll('myReviews-Scroll');
 
   useEffect(() => {
     // 인피니트 스크롤링
@@ -82,7 +85,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     if (context.req && cookie) {
       axios.defaults.headers.Cookie = cookie;
     }
-    context.store.dispatch({ type: LOAD_MY_INFO_REQUEST });
+    context.store.dispatch(loadMyInfoAction());
     context.store.dispatch(END);
     await context.store['sagaTask'].toPromise();
   }

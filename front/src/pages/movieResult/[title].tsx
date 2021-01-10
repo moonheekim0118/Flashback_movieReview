@@ -8,6 +8,7 @@ import { openAlertAction } from '../../actions/alert';
 import { Message } from '../../components/GlobalStyle';
 import { END } from 'redux-saga';
 import { scrollHandler } from '../../util/scrollHandler';
+import useSetscroll from '../../hooks/useSetscroll';
 import MovieCard from '../../components/Movie/MovieCard';
 import axios from 'axios';
 import wrapper from '../../store/configureStore';
@@ -22,6 +23,8 @@ const MovieResult = () => {
   const { movieLists, loadMoviesLoading, hasMoreMovies } = useSelector(
     (state) => state.movie
   );
+
+  useSetscroll('@movieResult-Scroll', title);
 
   useEffect(() => {
     // 인피니트 스크롤링

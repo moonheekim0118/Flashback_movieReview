@@ -3,6 +3,7 @@ import Icons from '../../atoms/Icons';
 import styled from 'styled-components';
 import Router from 'next/router';
 import { faChevronLeft, faBars } from '@fortawesome/free-solid-svg-icons';
+import { animateScroll as scroll } from 'react-scroll';
 import Logout from '../User/Logout';
 
 interface Props {
@@ -11,16 +12,23 @@ interface Props {
 }
 
 const Header = ({ PageName, loginDone }: Props) => {
-  const onPushBack = useCallback(() => {
+  const onPushBack = useCallback((e: Event) => {
+    e.stopPropagation();
     Router.back();
   }, []);
 
-  const onPushMenu = useCallback(() => {
+  const onPushMenu = useCallback((e: Event) => {
+    e.stopPropagation();
     Router.push('/menu');
   }, []);
 
+  // Header 클릭 시, 스크롤 맨 위로 이동
+  const onClickHeader = useCallback(() => {
+    scroll.scrollToTop();
+  }, []);
+
   return (
-    <Container>
+    <Container onClick={onClickHeader}>
       <div>
         <Icons
           icon={faChevronLeft}
