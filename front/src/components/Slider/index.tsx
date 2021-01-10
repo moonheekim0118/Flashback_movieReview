@@ -30,7 +30,7 @@ const Slider = ({ movieLists, editMode = false }: Props) => {
         // 모바일버전
         setTotalSlides(Math.ceil(movieLists.length / 2));
       } else {
-        setTotalSlides(Math.ceil(movieLists.length / 5));
+        setTotalSlides(Math.ceil(movieLists.length / 4));
       }
       setCurrentSlide(0); // 리사이징 할 때마다 0으로 돌아오도록 함
     };
