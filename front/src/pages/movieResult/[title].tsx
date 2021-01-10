@@ -8,6 +8,9 @@ import { openAlertAction } from '../../actions/alert';
 import { Message } from '../../components/GlobalStyle';
 import { END } from 'redux-saga';
 import { scrollHandler } from '../../util/scrollHandler';
+import { animateScroll as scroll } from 'react-scroll';
+import { setItem, getItem } from '../../util/sessionStorage';
+import { throttle } from 'lodash';
 import MovieCard from '../../components/Movie/MovieCard';
 import axios from 'axios';
 import wrapper from '../../store/configureStore';
@@ -22,6 +25,26 @@ const MovieResult = () => {
   const { movieLists, loadMoviesLoading, hasMoreMovies } = useSelector(
     (state) => state.movie
   );
+
+  // 스크롤 위치 유지
+  useEffect(() => {
+    const ExTitle = getItem('@movieResult-title') || '';
+    if (ExTitle === title) {
+      // 이전에 방문한 페이지라면 스크롤 위치 원상복귀
+      const ExScroll = getItem('@movieResult-Scroll') || 0;
+      scroll.scrollMore(ExScroll);
+    } else {
+      // 이전에 방문한 페이지가 아니라면
+      setItem('@movieResult-title', title);
+    }
+
+    const onScroll = throttle(() => {
+      setItem('@movieResult-Scroll', window.pageYOffset);
+    }, 500);
+
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   useEffect(() => {
     // 인피니트 스크롤링
