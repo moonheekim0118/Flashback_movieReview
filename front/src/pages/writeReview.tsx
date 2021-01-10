@@ -1,24 +1,22 @@
 import React, { useEffect } from 'react';
 import Router from 'next/router';
 import Layout from '../components/Layout';
-import { useSelector } from 'react-redux';
-import { backUrl } from '../Config/config';
+import { useDispatch, useSelector } from 'react-redux';
+import { loadMyInfoAction } from '../actions/user';
 import { Message } from '../components/GlobalStyle';
-import useSWR from 'swr';
-import axios from 'axios';
 import TextEditor from '../components/Review/TextEditor';
 
-const fetcher = (url) =>
-  axios.get(url, { withCredentials: true }).then((result) => result.data);
-
 const WriteReview = () => {
+  const dispatch = useDispatch();
   const singleMovie = useSelector((state) => state.movie.singleMovie);
-  // swr로 myInfo 불러오기
-  const { data: myInfo, error: myInfoError } = useSWR(
-    `${backUrl}/user`,
-    fetcher
-  );
+  const myInfo = useSelector((state) => state.user.myInfo);
+
   let base; // 불러온 정보 저장할 곳
+
+  useEffect(() => {
+    dispatch(loadMyInfoAction());
+    window.scrollTo(0, 0); // 이전 페이지에서 이동되어있던 스크롤 복구
+  }, []);
 
   // 새로고침 시 영화 정보가 사라지므로, 경고창을 띄운다.
   useEffect(() => {
@@ -39,7 +37,7 @@ const WriteReview = () => {
     }
   }, [singleMovie]);
 
-  if (myInfoError || !myInfo || !singleMovie) {
+  if (!myInfo || !singleMovie) {
     return (
       <Layout PageName="리뷰작성">
         <Message>잠시후에 다시 시도해주세요.</Message>
