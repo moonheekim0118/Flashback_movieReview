@@ -4,11 +4,12 @@ import Head from 'next/head';
 import GlobalStyle from '../components/GlobalStyle';
 import { ThemeProvider } from 'styled-components';
 import { lightTheme, darkTheme } from '../components/Theme';
+import { getItem, setItem } from '../util/localStorage';
 import ThemeSwitch from '../components/ThemeSwtich';
 import useToggle from '../hooks/useToggle';
 
 interface Props {
-  Component?: any;
+  Component?: React.FunctionComponent;
 }
 
 const getTheme = (checked) => {
@@ -21,19 +22,19 @@ const App = ({ Component }: Props) => {
   const onCheck = useCallback(() => {
     const theme = getTheme(checked);
     if (theme === darkTheme) {
-      localStorage.setItem('theme', JSON.stringify('darkTheme'));
+      setItem('theme', 'darkTheme');
     } else {
-      localStorage.setItem('theme', JSON.stringify('lightTheme'));
+      setItem('theme', 'lightTheme');
     }
     setCheck();
   }, [checked]);
 
   useEffect(() => {
-    const checked = JSON.parse(localStorage.getItem('theme'));
+    const checked = getItem('theme');
     if (checked === 'darkTheme') {
       setter(true);
     } else {
-      localStorage.setItem('theme', JSON.stringify('lightTheme'));
+      setItem('theme', 'lightTheme');
       setter(false);
     }
   }, []);
