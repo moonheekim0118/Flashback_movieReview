@@ -7,19 +7,19 @@ function loadMyReivewsAPI(lastId) {
 }
 
 function loadSingleReviewAPI(data) {
-  return axios.get(`/review/${data}/singleReview`);
+  return axios.get(`/review/${data}`);
 }
 
 function addMyReivewAPI(data) {
-  return axios.post('/review/createReview', data);
+  return axios.post('/review', data);
 }
 
 function removeMyReviewAPI(id) {
-  return axios.delete(`/review/${id}/removeReview`);
+  return axios.delete(`/review/${id}`);
 }
 
 function updateMyReviewAPI(data) {
-  return axios.put('/review/updateReview', data);
+  return axios.put('/review', data);
 }
 
 function* loadMyReivews(action) {
