@@ -65,10 +65,13 @@ const Slider = ({ movieLists, editMode = false }: Props) => {
     }
   }, [currentSlide, TOTAL_SLIDES]);
 
-  const removeMovie = useCallback((id) => {
-    // 특정 영화 삭제
-    dispatch(removeFavoriteMovieAction(id));
-  }, []);
+  const removeMovie = useCallback(
+    (id) => () => {
+      // 특정 영화 삭제
+      dispatch(removeFavoriteMovieAction(id));
+    },
+    []
+  );
 
   return (
     <Container>
@@ -82,7 +85,7 @@ const Slider = ({ movieLists, editMode = false }: Props) => {
                 <Icon
                   icon={faTimes}
                   className="faTimes"
-                  onClick={removeMovie.bind(this, v.id)}
+                  onClick={removeMovie(v.id)}
                   color="red"
                   size={30}
                 />
