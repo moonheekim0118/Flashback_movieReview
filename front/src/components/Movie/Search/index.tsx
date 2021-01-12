@@ -5,8 +5,8 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
   value: string;
-  onChange: (e: any) => void;
-  onSubmit: (e: any) => void;
+  onChange: (e: Event) => void;
+  onSubmit: (e: Event) => void;
   placeholder: string;
 }
 

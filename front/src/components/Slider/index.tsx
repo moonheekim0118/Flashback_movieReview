@@ -19,7 +19,7 @@ const Slider = ({ movieLists, editMode = false }: Props) => {
   // 최초 슬라이드 개수
   const initialSlide = Math.ceil(movieLists.length / 5);
   const dispatch = useDispatch();
-  const [TOTAL_SLIDES, setTotalSlides] = useState<number>(initialSlide);
+  const [totalSlides, setTotalSlides] = useState<number>(initialSlide);
   const [currentSlide, setCurrentSlide] = useState<number>(0); // 현재 슬라이드 페이지
   const slideRef = useRef<any>(null);
 
@@ -39,7 +39,7 @@ const Slider = ({ movieLists, editMode = false }: Props) => {
     return () => {
       window.removeEventListener('resize', onResize);
     };
-  }, [movieLists, TOTAL_SLIDES]);
+  }, [movieLists, totalSlides]);
 
   useEffect(() => {
     // 슬라이드 움직였을 경우 화면 움직여주기
@@ -49,21 +49,21 @@ const Slider = ({ movieLists, editMode = false }: Props) => {
 
   const nextSlide = useCallback(() => {
     // 다음 슬라이드 보여주기 버튼
-    if (currentSlide === TOTAL_SLIDES - 1) {
+    if (currentSlide === totalSlides - 1) {
       setCurrentSlide(0);
     } else {
       setCurrentSlide(currentSlide + 1);
     }
-  }, [currentSlide, TOTAL_SLIDES]);
+  }, [currentSlide, totalSlides]);
 
   const prevSlide = useCallback(() => {
     // 이전 슬라이드 보여주기 버튼
     if (currentSlide === 0) {
-      setCurrentSlide(TOTAL_SLIDES - 1);
+      setCurrentSlide(totalSlides - 1);
     } else {
       setCurrentSlide(currentSlide - 1);
     }
-  }, [currentSlide, TOTAL_SLIDES]);
+  }, [currentSlide, totalSlides]);
 
   const removeMovie = useCallback(
     (id) => () => {
@@ -86,7 +86,7 @@ const Slider = ({ movieLists, editMode = false }: Props) => {
           />
         ))}
       </SliderContainer>
-      {TOTAL_SLIDES > 1 && (
+      {totalSlides > 1 && (
         <>
           <MoveButton direction="left">
             <Icon

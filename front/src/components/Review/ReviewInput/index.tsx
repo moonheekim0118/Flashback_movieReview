@@ -7,7 +7,7 @@ interface Props {
   name: string;
   label: string;
   value: string;
-  onChange: (e: any) => void;
+  onChange: (e: Event) => void;
   Error: boolean;
   Pass: boolean;
 }

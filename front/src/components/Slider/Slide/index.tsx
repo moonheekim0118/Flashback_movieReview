@@ -8,7 +8,7 @@ interface Props {
   imgSrc: string;
   title: string;
   editMode: boolean;
-  onClick: (e: any) => void;
+  onClick: (e: Event) => void;
 }
 
 const Slide = ({ imgSrc, title, editMode, onClick }: Props) => {

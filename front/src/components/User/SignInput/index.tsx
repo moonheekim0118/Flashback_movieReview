@@ -25,7 +25,7 @@ enum PlaceholderType {
 interface Props {
   name: string;
   value: string;
-  onChange: (e: any) => void;
+  onChange: (e: Event) => void;
   label: string;
   type: InputType;
   Error?: boolean;
