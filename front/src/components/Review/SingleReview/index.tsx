@@ -5,6 +5,7 @@ import { Ratings } from '../../../model/Ratings';
 import { MyInfo } from '../../../model/MyInfo';
 import styled from 'styled-components';
 import Badge from '../Badge';
+import ReviewContents from '../ReviewContents';
 import MovieCard from '../../Movie/MovieCard';
 import Avatar from '../../Avatar';
 import Button from '../../../atoms/Buttons';
@@ -31,29 +32,21 @@ const SingleReview = ({ Review, myInfo }: Props) => {
       <ReviewContainer>
         <TitleContainer>
           <Title>{Review.shortComment}</Title>
-          <MiddleContainer>
+          <Info>
             <Author>
               <Avatar />
               <Nickname>{Review.User.nickname} 작성</Nickname>
             </Author>
             <Badge badgeName={Ratings[Review.rating]} selected={true} />
-          </MiddleContainer>
+          </Info>
         </TitleContainer>
-        <ContentsContainer>
-          <SubTitle>기억에 남는 인물</SubTitle>
-          <p>{Review.character}</p>
-        </ContentsContainer>
-        <ContentsContainer>
-          <SubTitle>기억에 남는 대사</SubTitle>
-          <p>{Review.line}</p>
-        </ContentsContainer>
-        <ContentsContainer>
-          <SubTitle>기억에 남는 장면</SubTitle>
-          <p>{Review.scene}</p>
-        </ContentsContainer>
-        <ContentsContainer>
-          <p>{Review.freeComment}</p>
-        </ContentsContainer>
+        <ReviewContents
+          title="기억에 남는 인물"
+          description={Review.character}
+        />
+        <ReviewContents title="기억에 남는 대사" description={Review.line} />
+        <ReviewContents title="기억에 남는 장면" description={Review.scene} />
+        <ReviewContents description={Review.freeComment} />
       </ReviewContainer>
     </Container>
   );
@@ -97,26 +90,16 @@ const Nickname = styled.p`
   margin-left: 20px;
 `;
 
-const SubTitle = styled.div`
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 10px;
-`;
-
-const ContentsContainer = styled.div`
-  padding: 10px 0;
-  margin-bottom: 20px;
-`;
-
 const ButtonContainer = styled.div`
   position: absolute;
   bottom: 0px;
   right: 10px;
 `;
 
-const MiddleContainer = styled.div`
+const Info = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
+
 export default SingleReview;
