@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import MoviePoster from '../../atoms/MoviePoster';
 
 interface Props {
   onClick?: (e: any) => void;
@@ -19,7 +20,7 @@ const Card = ({
   return (
     <Container onClick={onClick}>
       {alertChild}
-      <MoviePoster src={posterSrc} alt="movie poster" />
+      <MoviePoster src={posterSrc} />
       <MovieDescription>{descriptionChild}</MovieDescription>
       {optionChild}
     </Container>
@@ -40,19 +41,13 @@ const Container = styled.article`
   cursor: pointer;
 `;
 
-const MoviePoster = styled.img`
-  width: 150px;
-  height: 100%;
-  object-fit: scale-down;
-  margin-right: 20px;
-`;
-
 const MovieDescription = styled.div`
   width: 100%;
   height: 50%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  margin-left: 20px;
 `;
 
 export default Card;

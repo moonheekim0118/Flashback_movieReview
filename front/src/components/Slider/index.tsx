@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { MovieList } from '../../model/MovieList';
 import { removeFavoriteMovieAction } from '../../actions/user';
 import Icon from '../../atoms/Icons';
+import MoviePoster from '../../atoms/MoviePoster';
 import styled from 'styled-components';
 
 interface Props {
@@ -78,7 +79,7 @@ const Slider = ({ movieLists, editMode = false }: Props) => {
       <SliderContainer ref={slideRef}>
         {movieLists.map((v, i) => (
           <Slide key={v.image}>
-            <IMG src={v.image} />
+            <MoviePoster src={v.image} width={110} fit={true} />
             <MovieTitle>{v.title}</MovieTitle>
             {editMode && (
               <CloseButton>
@@ -137,10 +138,6 @@ const Slide = styled.div`
   flex-direction: column;
   position: relative;
   padding: 20px;
-`;
-
-const IMG = styled.img`
-  height: 170px;
 `;
 
 const MovieTitle = styled.div`
