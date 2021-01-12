@@ -9,6 +9,7 @@ import useToggle from '../../../hooks/useToggle';
 import styled from 'styled-components';
 import Icon from '../../../atoms/Icons';
 import Tooltip from '../../Tooltip';
+import Card from '../../Card';
 
 interface Props {
   Movie: MovieList;
@@ -40,14 +41,16 @@ const MovieCard = ({ Movie, Search = false }: Props) => {
     { title: '리뷰 작성', onClick: onWriteReview },
   ];
 
-  return (
-    <Container>
-      <MoviePoster src={Movie.image} alt="movie poster" />
-      <MovieDescription>
-        <MovieTitle>{Movie.title}</MovieTitle>
-        <MovieInfo>{Movie.director} 감독</MovieInfo>
-        <MovieInfo>{Movie.pubDate} 제작</MovieInfo>
-      </MovieDescription>
+  const description = (
+    <>
+      <MovieTitle>{Movie.title}</MovieTitle>
+      <MovieInfo>{Movie.director} 감독</MovieInfo>
+      <MovieInfo>{Movie.pubDate} 제작</MovieInfo>
+    </>
+  );
+
+  const option = (
+    <>
       {Search && loginDone && (
         <Selector>
           <Icon
@@ -61,38 +64,17 @@ const MovieCard = ({ Movie, Search = false }: Props) => {
       {Search && loginDone && showTooltip && (
         <Tooltip onClose={setShowTooltip} buttonList={ButtonList} />
       )}
-    </Container>
+    </>
+  );
+
+  return (
+    <Card
+      posterSrc={Movie.image}
+      descriptionChild={description}
+      optionChild={option}
+    />
   );
 };
-
-export const Container = styled.article`
-  display: flex;
-  align-items: center;
-  width: 100%;
-  height: 200px;
-  position: relative;
-
-  border-bottom: 1px solid #f4f4f4;
-
-  padding: 10px 20px;
-  margin-top: 20px;
-  cursor: pointer;
-`;
-
-export const MoviePoster = styled.img`
-  width: 150px;
-  height: 100%;
-  object-fit: scale-down;
-  margin-right: 20px;
-`;
-
-export const MovieDescription = styled.div`
-  width: 100%;
-  height: 50%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-`;
 
 const MovieTitle = styled.p`
   width: 75%;

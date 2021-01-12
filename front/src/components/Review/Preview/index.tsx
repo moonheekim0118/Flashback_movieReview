@@ -5,16 +5,12 @@ import styled from 'styled-components';
 import Badge from '../Badge';
 import Icon from '../../../atoms/Icons';
 import ConfirmAlert from '../../ConfirmAlert';
+import Card from '../../Card';
 import useAlert from '../../../hooks/useAlert';
 import { removeMyReviewAction } from '../../../actions/review';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { ReviewList } from '../../../model/ReviewList';
 import { Ratings } from '../../../model/Ratings';
-import {
-  Container,
-  MoviePoster,
-  MovieDescription,
-} from '../../Movie/MovieCard';
 
 interface Props {
   Review: ReviewList;
@@ -53,8 +49,8 @@ const Preview = ({ Review }: Props) => {
     closeConfirmAlert(); // confirmAlert 닫아줌
   }, []);
 
-  return (
-    <Container onClick={onMove}>
+  const alert = (
+    <>
       {showConfirmAlert && (
         <ConfirmAlert
           text="정말 삭제하시겠습니까?"
@@ -62,13 +58,26 @@ const Preview = ({ Review }: Props) => {
           clickNo={closeRemoveAlert}
         />
       )}
-      <MoviePoster src={Review.Movie.image} />
-      <MovieDescription>
-        <Comment>{Review.shortComment}</Comment>
-        <Badge badgeName={Ratings[Review.rating]} selected={true} />
-      </MovieDescription>
-      <Icon icon={faTrash} className="faTrash" onClick={openRemoveAlert} />
-    </Container>
+    </>
+  );
+  const description = (
+    <>
+      <Comment>{Review.shortComment}</Comment>
+      <Badge badgeName={Ratings[Review.rating]} selected={true} />
+    </>
+  );
+
+  const option = (
+    <Icon icon={faTrash} className="faTrash" onClick={openRemoveAlert} />
+  );
+  return (
+    <Card
+      onClick={onMove}
+      posterSrc={Review.Movie.image}
+      alertChild={alert}
+      descriptionChild={description}
+      optionChild={option}
+    />
   );
 };
 
