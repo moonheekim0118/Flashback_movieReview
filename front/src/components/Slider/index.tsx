@@ -2,13 +2,12 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import {
   faChevronCircleLeft,
   faChevronCircleRight,
-  faTimes,
 } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
 import { MovieList } from '../../model/MovieList';
 import { removeFavoriteMovieAction } from '../../actions/user';
 import Icon from '../../atoms/Icons';
-import MoviePoster from '../../atoms/MoviePoster';
+import Slide from './Slide';
 import styled from 'styled-components';
 
 interface Props {
@@ -78,21 +77,13 @@ const Slider = ({ movieLists, editMode = false }: Props) => {
     <Container>
       <SliderContainer ref={slideRef}>
         {movieLists.map((v, i) => (
-          <Slide key={v.image}>
-            <MoviePoster src={v.image} width={110} fit={true} />
-            <MovieTitle>{v.title}</MovieTitle>
-            {editMode && (
-              <CloseButton>
-                <Icon
-                  icon={faTimes}
-                  className="faTimes"
-                  onClick={removeMovie(v.id)}
-                  color="red"
-                  size={30}
-                />
-              </CloseButton>
-            )}
-          </Slide>
+          <Slide
+            key={v.image}
+            imgSrc={v.image}
+            title={v.title}
+            editMode={editMode}
+            onClick={removeMovie(v.id)}
+          />
         ))}
       </SliderContainer>
       {TOTAL_SLIDES > 1 && (
@@ -131,34 +122,6 @@ const SliderContainer = styled.div`
   width: 80%;
   display: flex;
   padding: 10px 25px 25px 25px;
-`;
-
-const Slide = styled.div`
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  padding: 20px;
-`;
-
-const MovieTitle = styled.div`
-  margin-top: 10px;
-  font-weight: bold;
-`;
-
-const CloseButton = styled.div`
-  position: absolute;
-  top: 30px;
-  right: 30px;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  text-align: center;
-
-  transition: 0.2s background-color ease-in-out;
-
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.5);
-  }
 `;
 
 const MoveButton = styled.div<{ direction: string }>`
