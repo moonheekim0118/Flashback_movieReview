@@ -8,11 +8,10 @@ import Router from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import MovieCard from '../../Movie/MovieCard';
 import Button from '../../../atoms/Buttons';
-import Icon from '../../../atoms/Icons';
 import styled from 'styled-components';
 import useValidation from '../../../hooks/useValidation';
 import Badge from '../Badge';
-import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
+import ReviewInput from '../ReviewInput';
 import { openAlertAction } from '../../../actions/alert';
 import { ReviewList } from '../../../model/ReviewList';
 import { Ratings } from '../../../model/Ratings';
@@ -199,12 +198,6 @@ const TextEditor = ({ Review, ButtonType }: Props) => {
     line === Review.line &&
     scene === Review.scene;
 
-  // validation pass아이콘과 error 아이콘 지정
-  const PassedIcon = (
-    <Icon icon={faCheck} className="faCheck" color={'green'} />
-  );
-  const ErrorIcon = <Icon icon={faTimes} className="faTimes" color={'red'} />;
-
   return (
     <Container>
       <MovieCard Movie={Review.Movie} />
@@ -226,40 +219,45 @@ const TextEditor = ({ Review, ButtonType }: Props) => {
         />
       </BadgeContainer>
       <TextContainer>
-        <Question htmlFor="shortComment">한 줄평</Question>
-        {shortCommentError && ErrorIcon}
-        {!shortCommentError &&
-          !initial &&
-          shortComment.length > 0 &&
-          PassedIcon}
-        <TextInput
+        <ReviewInput
+          name="shortComment"
+          label="한 줄평"
           value={shortComment}
           onChange={setShortComment}
-          name="shortComment"
+          Error={shortCommentError}
+          Pass={!initial && !shortCommentError && shortComment.length > 0}
         />
-        <Question htmlFor="character">
-          기억에 남는 인물과 이유를 적어주세요
-        </Question>
-        {characterError && ErrorIcon}
-        {!characterError && !initial && character.length > 0 && PassedIcon}
-        <TextInput value={character} onChange={setCharacter} name="character" />
-        <Question htmlFor="line">기억에 남는 대사와 이유를 적어주세요</Question>
-        {lineError && ErrorIcon}
-        {!lineError && !initial && line.length > 0 && PassedIcon}
-        <TextInput value={line} onChange={setLine} name="line" />
-        <Question htmlFor="scene">
-          기억에 남는 장면과 이유를 적어주세요
-        </Question>
-        {sceneError && ErrorIcon}
-        {!sceneError && !initial && scene.length > 0 && PassedIcon}
-        <TextInput value={scene} onChange={setScene} name="scene" />
-        <Question htmlFor="freeComment">영화에 대한 자유로운 메모</Question>
-        {freeCommentError && ErrorIcon}
-        {!freeCommentError && !initial && freeComment.length > 0 && PassedIcon}
-        <TextInput
+        <ReviewInput
+          name="character"
+          label="기억에 남는 인물과 이유를 적어주세요"
+          value={character}
+          onChange={setCharacter}
+          Error={characterError}
+          Pass={!characterError && !initial && character.length > 0}
+        />
+        <ReviewInput
+          name="line"
+          label="기억에 남는 대사와 이유를 적어주세요"
+          value={line}
+          onChange={setLine}
+          Error={lineError}
+          Pass={!lineError && !initial && line.length > 0}
+        />
+        <ReviewInput
+          name="scene"
+          label="기억에 남는 장면과 이유를 적어주세요"
+          value={scene}
+          onChange={setScene}
+          Error={sceneError}
+          Pass={!sceneError && !initial && scene.length > 0}
+        />
+        <ReviewInput
+          name="freeComment"
+          label="영화에 대한 자유로운 메모"
           value={freeComment}
           onChange={setFreeComment}
-          name="freeComment"
+          Error={freeCommentError}
+          Pass={!freeCommentError && !initial && freeComment.length > 0}
         />
       </TextContainer>
       <ButtonWrapper>
@@ -288,32 +286,9 @@ const Container = styled.section`
   margin: auto;
   background-color: inherit;
 `;
-const Question = styled.label`
-  font-size: 1.5rem;
-  font-weight: bold;
-`;
 
 const TextContainer = styled.article`
   margin-top: 20px;
-`;
-
-const TextInput = styled.input.attrs({ type: 'text' })`
-  width: 100%;
-  padding: 10px 15px;
-  font-size: 1.2rem;
-  border: none;
-  border-bottom: 3px solid #e6b3cc;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  margin: 15px 0 40px 0;
-
-  transition: 0.2s background-color ease-in-out;
-  background-color: inherit;
-  color: inherit;
-
-  &:focus {
-    background-color: rgba(230, 179, 204, 0.3);
-  }
 `;
 
 const ButtonWrapper = styled.article`
