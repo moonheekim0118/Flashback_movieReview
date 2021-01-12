@@ -77,6 +77,7 @@ const Container = styled.div`
   height: 100px;
   flex-direction: column;
   padding-bottom: 50px;
+  margin-bottom: 20px;
 `;
 
 const Label = styled.label`
