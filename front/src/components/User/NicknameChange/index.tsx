@@ -56,7 +56,6 @@ const Form = styled.form`
 `;
 
 const ButtonContainer = styled.div`
-  margin-top: 20px;
   flex-basis: 40%;
 `;
 
