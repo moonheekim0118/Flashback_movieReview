@@ -1,18 +1,17 @@
-import React, { useCallback, useRef, useState, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import {
   addMyReviewAction,
   updateMyReviewAction,
 } from '../../../actions/review';
 import useSelectiong from '../../../hooks/useSelecting';
-import Router from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import MovieCard from '../../Movie/MovieCard';
 import Button from '../../../atoms/Buttons';
 import styled from 'styled-components';
 import useValidation from '../../../hooks/useValidation';
+import usePopup from '../../../hooks/usePopup';
 import Badge from '../Badge';
 import ReviewInput from '../ReviewInput';
-import { openAlertAction } from '../../../actions/alert';
 import { ReviewList } from '../../../model/ReviewList';
 import { Ratings } from '../../../model/Ratings';
 
@@ -64,9 +63,6 @@ const TextEditor = ({ Review, ButtonType }: Props) => {
     freeCommentError,
   ] = useValidation(Review.freeComment, 0, 50);
 
-  const initialUpdate = useRef<boolean>(true); // 최초 렌더링인지 구분하기 위함
-  const [initial, setInitial] = useState<boolean>(true); // 최초 렌더링인지 구분하기 위함
-
   const [
     goodSelect,
     setGoodSelect,
@@ -88,45 +84,21 @@ const TextEditor = ({ Review, ButtonType }: Props) => {
     updateMyReviewError,
   } = useSelector((state) => state.review);
 
-  useEffect(() => {
-    // 초기 상태라면 validation 에러 띄워주지 않음
-    if (initialUpdate.current) {
-      initialUpdate.current = false;
-      return;
-    } else {
-      setInitial(false);
-    }
-  }, [initialUpdate.current]);
+  // 리뷰 등록시 팝업
+  usePopup({
+    done: addMyReviewDone,
+    error: addMyReviewError,
+    redirectPath: `/singleReview/${myReviews[0]?.id}`,
+    message: '리뷰가 등록 되었습니다.',
+  });
 
-  useEffect(() => {
-    // 리뷰 생성 후 alert 보여준 후 리다이렉트
-    if (addMyReviewDone) {
-      dispatch(openAlertAction('리뷰가 등록되었습니다.')); // open alert
-      const timer = setTimeout(
-        () => Router.replace(`/singleReview/${myReviews[0].id}`),
-        5000
-      ); // 리다이렉트
-      return () => clearTimeout(timer);
-    } else if (addMyReviewError) {
-      // 에러 발생 시 에러 메시지 띄워줌
-      dispatch(openAlertAction(addMyReviewError));
-    }
-  }, [addMyReviewDone, addMyReviewError]);
-
-  useEffect(() => {
-    // 리뷰 수정 후 alert 보여준 후 리다이렉트
-    if (updateMyReviewDone) {
-      dispatch(openAlertAction('리뷰가 수정되었습니다.'));
-      const timer = setTimeout(
-        () => Router.replace(`/singleReview/${Review.id}`),
-        5000
-      );
-      return () => clearTimeout(timer);
-    } else if (updateMyReviewError) {
-      // 에러 발생시 에러 메시지 띄워줌
-      dispatch(openAlertAction(updateMyReviewError));
-    }
-  }, [updateMyReviewDone, updateMyReviewError]);
+  // 리뷰 수정 완료시 팝업
+  usePopup({
+    done: updateMyReviewDone,
+    error: updateMyReviewError,
+    redirectPath: `/singleReview/${Review.id}`,
+    message: '리뷰가 수정 되었습니다.',
+  });
 
   const onCreate = useCallback(() => {
     // 리뷰 저장
@@ -225,7 +197,7 @@ const TextEditor = ({ Review, ButtonType }: Props) => {
           value={shortComment}
           onChange={setShortComment}
           Error={shortCommentError}
-          Pass={!initial && !shortCommentError && shortComment.length > 0}
+          Pass={!shortCommentError && shortComment.length > 0}
         />
         <ReviewInput
           name="character"
@@ -233,7 +205,7 @@ const TextEditor = ({ Review, ButtonType }: Props) => {
           value={character}
           onChange={setCharacter}
           Error={characterError}
-          Pass={!characterError && !initial && character.length > 0}
+          Pass={!characterError && character.length > 0}
         />
         <ReviewInput
           name="line"
@@ -241,7 +213,7 @@ const TextEditor = ({ Review, ButtonType }: Props) => {
           value={line}
           onChange={setLine}
           Error={lineError}
-          Pass={!lineError && !initial && line.length > 0}
+          Pass={!lineError && line.length > 0}
         />
         <ReviewInput
           name="scene"
@@ -249,7 +221,7 @@ const TextEditor = ({ Review, ButtonType }: Props) => {
           value={scene}
           onChange={setScene}
           Error={sceneError}
-          Pass={!sceneError && !initial && scene.length > 0}
+          Pass={!sceneError && scene.length > 0}
         />
         <ReviewInput
           name="freeComment"
@@ -257,7 +229,7 @@ const TextEditor = ({ Review, ButtonType }: Props) => {
           value={freeComment}
           onChange={setFreeComment}
           Error={freeCommentError}
-          Pass={!freeCommentError && !initial && freeComment.length > 0}
+          Pass={!freeCommentError && freeComment.length > 0}
         />
       </TextContainer>
       <ButtonWrapper>
