@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { openAlertAction } from '../../../actions/alert';
 import { updateNicknameAction } from '../../../actions/user';
 import useValidation from '../../../hooks/useValidation';
+import SignInput, { InputType } from '../SignInput';
 import Button from '../../../atoms/Buttons';
 import styled from 'styled-components';
 
@@ -29,15 +30,14 @@ const NicknameChange = ({ exNickname }: Props) => {
 
   return (
     <Form>
-      <InputContainer>
-        <Label>닉네임</Label>
-        <Nickname value={nickname} onChange={setNickname} />
-        {nicknameError && (
-          <ErrorMessage>
-            닉네임은 2글자 이상 6글자 이하여야 합니다.
-          </ErrorMessage>
-        )}
-      </InputContainer>
+      <SignInput
+        name="nickname"
+        label="닉네임"
+        value={nickname}
+        onChange={setNickname}
+        type={InputType.Text}
+        Error={nicknameError}
+      />
       <ButtonContainer>
         <Button
           title="수정"
@@ -55,37 +55,8 @@ const Form = styled.form`
   margin: auto;
 `;
 
-const InputContainer = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-`;
-
-const Label = styled.label`
-  font-size: 1rem;
-  color: #cc00cc;
-`;
-
-const Nickname = styled.input.attrs({ type: 'text' })`
-  width: 100%;
-  padding: 10px 15px;
-  font-size: 1.2rem;
-  border: none;
-  border-bottom: 3px solid #e6b3cc;
-
-  background-color: inherit;
-  color: inherit;
-`;
-
-const ErrorMessage = styled.div`
-  width: 80%;
-  color: #ff3333;
-  position: absolute;
-  bottom: -40px;
-`;
-
 const ButtonContainer = styled.div`
+  margin-top: 20px;
   flex-basis: 40%;
 `;
 

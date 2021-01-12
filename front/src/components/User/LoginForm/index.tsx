@@ -2,7 +2,7 @@ import React, { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginAction } from '../../../actions/user';
 import { openAlertAction } from '../../../actions/alert';
-import styled from 'styled-components';
+import SignInput, { InputType, Form } from '../SignInput';
 import Button from '../../../atoms/Buttons';
 import useInput from '../../../hooks/useInput';
 
@@ -29,25 +29,21 @@ const LoginForm = () => {
   );
 
   return (
-    <Container>
-      <InputContainer>
-        <Label htmlFor="user-email">이메일</Label>
-        <TextInput
-          name="user-email"
-          value={email}
-          placeholder="example@example.com"
-          onChange={setEmail}
-        />
-      </InputContainer>
-      <InputContainer>
-        <Label htmlFor="password">비밀번호</Label>
-        <PasswordInput
-          name="user-password"
-          value={password}
-          placeholder="비밀번호 입력"
-          onChange={setPassword}
-        />
-      </InputContainer>
+    <Form>
+      <SignInput
+        name="email"
+        label="이메일"
+        value={email}
+        onChange={setEmail}
+        type={InputType.Text}
+      />
+      <SignInput
+        name="password"
+        label="비밀번호"
+        value={password}
+        onChange={setPassword}
+        type={InputType.Password}
+      />
       <br />
       <Button
         fill={true}
@@ -58,53 +54,8 @@ const LoginForm = () => {
         title="로그인"
       />
       <br />
-    </Container>
+    </Form>
   );
 };
-
-export const Container = styled.form`
-  width: 75%;
-  margin: 0 auto;
-  padding-top: 80px;
-  background-color: inherit;
-  color: inherit;
-`;
-
-export const InputContainer = styled.div`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  padding-bottom: 50px;
-`;
-
-export const TextInput = styled.input.attrs({ type: 'text' })`
-  width: 100%;
-  padding: 10px 15px;
-  font-size: 1.2rem;
-  margin-top: 15px;
-  border: 1px solid ${(props) => props.theme.colors.fontColor};
-  background-color: inherit;
-  color: inherit;
-`;
-
-export const PasswordInput = styled.input.attrs({ type: 'password' })`
-  width: 100%;
-  padding: 10px 15px;
-  margin-top: 15px;
-  border: 1px solid ${(props) => props.theme.colors.fontColor};
-  background-color: inherit;
-  color: inherit;
-  font-size: 1.2rem;
-`;
-
-export const Label = styled.label`
-  font-size: 1.2rem;
-`;
-
-export const ErrorMessage = styled.span`
-  color: red;
-  padding-top: 10px;
-  font-size: 1rem;
-`;
 
 export default LoginForm;

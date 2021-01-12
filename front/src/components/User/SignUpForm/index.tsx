@@ -2,17 +2,10 @@ import React, { useEffect, useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { signUpAction } from '../../../actions/user';
 import { openAlertAction } from '../../../actions/alert';
+import SignInput, { InputType, Form } from '../SignInput';
 import Button from '../../../atoms/Buttons';
 import useInput from '../../../hooks/useInput';
 import useValidation from '../../../hooks/useValidation';
-import {
-  Container,
-  InputContainer,
-  TextInput,
-  PasswordInput,
-  Label,
-  ErrorMessage,
-} from '../LoginForm';
 
 const SignUpForm = () => {
   const dispatch = useDispatch();
@@ -62,56 +55,38 @@ const SignUpForm = () => {
   );
 
   return (
-    <Container>
-      <InputContainer>
-        <Label htmlFor="user-nickname">닉네임</Label>
-        <TextInput
-          name="user-nickname"
-          placeholder="닉네임"
-          value={nickname}
-          onChange={setNickname}
-        />
-        {nicknameLengthError && (
-          <ErrorMessage>
-            닉네임은 2글자 이상 6글자 이하여야 합니다.
-          </ErrorMessage>
-        )}
-      </InputContainer>
-      <InputContainer>
-        <Label htmlFor="user-email">이메일</Label>
-        <TextInput
-          name="user-email"
-          placeholder="example@example.com"
-          value={email}
-          onChange={setEmail}
-        />
-      </InputContainer>
-      <InputContainer>
-        <Label htmlFor="user-password">비밀번호</Label>
-        <PasswordInput
-          name="user-password"
-          placeholder="6자 이상 15자 이하"
-          value={password}
-          onChange={setPassword}
-        />
-        {passwordLengthError && (
-          <ErrorMessage>
-            비밀번호는 6글자 이상 15글자 이하여야 합니다.
-          </ErrorMessage>
-        )}
-      </InputContainer>
-      <InputContainer>
-        <Label htmlFor="user-checkpassword">비밀번호 확인</Label>
-        <PasswordInput
-          name="user-checkpassword"
-          placeholder="비밀번호 확인"
-          value={checkpassword}
-          onChange={onChangeCheckPassword}
-        />
-        {passwordError && (
-          <ErrorMessage>비밀번호가 일치하지 않습니다.</ErrorMessage>
-        )}
-      </InputContainer>
+    <Form>
+      <SignInput
+        name="nickname"
+        label="닉네임"
+        value={nickname}
+        onChange={setNickname}
+        type={InputType.Text}
+        Error={nicknameLengthError}
+      />
+      <SignInput
+        name="email"
+        label="이메일"
+        value={email}
+        onChange={setEmail}
+        type={InputType.Text}
+      />
+      <SignInput
+        name="password"
+        label="비밀번호"
+        value={password}
+        onChange={setPassword}
+        type={InputType.Password}
+        Error={passwordLengthError}
+      />
+      <SignInput
+        name="passwordcheck"
+        label="비밀번호 확인"
+        value={checkpassword}
+        onChange={onChangeCheckPassword}
+        type={InputType.Password}
+        Error={passwordError}
+      />
       <br />
       <Button
         fill={true}
@@ -121,7 +96,7 @@ const SignUpForm = () => {
         onClick={onSubmit}
         title="회원가입"
       />
-    </Container>
+    </Form>
   );
 };
 
