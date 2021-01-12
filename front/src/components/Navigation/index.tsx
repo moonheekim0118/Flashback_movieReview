@@ -1,5 +1,5 @@
 import React from 'react';
-import Link from 'next/link';
+import Menu from './Menu';
 import styled from 'styled-components';
 
 interface Props {
@@ -11,36 +11,17 @@ const Navigation = ({ loginDone = false }: Props) => {
   return (
     <Container>
       {loginDone ? (
-        <Link href="/myInfo">
-          <ATag>
-            <Menu>내 정보</Menu>
-          </ATag>
-        </Link>
+        <>
+          <Menu href="/myInfo" title="내 정보" />
+          <Menu href="/myReviews" title="내가 쓴 리뷰" />
+        </>
       ) : (
-        <Link href="/login">
-          <ATag>
-            <Menu>로그인</Menu>
-          </ATag>
-        </Link>
+        <>
+          <Menu href="/login" title="로그인" />
+          <Menu href="/signUp" title="회원가입" />
+        </>
       )}
-      {loginDone ? (
-        <Link href="/myReviews">
-          <ATag>
-            <Menu>내가 쓴 리뷰</Menu>
-          </ATag>
-        </Link>
-      ) : (
-        <Link href="/signUp">
-          <ATag>
-            <Menu>회원가입</Menu>
-          </ATag>
-        </Link>
-      )}
-      <Link href="/searchMovie">
-        <ATag>
-          <Menu>영화 검색</Menu>
-        </ATag>
-      </Link>
+      <Menu href="/searchMovie" title="영화 검색" />
     </Container>
   );
 };
@@ -53,21 +34,4 @@ const Container = styled.nav`
   background-color: inherit;
 `;
 
-const Menu = styled.div`
-  padding: 20px;
-  border-bottom: 1px solid #e0e0d1;
-  font-size: 1.5rem;
-
-  transition: 0.2s background-color ease-in-out;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #e0e0d1;
-    color: black;
-  }
-`;
-
-const ATag = styled.a`
-  text-decoration: none;
-`;
 export default Navigation;
