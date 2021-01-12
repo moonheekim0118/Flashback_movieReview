@@ -62,7 +62,7 @@ const Preview = ({ Review }: Props) => {
   );
   const description = (
     <>
-      <Comment>{Review.shortComment}</Comment>
+      <Title>{Review.shortComment}</Title>
       <Badge badgeName={Ratings[Review.rating]} selected={true} />
     </>
   );
@@ -81,7 +81,7 @@ const Preview = ({ Review }: Props) => {
   );
 };
 
-const Comment = styled.div`
+const Title = styled.span`
   font-size: 1.5rem;
   font-weight: bold;
 `;
