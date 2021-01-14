@@ -90,6 +90,7 @@ const TextEditor = ({ Review, ButtonType }: Props) => {
     error: addMyReviewError,
     redirectPath: `/singleReview/${myReviews[0]?.id}`,
     message: '리뷰가 등록 되었습니다.',
+    time: 3000,
   });
 
   // 리뷰 수정 완료시 팝업
@@ -98,6 +99,7 @@ const TextEditor = ({ Review, ButtonType }: Props) => {
     error: updateMyReviewError,
     redirectPath: `/singleReview/${Review.id}`,
     message: '리뷰가 수정 되었습니다.',
+    time: 3000,
   });
 
   const onCreate = useCallback(() => {
