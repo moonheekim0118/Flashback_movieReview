@@ -14,17 +14,17 @@ const LEVEL = [
   '영화의 신',
 ];
 
-const getLevel = (reviewsCount: number): string => {
-  if (reviewsCount < 20) {
-    return LEVEL[0];
-  } else if (reviewsCount < 40) {
-    return LEVEL[1];
-  } else if (reviewsCount < 70) {
-    return LEVEL[2];
-  } else if (reviewsCount < 100) {
-    return LEVEL[3];
+const getLevel = (count: number): string => {
+  switch (true) {
+    case count < 10:
+      return LEVEL[0];
+    case count < 20:
+      return LEVEL[1];
+    case count < 30:
+      return LEVEL[2];
+    default:
+      return LEVEL[3];
   }
-  return LEVEL[4];
 };
 
 // 슬롯 컴포넌트
