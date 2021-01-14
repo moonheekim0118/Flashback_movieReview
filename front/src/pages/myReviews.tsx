@@ -12,6 +12,7 @@ import useSetscroll from '../hooks/useSetscroll';
 import axios from 'axios';
 import Preview from '../components/Review/Preview';
 import wrapper from '../store/configureStore';
+import { faTruckMonster } from '@fortawesome/free-solid-svg-icons';
 
 const MyReviews = () => {
   const dispatch = useDispatch();
@@ -38,11 +39,16 @@ const MyReviews = () => {
   useEffect(() => {
     // 인피니트 스크롤링
     const lastId = myReviews[myReviews.length - 1]?.id;
+
+    // onScroll 조건 함수
+    const predicate = () => {
+      return hasMoreReviews && !loadMyReviewsLoading;
+    };
+
     // onScroll 함수 적용
     const onScroll = scrollHandler(
       dispatch.bind(this, loadMyReviewsAction(lastId)),
-      hasMoreReviews,
-      loadMyReviewsLoading
+      predicate
     );
     // 이벤트 리스너 등록
     window.addEventListener('scroll', onScroll);

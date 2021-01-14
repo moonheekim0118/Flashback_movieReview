@@ -29,12 +29,18 @@ const MovieResult = () => {
   useEffect(() => {
     // 인피니트 스크롤링
     const start = movieLists.length + 1; // 다음 스타트 지점
+
+    // onScroll 조건 함수
+    const predicate = () => {
+      return hasMoreMovies && !loadMoviesLoading;
+    };
+
     // onScroll 함수 적용
     const onScroll = scrollHandler(
       dispatch.bind(null, LoadMovieAction({ title: title, start: start })),
-      hasMoreMovies,
-      loadMoviesLoading
+      predicate
     );
+
     // 이벤트 리스너 등록
     window.addEventListener('scroll', onScroll);
     return () => {
