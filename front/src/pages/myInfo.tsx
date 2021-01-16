@@ -6,6 +6,7 @@ import Info from '../components/User/Info';
 import Icon from '../atoms/Icons';
 import useToggle from '../hooks/useToggle';
 import usePopup from '../hooks/usePopup';
+import Messages from '../util/alertMessages';
 import styled from 'styled-components';
 import { faCog, faEye } from '@fortawesome/free-solid-svg-icons';
 import { loadMyInfoAction, loadFavoriteMovieAction } from '../actions/user';
@@ -35,7 +36,7 @@ const MyInfo = () => {
   usePopup({
     done: removeFavoriteMovieDone,
     error: removeFavoriteMovieError,
-    message: '삭제되었습니다.',
+    message: Messages.removeFavoriteMovie,
   });
 
   if (!myInfo) {

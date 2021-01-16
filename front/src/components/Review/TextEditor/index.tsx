@@ -12,6 +12,7 @@ import useValidation from '../../../hooks/useValidation';
 import usePopup from '../../../hooks/usePopup';
 import Badge from '../Badge';
 import ReviewInput from '../ReviewInput';
+import Messages from '../../../util/alertMessages';
 import { ReviewList } from '../../../model/ReviewList';
 import { Ratings } from '../../../model/Ratings';
 
@@ -89,7 +90,7 @@ const TextEditor = ({ Review, ButtonType }: Props) => {
     done: addMyReviewDone,
     error: addMyReviewError,
     redirectPath: `/singleReview/${myReviews[0]?.id}`,
-    message: '리뷰가 등록 되었습니다.',
+    message: Messages.createReview,
     time: 3000,
   });
 
@@ -98,7 +99,7 @@ const TextEditor = ({ Review, ButtonType }: Props) => {
     done: updateMyReviewDone,
     error: updateMyReviewError,
     redirectPath: `/singleReview/${Review.id}`,
-    message: '리뷰가 수정 되었습니다.',
+    message: Messages.updateReview,
     time: 3000,
   });
 

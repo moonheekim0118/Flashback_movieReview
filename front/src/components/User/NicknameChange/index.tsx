@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateNicknameAction } from '../../../actions/user';
 import useValidation from '../../../hooks/useValidation';
 import usePopup from '../../../hooks/usePopup';
+import Messages from '../../../util/alertMessages';
 import SignInput, { InputType } from '../SignInput';
 import Button from '../../../atoms/Buttons';
 import styled from 'styled-components';
@@ -33,7 +34,7 @@ const NicknameChange = ({ exNickname }: Props) => {
   usePopup({
     done: updateNicknameDone,
     error: updateNicknameError,
-    message: '닉네임이 변경되었습니다',
+    message: Messages.updateNickname,
   }); // 닉네임 수정 alert
 
   return (

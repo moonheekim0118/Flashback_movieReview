@@ -9,6 +9,7 @@ import { Message } from '../components/GlobalStyle';
 import { scrollHandler } from '../util/scrollHandler';
 import useSetscroll from '../hooks/useSetscroll';
 import usePopup from '../hooks/usePopup';
+import Messages from '../util/alertMessages';
 import axios from 'axios';
 import Preview from '../components/Review/Preview';
 import wrapper from '../store/configureStore';
@@ -61,7 +62,7 @@ const MyReviews = () => {
   usePopup({
     done: removeMyReviewDone,
     error: removeMyReviewError,
-    message: '리뷰가 삭제되었습니다',
+    message: Messages.removeReview,
   }); // 삭제 후 alert
 
   if (myReviews.length === 0) {

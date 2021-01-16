@@ -9,6 +9,7 @@ import { scrollHandler } from '../../util/scrollHandler';
 import Layout from '../../components/Layout';
 import useSetscroll from '../../hooks/useSetscroll';
 import usePopUp from '../../hooks/usePopup';
+import Messages from '../../util/alertMessages';
 import MovieCard from '../../components/Movie/MovieCard';
 import axios from 'axios';
 import wrapper from '../../store/configureStore';
@@ -53,7 +54,7 @@ const MovieResult = () => {
   usePopUp({
     done: addFavoriteMovieDone,
     error: addFavoriteMovieError,
-    message: '인생영화로 추가되었습니다',
+    message: Messages.addFavoriteMovie,
   });
 
   return (
