@@ -2,17 +2,16 @@ import React, { useEffect } from 'react';
 import Router from 'next/router';
 import Layout from '../components/Layout';
 import { useSelector, useDispatch } from 'react-redux';
-import { openAlertAction } from '../actions/alert';
 import { loadMyReviewsAction } from '../actions/review';
 import { loadMyInfoAction } from '../actions/user';
 import { END } from 'redux-saga';
 import { Message } from '../components/GlobalStyle';
 import { scrollHandler } from '../util/scrollHandler';
 import useSetscroll from '../hooks/useSetscroll';
+import usePopup from '../hooks/usePopup';
 import axios from 'axios';
 import Preview from '../components/Review/Preview';
 import wrapper from '../store/configureStore';
-import { faTruckMonster } from '@fortawesome/free-solid-svg-icons';
 
 const MyReviews = () => {
   const dispatch = useDispatch();
@@ -58,16 +57,11 @@ const MyReviews = () => {
     };
   }, [loadMyReviewsLoading, hasMoreReviews, myReviews]);
 
-  useEffect(() => {
-    // 삭제 후 alert
-    if (removeMyReviewDone) {
-      // 삭제 완료시 alert
-      dispatch(openAlertAction('리뷰가 삭제되었습니다.'));
-    } else if (removeMyReviewError) {
-      // 삭제 시 문제 발생 alert
-      dispatch(openAlertAction(removeMyReviewError));
-    }
-  }, [removeMyReviewDone, removeMyReviewError]);
+  usePopup({
+    done: removeMyReviewDone,
+    error: removeMyReviewError,
+    message: '리뷰가 삭제되었습니다',
+  }); // 삭제 후 alert
 
   if (myReviews.length === 0) {
     // 리뷰가 없는 경우

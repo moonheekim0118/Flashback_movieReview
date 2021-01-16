@@ -5,23 +5,23 @@ import Slider from '../components/Slider';
 import Info from '../components/User/Info';
 import Icon from '../atoms/Icons';
 import useToggle from '../hooks/useToggle';
+import usePopup from '../hooks/usePopup';
 import styled from 'styled-components';
 import { faCog, faEye } from '@fortawesome/free-solid-svg-icons';
-import { openAlertAction } from '../actions/alert';
 import { loadMyInfoAction, loadFavoriteMovieAction } from '../actions/user';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Message } from '../components/GlobalStyle';
 import { END } from 'redux-saga';
 import axios from 'axios';
 import wrapper from '../store/configureStore';
 
 const MyInfo = () => {
-  const dispatch = useDispatch();
   const {
     myInfo,
     loginDone,
     favoriteMovies,
     removeFavoriteMovieDone,
+    removeFavoriteMovieError,
   } = useSelector((state) => state.user);
   const [editMode, setEditMode] = useToggle();
 
@@ -32,12 +32,11 @@ const MyInfo = () => {
     }
   }, []);
 
-  useEffect(() => {
-    // 인생영화 삭제 or 에러 시 Alert 띄워주기
-    if (removeFavoriteMovieDone) {
-      dispatch(openAlertAction('삭제되었습니다'));
-    }
-  }, [removeFavoriteMovieDone]);
+  usePopup({
+    done: removeFavoriteMovieDone,
+    error: removeFavoriteMovieError,
+    message: '삭제되었습니다.',
+  });
 
   if (!myInfo) {
     return (

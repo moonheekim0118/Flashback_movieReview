@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
-import { openAlertAction } from '../../../actions/alert';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateNicknameAction } from '../../../actions/user';
 import useValidation from '../../../hooks/useValidation';
+import usePopup from '../../../hooks/usePopup';
 import SignInput, { InputType } from '../SignInput';
 import Button from '../../../atoms/Buttons';
 import styled from 'styled-components';
@@ -12,6 +12,9 @@ interface Props {
 }
 const NicknameChange = ({ exNickname }: Props) => {
   const dispatch = useDispatch();
+  const { updateNicknameDone, updateNicknameError } = useSelector(
+    (state) => state.user
+  );
 
   const [
     nickname, // 닉네임
@@ -23,10 +26,15 @@ const NicknameChange = ({ exNickname }: Props) => {
     (e) => {
       e.preventDefault();
       dispatch(updateNicknameAction({ nickname: nickname }));
-      dispatch(openAlertAction('닉네임이 변경되었습니다.')); // 확인 alert
     },
     [nickname]
   );
+
+  usePopup({
+    done: updateNicknameDone,
+    error: updateNicknameError,
+    message: '닉네임이 변경되었습니다',
+  }); // 닉네임 수정 alert
 
   return (
     <Form>

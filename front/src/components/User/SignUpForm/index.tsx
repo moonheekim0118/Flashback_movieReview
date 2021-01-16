@@ -1,10 +1,10 @@
-import React, { useEffect, useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { signUpAction } from '../../../actions/user';
-import { openAlertAction } from '../../../actions/alert';
 import SignInput, { InputType, Form } from '../SignInput';
 import Button from '../../../atoms/Buttons';
 import useInput from '../../../hooks/useInput';
+import usePopup from '../../../hooks/usePopup';
 import useValidation from '../../../hooks/useValidation';
 
 const SignUpForm = () => {
@@ -29,12 +29,7 @@ const SignUpForm = () => {
 
   const [passwordError, setPasswordError] = useState<boolean>(false); // 비밀번호 불일치 에러
 
-  // 회원가입 에러 alert
-  useEffect(() => {
-    if (signUpError) {
-      dispatch(openAlertAction(signUpError));
-    }
-  }, [signUpError]);
+  usePopup({ error: signUpError }); // 회원가입 에러 alert
 
   // submit
   const onSubmit = useCallback(

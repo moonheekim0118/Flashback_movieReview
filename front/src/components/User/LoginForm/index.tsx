@@ -1,8 +1,8 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginAction } from '../../../actions/user';
-import { openAlertAction } from '../../../actions/alert';
 import SignInput, { InputType, Form } from '../SignInput';
+import usePopup from '../../../hooks/usePopup';
 import Button from '../../../atoms/Buttons';
 import useInput from '../../../hooks/useInput';
 
@@ -12,14 +12,8 @@ const LoginForm = () => {
   const [email, setEmail] = useInput(''); // 이메일
   const [password, setPassword] = useInput(''); // 패스워드
 
-  useEffect(() => {
-    // 로그인 에러 alert
-    if (loginError) {
-      dispatch(openAlertAction(loginError));
-    }
-  }, [loginError]);
+  usePopup({ error: loginError }); // 로그인 에러 alert
 
-  // submit
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault();

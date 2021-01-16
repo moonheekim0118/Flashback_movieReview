@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import Layout from '../../components/Layout';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadMyInfoAction } from '../../actions/user';
 import { LoadMovieAction } from '../../actions/movie';
-import { openAlertAction } from '../../actions/alert';
 import { Message } from '../../components/GlobalStyle';
 import { END } from 'redux-saga';
 import { scrollHandler } from '../../util/scrollHandler';
+import Layout from '../../components/Layout';
 import useSetscroll from '../../hooks/useSetscroll';
+import usePopUp from '../../hooks/usePopup';
 import MovieCard from '../../components/Movie/MovieCard';
 import axios from 'axios';
 import wrapper from '../../store/configureStore';
@@ -49,16 +49,11 @@ const MovieResult = () => {
     };
   }, [hasMoreMovies, loadMoviesLoading, movieLists]);
 
-  // 인생영화 추가 후 alert
-  useEffect(() => {
-    if (addFavoriteMovieDone) {
-      // 정상적으로 추가
-      dispatch(openAlertAction('인생영화로 추가되었습니다.'));
-    } else if (addFavoriteMovieError) {
-      // 에러
-      dispatch(openAlertAction(addFavoriteMovieError));
-    }
-  }, [addFavoriteMovieDone, addFavoriteMovieError]);
+  usePopUp({
+    done: addFavoriteMovieDone,
+    error: addFavoriteMovieError,
+    message: '인생영화로 추가되었습니다',
+  });
 
   return (
     <Layout PageName={`${title} 검색결과`}>

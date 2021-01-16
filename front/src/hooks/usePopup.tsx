@@ -4,24 +4,33 @@ import { openAlertAction } from '../actions/alert';
 import Router from 'next/router';
 
 interface Props {
-  done: boolean;
+  done?: boolean;
   error: string;
-  redirectPath: string;
-  message: string;
-  time: number;
+  redirectPath?: string;
+  message?: string;
+  time?: number;
 }
 
-// 팝업 띄워주고 3초 후에 redirectPath로 리다이렉트 해주는 훅스
+// 팝업 띄워준다.
+// redirectPath를 넣으면 time 초후에 redirect 해준다.
 
-const usePopup = ({ done, error, redirectPath, message, time }: Props) => {
+const usePopup = ({
+  done = false,
+  error,
+  redirectPath,
+  message,
+  time,
+}: Props) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (done) {
       // fetch 완료
       dispatch(openAlertAction(message));
-      const timer = setTimeout(() => Router.replace(redirectPath), time);
-      return () => clearTimeout(timer);
+      if (redirectPath) {
+        const timer = setTimeout(() => Router.replace(redirectPath), time);
+        return () => clearTimeout(timer);
+      }
     } else if (error) {
       // fetch Error
       dispatch(openAlertAction(error));
