@@ -1,12 +1,13 @@
 import React, { useEffect, useCallback } from 'react';
+import { ThemeProvider } from 'styled-components';
+import { darkTheme, lightTheme } from '../components/Theme';
 import wrapper from '../store/configureStore';
 import Head from 'next/head';
 import GlobalStyle from '../components/GlobalStyle';
-import { ThemeProvider } from 'styled-components';
-import { lightTheme, darkTheme } from '../components/Theme';
-import { getItem, setItem } from '../util/localStorage';
 import ThemeSwitch from '../components/ThemeSwtich';
 import useToggle from '../hooks/useToggle';
+import useLocalStorage from '../hooks/useLocalStorage';
+import Keys from '../util/storageKeys';
 
 interface Props {
   Component?: React.FunctionComponent;
@@ -16,28 +17,32 @@ const getTheme = (checked) => {
   return checked ? darkTheme : lightTheme;
 };
 
+enum Theme {
+  dark = 'darkTheme',
+  light = 'lightTheme',
+}
+
 const App = ({ Component }: Props) => {
   const [checked, setCheck, setter] = useToggle();
-
-  const onCheck = useCallback(() => {
-    const theme = getTheme(checked);
-    if (theme === darkTheme) {
-      setItem('theme', 'darkTheme');
-    } else {
-      setItem('theme', 'lightTheme');
-    }
-    setCheck();
-  }, [checked]);
+  const [theme, setTheme] = useLocalStorage(Keys.screenTheme);
 
   useEffect(() => {
-    const checked = getItem('theme');
-    if (checked === 'darkTheme') {
+    if (theme === Theme.dark) {
       setter(true);
     } else {
-      setItem('theme', 'lightTheme');
+      setTheme(Theme.light);
       setter(false);
     }
   }, []);
+
+  const onCheck = useCallback(() => {
+    if (theme === Theme.dark) {
+      setTheme(Theme.light);
+    } else {
+      setTheme(Theme.dark);
+    }
+    setCheck();
+  }, [checked, theme]);
 
   return (
     <>

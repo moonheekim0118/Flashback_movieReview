@@ -12,6 +12,7 @@ import usePopup from '../hooks/usePopup';
 import axios from 'axios';
 import Preview from '../components/Review/Preview';
 import wrapper from '../store/configureStore';
+import Keys from '../util/storageKeys';
 
 const MyReviews = () => {
   const dispatch = useDispatch();
@@ -33,7 +34,7 @@ const MyReviews = () => {
     }
   }, []);
 
-  useSetscroll('myReviews-Scroll');
+  useSetscroll(Keys.myReviewsScroll);
 
   useEffect(() => {
     // 인피니트 스크롤링

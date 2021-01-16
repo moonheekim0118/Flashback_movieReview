@@ -1,30 +1,31 @@
 import { useEffect } from 'react';
 import { throttle } from 'lodash';
 import { animateScroll as scroll } from 'react-scroll';
-import { getItem, setItem } from '../util/sessionStorage';
+import Keys from '../util/storageKeys';
+import useSessionStorage from './useSessionStorage';
 
 // 스크롤 위치 고정 시켜주는 hooks
 
-const useSetscroll = (key: string, title?: string | string[]) => {
+const useSetscroll = (key: Keys, title?: string | string[]) => {
+  const [ExTitle, setExTitle] = useSessionStorage(Keys.exMovieTitle);
+  const [ExScroll, setExScroll] = useSessionStorage(key);
+
   useEffect(() => {
     // movieResult 스크롤링이라면 조건 추가
-    if (key === '@movieResult-Scroll') {
-      const ExTitle = getItem('@movieResult-title') || '';
+    if (key === Keys.movieResultScroll) {
       if (ExTitle === title) {
         // 이전에 방문한 페이지라면 스크롤 위치 원상복귀
-        const ExScroll = getItem(key) || 0;
-        scroll.scrollMore(ExScroll);
+        scroll.scrollTo(ExScroll || 0);
       } else {
         // 이전에 방문한 페이지가 아니라면
-        setItem('@movieResult-title', title);
+        setExTitle(title);
       }
     } else {
-      const ExScroll = getItem(key) || 0;
-      scroll.scrollMore(ExScroll);
+      scroll.scrollTo(ExScroll || 0);
     }
 
     const onScroll = throttle(() => {
-      setItem(key, window.pageYOffset);
+      setExScroll(window.pageYOffset);
     }, 500);
 
     window.addEventListener('scroll', onScroll);

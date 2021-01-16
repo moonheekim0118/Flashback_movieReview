@@ -12,6 +12,7 @@ import usePopUp from '../../hooks/usePopup';
 import MovieCard from '../../components/Movie/MovieCard';
 import axios from 'axios';
 import wrapper from '../../store/configureStore';
+import Keys from '../../util/storageKeys';
 
 const MovieResult = () => {
   const dispatch = useDispatch();
@@ -24,7 +25,7 @@ const MovieResult = () => {
     (state) => state.movie
   );
 
-  useSetscroll('@movieResult-Scroll', title);
+  useSetscroll(Keys.movieResultScroll, title);
 
   useEffect(() => {
     // 인피니트 스크롤링
