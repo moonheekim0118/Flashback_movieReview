@@ -5,8 +5,8 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
   value: string;
-  onChange: (e: Event) => void;
-  onSubmit: (e: Event) => void;
+  onChange: (e: React.MouseEvent<HTMLSpanElement>) => void;
+  onSubmit: (e: React.MouseEvent<HTMLSpanElement>) => void;
   placeholder: string;
 }
 

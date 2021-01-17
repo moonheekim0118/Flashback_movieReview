@@ -7,7 +7,7 @@ interface Props {
   name: string;
   label: string;
   value: string;
-  onChange: (e: Event) => void;
+  onChange: (e: React.MouseEvent<HTMLSpanElement>) => void;
   Error: boolean;
   Pass: boolean;
 }

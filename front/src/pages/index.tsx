@@ -23,24 +23,21 @@ const Index = () => {
       <ButtonContainer>
         <Link href="/searchMovie">
           <a>
-            <Button
-              fill={true}
-              color={'purple'}
-              shadow={true}
-              title={'새 리뷰 작성하기'}
-            />
+            <Button fill={true} color={'purple'} shadow={true}>
+              새 리뷰 작성하기
+            </Button>
           </a>
         </Link>
         {!loginDone && (
           <SignButtons>
             <Link href="/login">
               <a>
-                <Button color={'gray'} title={'로그인'} />
+                <Button color={'gray'}>로그인</Button>
               </a>
             </Link>
             <Link href="/signUp">
               <a>
-                <Button color={'gray'} title={'회원가입'} />
+                <Button color={'gray'}>회원가입</Button>
               </a>
             </Link>
           </SignButtons>

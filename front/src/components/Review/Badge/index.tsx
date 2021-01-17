@@ -11,7 +11,7 @@ import { Ratings } from '../../../model/Ratings';
 interface Props {
   badgeName: Ratings;
   selected: boolean; // 현재 선택되었는지
-  onClick?: (e: Event) => void;
+  onClick?: (e: React.MouseEvent<HTMLSpanElement>) => void;
 }
 
 const BadgeStatus = {

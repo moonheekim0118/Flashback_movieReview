@@ -7,8 +7,8 @@ interface Props {
   shadow?: boolean; // 버튼 has shadow or not
   disabled?: boolean; // 버튼 is disabled or not
   color?: string; // 버튼's color
-  onClick?: (e?: Event) => void;
-  title: string;
+  onClick?: (e?: React.MouseEvent<HTMLSpanElement>) => void;
+  children?: React.ReactChild;
 }
 
 const Button = ({
@@ -16,23 +16,27 @@ const Button = ({
   shadow = false,
   disabled = false,
   color = 'lightPurple',
-  onClick = null,
-  title,
+  onClick,
+  children,
 }: Props) => {
   return (
     <ButtonContainer
-      fill={fill.toString()}
-      shadow={shadow.toString()}
-      color={color}
+      filled={fill}
+      shadow={shadow}
       onClick={onClick}
-      disabled={disabled}>
-      {title}
+      disabled={disabled}
+      color={color}>
+      {children}
     </ButtonContainer>
   );
 };
 
-const ButtonContainer = styled.button<{ fill: string; color: string }>`
-  width: ${(props) => (props.fill === 'true' ? '100%' : '')};
+const ButtonContainer = styled.button<{
+  filled: boolean;
+  color: string;
+  shadow: boolean;
+}>`
+  width: ${(props) => (props.filled ? '100%' : '')};
   padding: 10px 15px;
 
   border: none;
@@ -43,7 +47,7 @@ const ButtonContainer = styled.button<{ fill: string; color: string }>`
   background-color: ${(props) => colorCode[`${props.color}`]};
 
   box-shadow: ${(props) =>
-    props.shadow === 'true' ? '0px 0px 11px -1px rgba(0,0,0,0.75)' : ''};
+    props.shadow ? '0px 0px 11px -1px rgba(0,0,0,0.75)' : ''};
   cursor: pointer;
 
   transition: 0.2s background-color ease-in-out;

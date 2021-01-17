@@ -25,7 +25,7 @@ enum PlaceholderType {
 interface Props {
   name: string;
   value: string;
-  onChange: (e: Event) => void;
+  onChange: (e: React.MouseEvent<HTMLSpanElement>) => void;
   label: string;
   type: InputType;
   Error?: boolean;

@@ -7,7 +7,7 @@ import styled from 'styled-components';
 
 interface Props {
   PageName?: string;
-  children?: React.ReactNode;
+  children?: React.ReactChild;
 }
 
 const Layout = ({ PageName = '', children = null }: Props) => {

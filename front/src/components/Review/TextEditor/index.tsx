@@ -240,16 +240,16 @@ const TextEditor = ({ Review, ButtonType }: Props) => {
           <Button
             color="purple"
             onClick={onCreate}
-            title="저장하기"
-            disabled={disabledRequirements}
-          />
+            disabled={disabledRequirements}>
+            저장하기
+          </Button>
         ) : (
           <Button
             color="purple"
             onClick={onUpdate}
-            title="수정하기"
-            disabled={disabledRequirements || updateDisabledRequirements}
-          />
+            disabled={disabledRequirements || updateDisabledRequirements}>
+            수정하기
+          </Button>
         )}
       </ButtonWrapper>
     </Container>

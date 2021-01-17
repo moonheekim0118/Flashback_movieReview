@@ -8,7 +8,7 @@ interface Props {
   imgSrc: string;
   title: string;
   editMode: boolean;
-  onClick: (e: Event) => void;
+  onClick: (e: React.MouseEvent<HTMLSpanElement>) => void;
 }
 
 const Slide = ({ imgSrc, title, editMode, onClick }: Props) => {

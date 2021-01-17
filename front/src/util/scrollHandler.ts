@@ -1,7 +1,7 @@
 interface ScrollHandler {
   (dispatch: () => void, predicate: () => boolean): (
     this: Window,
-    e: Event
+    e: React.MouseEvent<HTMLSpanElement>
   ) => any;
 }
 

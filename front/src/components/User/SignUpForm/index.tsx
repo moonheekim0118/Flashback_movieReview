@@ -88,9 +88,9 @@ const SignUpForm = () => {
         shadow={true}
         disabled={nicknameLengthError || passwordLengthError || passwordError}
         color="purple"
-        onClick={onSubmit}
-        title="회원가입"
-      />
+        onClick={onSubmit}>
+        회원가입
+      </Button>
     </Form>
   );
 };

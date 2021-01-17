@@ -49,10 +49,10 @@ const NicknameChange = ({ exNickname }: Props) => {
       />
       <ButtonContainer>
         <Button
-          title="수정"
           onClick={onChangeNickname}
-          disabled={nicknameError || nickname === exNickname}
-        />
+          disabled={nicknameError || nickname === exNickname}>
+          수정
+        </Button>
       </ButtonContainer>
     </Form>
   );

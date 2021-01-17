@@ -25,7 +25,7 @@ const SingleReview = ({ Review, myInfo }: Props) => {
     <Container>
       <ButtonContainer>
         {myInfo && myInfo.id === Review.User.id && (
-          <Button title="수정하기" onClick={onClickButton} />
+          <Button onClick={onClickButton}>수정하기</Button>
         )}
       </ButtonContainer>
       <MovieCard Movie={Review.Movie} />

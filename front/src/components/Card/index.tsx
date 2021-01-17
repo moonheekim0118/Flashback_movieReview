@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import MoviePoster from '../../atoms/MoviePoster';
 
 interface Props {
-  onClick?: (e: Event) => void;
+  onClick?: (e: React.MouseEvent<HTMLSpanElement>) => void;
   posterSrc: string;
   alertChild?: React.ReactNode;
   descriptionChild: React.ReactNode;

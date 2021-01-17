@@ -12,12 +12,12 @@ interface Props {
 }
 
 const Header = ({ PageName, loginDone }: Props) => {
-  const onPushBack = useCallback((e: Event) => {
+  const onPushBack = useCallback((e: React.MouseEvent<HTMLSpanElement>) => {
     e.stopPropagation();
     Router.back();
   }, []);
 
-  const onPushMenu = useCallback((e: Event) => {
+  const onPushMenu = useCallback((e: React.MouseEvent<HTMLSpanElement>) => {
     e.stopPropagation();
     Router.push('/menu');
   }, []);

@@ -4,11 +4,11 @@ import styled from 'styled-components';
 // buttons types
 interface buttons {
   title: string;
-  onClick: (e?: Event) => void;
+  onClick: (e?: React.MouseEvent<HTMLSpanElement>) => void;
 }
 
 interface Props {
-  onClose: (e?: Event) => void;
+  onClose: (e?: React.MouseEvent<HTMLSpanElement>) => void;
   buttonList: Array<buttons>;
 }
 

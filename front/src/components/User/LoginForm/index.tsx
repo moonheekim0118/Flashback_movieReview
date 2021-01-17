@@ -44,9 +44,9 @@ const LoginForm = () => {
         shadow={true}
         disabled={email.length === 0 || password.length === 0}
         color="purple"
-        onClick={onSubmit}
-        title="로그인"
-      />
+        onClick={onSubmit}>
+        로그인
+      </Button>
       <br />
     </Form>
   );

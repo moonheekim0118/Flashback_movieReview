@@ -11,10 +11,16 @@ interface Props {
   icon: FontAwesomeIconProps['icon']; //아이콘
   className: string;
   color?: string; // 색상
-  onClick?: (e?: Event) => void;
+  onClick?: (e?: React.MouseEvent<HTMLSpanElement>) => void;
 }
 
-const Icon = ({ size, icon, className, color, onClick }: Props) => {
+const Icon = ({
+  size = 24,
+  icon,
+  className,
+  color = 'purple',
+  onClick,
+}: Props) => {
   return (
     <StyledIcon
       iconsize={size}
@@ -24,12 +30,6 @@ const Icon = ({ size, icon, className, color, onClick }: Props) => {
       onClick={onClick}
     />
   );
-};
-
-Icon.defaultProps = {
-  size: 24,
-  color: 'purple',
-  onClick: null,
 };
 
 const StyledIcon = styled<{ iconsize: number; color: string }>(FontAwesomeIcon)`
