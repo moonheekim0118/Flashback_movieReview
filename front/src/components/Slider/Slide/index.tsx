@@ -5,13 +5,13 @@ import MoviePoster from '../../../atoms/MoviePoster';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
+  id: string;
   imgSrc: string;
   title: string;
   editMode: boolean;
-  onClick: (e: React.MouseEvent<HTMLSpanElement>) => void;
 }
 
-const Slide = ({ imgSrc, title, editMode, onClick }: Props) => {
+const Slide = ({ id, imgSrc, title, editMode }: Props) => {
   return (
     <Container>
       <MoviePoster src={imgSrc} width={110} fit={true} />
@@ -21,7 +21,7 @@ const Slide = ({ imgSrc, title, editMode, onClick }: Props) => {
           <Icon
             icon={faTimes}
             className="faTimes"
-            onClick={onClick}
+            id={id}
             color="red"
             size={30}
           />

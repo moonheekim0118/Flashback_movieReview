@@ -11,6 +11,7 @@ interface Props {
   icon: FontAwesomeIconProps['icon']; //아이콘
   className: string;
   color?: string; // 색상
+  id?: string;
   onClick?: (e?: React.MouseEvent<HTMLSpanElement>) => void;
 }
 
@@ -19,6 +20,7 @@ const Icon = ({
   icon,
   className,
   color = 'purple',
+  id,
   onClick,
 }: Props) => {
   return (
@@ -27,6 +29,7 @@ const Icon = ({
       icon={icon}
       className={className}
       color={color}
+      id={id}
       onClick={onClick}
     />
   );

@@ -65,24 +65,23 @@ const Slider = ({ movieLists, editMode = false }: Props) => {
     }
   }, [currentSlide, totalSlides]);
 
-  const removeMovie = useCallback(
-    (id) => () => {
-      // 특정 영화 삭제
-      dispatch(removeFavoriteMovieAction(id));
-    },
-    []
-  );
+  // 특정 영화 삭제
+  const onClickRemoveMovie = useCallback((e) => {
+    if (e.target.nearestViewportElement) {
+      dispatch(removeFavoriteMovieAction(e.target.nearestViewportElement.id));
+    }
+  }, []);
 
   return (
     <Container>
-      <SliderContainer ref={slideRef}>
+      <SliderContainer ref={slideRef} onClick={onClickRemoveMovie}>
         {movieLists.map((v, i) => (
           <Slide
+            id={v.id}
             key={v.image}
             imgSrc={v.image}
             title={v.title}
             editMode={editMode}
-            onClick={removeMovie(v.id)}
           />
         ))}
       </SliderContainer>
