@@ -1,15 +1,13 @@
-import React, { useCallback } from 'react';
-import Router from 'next/router';
+import React from 'react';
 import styled from 'styled-components';
 
 interface Props {
-  onClick: (e: React.MouseEvent) => void;
   children: React.ReactNode;
 }
 
 // 영화 검색시 연관검색어 결과물 보여주는 컴포넌트
-const SearchResult = ({ onClick, children }: Props) => {
-  return <Container onClick={onClick}>{children}</Container>;
+const SearchResult = ({ children }: Props) => {
+  return <Container>{children}</Container>;
 };
 
 const Container = styled.div`

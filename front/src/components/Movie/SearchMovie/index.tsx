@@ -25,12 +25,10 @@ const SearchMovie = () => {
     Router.push(`/movieResult/${SearchInput}`);
   }, [SearchInput]);
 
-  const onClickResult = useCallback(
-    (movieName: string) => () => {
-      Router.push(`/movieResult/${movieName}`);
-    },
-    []
-  );
+  // 검색 결과 클릭시 리다이렉트
+  const onClickResult = useCallback((e) => {
+    Router.push(`/movieResult/${e.target.innerText}`);
+  }, []);
 
   // 검색창 Input change 시에, 0.9초동안 change가 더 없을시 연관검색어 가져옴
   // 검색어가 1글자인 경우는 연관검색어 안띄워줌
@@ -57,13 +55,11 @@ const SearchMovie = () => {
       {loadRelatedSearchLoading && (
         <Icon icon={faSpinner} className="faSpinner" />
       )}
-      <SearchResultContainer>
+      <SearchResultContainer onClick={onClickResult}>
         {loadRelatedSearchDone &&
           SearchInput.length > 0 &&
           searchLists.map((val) => (
-            <SearchResult key={val.link} onClick={onClickResult(val.title)}>
-              {val.title}
-            </SearchResult>
+            <SearchResult key={val.link}>{val.title}</SearchResult>
           ))}
       </SearchResultContainer>
     </Container>
