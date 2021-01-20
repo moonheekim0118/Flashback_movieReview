@@ -3,17 +3,13 @@ import Router from 'next/router';
 import styled from 'styled-components';
 
 interface Props {
-  movieName: string;
+  onClick: (e: React.MouseEvent) => void;
+  children: React.ReactNode;
 }
 
 // 영화 검색시 연관검색어 결과물 보여주는 컴포넌트
-const SearchResult = ({ movieName }: Props) => {
-  // 해당 연관검색어 클릭시, 해당 영화 검색 페이지로 리다이렉트
-  const onClick = useCallback(() => {
-    Router.push(`/movieResult/${movieName}`);
-  }, []);
-
-  return <Container onClick={onClick}>{movieName}</Container>;
+const SearchResult = ({ onClick, children }: Props) => {
+  return <Container onClick={onClick}>{children}</Container>;
 };
 
 const Container = styled.div`

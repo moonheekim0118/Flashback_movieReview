@@ -25,6 +25,13 @@ const SearchMovie = () => {
     Router.push(`/movieResult/${SearchInput}`);
   }, [SearchInput]);
 
+  const onClickResult = useCallback(
+    (movieName: string) => () => {
+      Router.push(`/movieResult/${movieName}`);
+    },
+    []
+  );
+
   // 검색창 Input change 시에, 0.9초동안 change가 더 없을시 연관검색어 가져옴
   // 검색어가 1글자인 경우는 연관검색어 안띄워줌
   const onChnageInput = useCallback((e) => {
@@ -54,7 +61,9 @@ const SearchMovie = () => {
         {loadRelatedSearchDone &&
           SearchInput.length > 0 &&
           searchLists.map((val) => (
-            <SearchResult key={val.link} movieName={val.title} />
+            <SearchResult key={val.link} onClick={onClickResult(val.title)}>
+              {val.title}
+            </SearchResult>
           ))}
       </SearchResultContainer>
     </Container>
