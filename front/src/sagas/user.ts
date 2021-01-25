@@ -19,19 +19,19 @@ function signUpAPI(data) {
 }
 
 function updateNicknameAPI(data) {
-  return axios.put('/user/updateNickname', data); // id와 닉네임 가져오기
+  return axios.put('/user/updateNickname', data);
 }
 
 function updateProfilePicAPI(data) {
-  return axios.post('/user/updateProfilePic', data); // id와 닉네임 가져오기
+  return axios.post('/user/updateProfilePic', data);
 }
 
 function addFavoriteMovieAPI(data) {
-  return axios.post('/user/addFavoriteMovie', data); // id와 닉네임 가져오기
+  return axios.post('/user/addFavoriteMovie', data);
 }
 
 function loadFavoriteMovieAPI() {
-  return axios.get('/user/favoriteMovies'); // id와 닉네임 가져오기
+  return axios.get('/user/favoriteMovies');
 }
 
 function removeFavoriteMovieAPI(data) {
